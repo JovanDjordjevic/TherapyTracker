@@ -1,14 +1,16 @@
 const express = require('express');
 const {json, urlencoded} = require('body-parser');
 const mongoose = require('mongoose');
-// require API-s ovde ....
+
+const patientAPI = require('./routes/api/patient');
 
 const app = express();
 
 // povezivanje na bazu
 
 app.use(json());
-// use ovde
+
+app.use('/api/patient', patientAPI);
 
 app.use(function (req, res, next) {
     const error = new Error('Zahtev nije podrzan!');
