@@ -3,6 +3,7 @@ const {json, urlencoded} = require('body-parser');
 const mongoose = require('mongoose');
 
 const patientAPI = require('./routes/api/patient');
+const biopsyAPI = require('./routes/api/biopsy');
 
 const app = express();
 
@@ -11,6 +12,7 @@ const app = express();
 app.use(json());
 
 app.use('/api/patient', patientAPI);
+app.use('/api/biopsy', biopsyAPI);
 
 app.use(function (req, res, next) {
     const error = new Error('Zahtev nije podrzan!');
