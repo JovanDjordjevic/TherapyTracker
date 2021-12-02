@@ -5,7 +5,20 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// povezivanje na bazu
+const databaseString = 'mongodb://localhost:27017/patients';
+
+mongoose.connect(databaseString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.once('open', function () {
+  console.log('Connection successful!');
+});
+
+mongoose.connection.on('error', (error) => {
+  console.log('Error: ', error);
+});
 
 app.use(json());
 // use ovde
