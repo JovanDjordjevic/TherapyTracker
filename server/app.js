@@ -6,6 +6,7 @@ const patientAPI = require('./routes/api/patient');
 const biopsyAPI = require('./routes/api/biopsy');
 const historyAPI = require('./routes/api/history');
 const tumorAPI = require('./routes/api/tumor');
+const therapyAPI = require('./routes/api/therapy');
 
 const app = express();
 
@@ -16,7 +17,8 @@ app.use(json());
 app.use('/api/patient', patientAPI);
 app.use('/api/biopsy', biopsyAPI);
 app.use('/api/history', historyAPI);
-app.use('/api/history', tumorAPI);
+app.use('/api/tumor', tumorAPI);
+app.use('/api/therapy', therapyAPI);
 
 app.use(function (req, res, next) {
     const error = new Error('Zahtev nije podrzan!');
