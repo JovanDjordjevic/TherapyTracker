@@ -9,7 +9,7 @@ const getAllPatients = async (req, res, next) => {
     }
 };
 
-const getPatientByName = async (rec, res, next) => {
+const getPatientByName = async (req, res, next) => {
     const name = req.params.name;
 
     try {
@@ -52,7 +52,7 @@ const addNewPatient = async (req, res, next) => {
             throw error;
         }
 
-        const newPatinet = await patientsService.addNewPatinet(
+        const newPatient = await patientsService.addNewPatient(
             jmbg,
             name,
             parentName,
@@ -66,7 +66,7 @@ const addNewPatient = async (req, res, next) => {
             tumorDateDiagnosis,
             familyAnamnesis
         );
-        res.status(201).json(newPatinet);
+        res.status(201).json(newPatient);
     } catch (error) {
         next(error);
     }
