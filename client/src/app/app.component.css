@@ -1,0 +1,8 @@
+.app-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  width: 500px;
+}
