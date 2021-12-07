@@ -31,7 +31,7 @@ const getPatientByName = async (req, res, next) => {
 };
 
 const addNewPatient = async (req, res, next) => {
-    const { jmbg, name, parentName, surname, yearOfBirth, gender, address,
+    const { jmbg, name, parentName, surname, yearOfBirth, gender, menopause, address,
         city, contact, email, tumorDateDiagnosis, familyAnamnesis } = req.body;
     try {
         if (
@@ -41,7 +41,7 @@ const addNewPatient = async (req, res, next) => {
             !surname ||
             !yearOfBirth ||
             !gender ||
-            !address ||
+            !menopause ||
             !city ||
             !contact ||
             !tumorDateDiagnosis ||
@@ -59,6 +59,7 @@ const addNewPatient = async (req, res, next) => {
             surname,
             yearOfBirth,
             gender,
+            menopause,
             address,
             city,
             contact,
@@ -82,7 +83,7 @@ const deletePatient = async (req, res, next) => {
             throw error;
         }
 
-        const patient = await patientsService.getUserByJmbg(jmbg);
+        const patient = await patientsService.getPatientByJmbg(jmbg);
         if (!patient) {
             const error = new Error('Check jmbg!');
             error.status = 404;

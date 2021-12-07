@@ -22,18 +22,24 @@ const patientsSchema = new mongoose.Schema({
         type: Number,
         require: true,
     },
-    //Pol (m ili z vrednost, bira se preko radio dugmica)
     gender: {
         type: String,
         require: true,
+        maxlength: 1,
+        enum: ['m', 'z'],
     },
-    address: {
-        type: String,
+    menopause: {
+        type: Number,
+        default: 0,
+        max: 3,
+        min: 0,
         require: true,
     },
+    address: String,
     city: {
         type: String,
         require: true,
+        default: "Beograd",
     },
     contact: {
         type: String,
