@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BiopsyFormComponent } from './components/biopsy-form/biopsy-form.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BiopsyFormComponent
   ],
   imports: [
     BrowserModule,
