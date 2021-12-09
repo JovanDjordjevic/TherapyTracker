@@ -1,1 +1,139 @@
-<p>biopsy-form works!</p>
+<form class="ui form" [formGroup]="biopsyForm" (ngSubmit)="onBiopsyFormSubmit()">
+    <div class="ui required fluid field">
+        <label>Datum</label>
+        <input type="date" formControlName="date">
+    </div>
+
+    <div class="required grouped fields">
+        <label>Strana</label>
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" class="hidden" [value]="BiopsySideEnum.Left" formControlName="side">
+                <label>{{BiopsySideEnum.Left}}</label>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" class="hidden" [value]="BiopsySideEnum.Right" formControlName="side">
+                <label>{{BiopsySideEnum.Right}}</label>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="ui radio checkbox">
+                <input type="radio" class="hidden" [value]="BiopsySideEnum.Both" formControlName="side">
+                <label>{{BiopsySideEnum.Both}}</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui two column grid"> <!-- levi i desni deo formulara-->
+        <div class="ui column"> <!-- levi -->
+            <div class="required grouped fields">
+                <label>Tip</label>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" class="hidden" [value]="BiopsyTypeEnum.AxillaBiopsy" formControlName="biopsyTypeLeft">
+                        <label>{{BiopsyTypeEnum.AxillaBiopsy}}</label>
+                    </div>
+                </div>
+        
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" class="hidden" [value]="BiopsyTypeEnum.BreastBiopsy" formControlName="biopsyTypeLeft">
+                        <label>{{BiopsyTypeEnum.BreastBiopsy}}</label>
+                    </div>
+                </div>
+        
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" class="hidden" [value]="BiopsyTypeEnum.SkinBiopsy" formControlName="biopsyTypeLeft">
+                        <label>{{BiopsyTypeEnum.SkinBiopsy}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui fluid field">
+                <label>Broj</label>
+                <input type="text" formControlName="numLeft">
+            </div>
+
+            <select formControlName="histotypeLeft" class="ui fluid search selection dropdown">
+                <option value="BiopsyHistotypeEnum.Type0">{{BiopsyHistotypeEnum.Type0}}</option>
+                <option value="BiopsyHistotypeEnum.Type1">{{BiopsyHistotypeEnum.Type1}}</option>
+                <option value="BiopsyHistotypeEnum.Type2">{{BiopsyHistotypeEnum.Type2}}</option>
+                <option value="BiopsyHistotypeEnum.Type3">{{BiopsyHistotypeEnum.Type3}}</option>
+                <option value="BiopsyHistotypeEnum.Type4">{{BiopsyHistotypeEnum.Type4}}</option>
+                <option value="BiopsyHistotypeEnum.Type5">{{BiopsyHistotypeEnum.Type5}}</option>
+                <option value="BiopsyHistotypeEnum.Type6">{{BiopsyHistotypeEnum.Type6}}</option>
+                <option value="BiopsyHistotypeEnum.Type7">{{BiopsyHistotypeEnum.Type7}}</option>
+                <option value="BiopsyHistotypeEnum.Type8">{{BiopsyHistotypeEnum.Type8}}</option>
+                <option value="BiopsyHistotypeEnum.Type9">{{BiopsyHistotypeEnum.Type9}}</option>
+            </select>
+
+            <div class="ui fluid field">
+                <label>Multifokalnost</label>
+                <input type="text" value="ne" formControlName="multifocalityLeft">
+            </div>
+
+        </div>
+
+        <div class="ui column"> <!-- desni -->
+            <div class="required grouped fields">
+                <label>Tip</label>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" class="hidden" [value]="BiopsyTypeEnum.AxillaBiopsy" formControlName="biopsyTypeRight">
+                        <label>{{BiopsyTypeEnum.AxillaBiopsy}}</label>
+                    </div>
+                </div>
+        
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" class="hidden" [value]="BiopsyTypeEnum.BreastBiopsy" formControlName="biopsyTypeRight">
+                        <label>{{BiopsyTypeEnum.BreastBiopsy}}</label>
+                    </div>
+                </div>
+        
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" class="hidden" [value]="BiopsyTypeEnum.SkinBiopsy" formControlName="biopsyTypeRight">
+                        <label>{{BiopsyTypeEnum.SkinBiopsy}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui fluid field">
+                <label>Broj</label>
+                <input type="text" formControlName="numRight">
+            </div>
+
+            <select formControlName="histotypeRight" class="ui fluid search selection dropdown">
+                <option value="BiopsyHistotypeEnum.Type0">{{BiopsyHistotypeEnum.Type0}}</option>
+                <option value="BiopsyHistotypeEnum.Type1">{{BiopsyHistotypeEnum.Type1}}</option>
+                <option value="BiopsyHistotypeEnum.Type2">{{BiopsyHistotypeEnum.Type2}}</option>
+                <option value="BiopsyHistotypeEnum.Type3">{{BiopsyHistotypeEnum.Type3}}</option>
+                <option value="BiopsyHistotypeEnum.Type4">{{BiopsyHistotypeEnum.Type4}}</option>
+                <option value="BiopsyHistotypeEnum.Type5">{{BiopsyHistotypeEnum.Type5}}</option>
+                <option value="BiopsyHistotypeEnum.Type6">{{BiopsyHistotypeEnum.Type6}}</option>
+                <option value="BiopsyHistotypeEnum.Type7">{{BiopsyHistotypeEnum.Type7}}</option>
+                <option value="BiopsyHistotypeEnum.Type8">{{BiopsyHistotypeEnum.Type8}}</option>
+                <option value="BiopsyHistotypeEnum.Type9">{{BiopsyHistotypeEnum.Type9}}</option>
+            </select>
+
+            <div class="ui fluid field">
+                <label>Multifokalnost</label>
+                <input type="text" value="ne" formControlName="multifocalityRight">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="required fluid field">
+        <label>Komentar</label>
+        <textarea type="number" formControlName="comment" rows="5"> </textarea>
+    </div>
+
+    <button class="ui fluid button" type="submit">Sacuvaj podatke</button>
+</form>
