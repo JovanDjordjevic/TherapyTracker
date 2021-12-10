@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const biopsySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    date: {
+    dateOfBiopsy: {
         type: Date,
         require: true,
     },
-    side: {
+    biopsySide: {
         type: String,
         require: true,
     },
