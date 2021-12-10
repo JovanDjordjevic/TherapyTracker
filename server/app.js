@@ -10,7 +10,7 @@ const therapyAPI = require('./routes/api/therapy');
 
 const app = express();
 
-const databaseString = 'mongodb://localhost:27017/patients';
+const databaseString = 'mongodb://localhost:27017/TherapyTracker';
 
 mongoose.connect(databaseString, {
   useNewUrlParser: true,

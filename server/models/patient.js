@@ -60,4 +60,7 @@ const patientsSchema = new mongoose.Schema({
 
 const patientsModel = mongoose.model('patients', patientsSchema);
 
-module.exports = patientsModel;
+module.exports = {
+    patientsModel,
+    patientsSchema,
+}

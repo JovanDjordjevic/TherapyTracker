@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
-const Patient = require('../models/patient');
+const {patientsModel} = require('../models/patient');
 
 const getAllPatients = async () => {
-    const patients = await Patient.find({}).exec();
+    const patients = await patientsModel.find({}).exec();
     return patients;
 };
 
 const getPatientByJmbg = async (jmbg) => {
-    const patient = await Patient.findOne({ jmbg: jmbg }).exec();
+    const patient = await patientsModel.findOne({ jmbg: jmbg }).exec();
     return patient;
 };
 
 const getPatientByName = async (name) => {
-    const patient = await Patient.find({ name: name }).exec();
+    const patient = await patientsModel.find({ name: name }).exec();
     return patient;
-  };
+};
 
 const addNewPatient = async (
     jmbg,
@@ -31,7 +31,7 @@ const addNewPatient = async (
     tumorDateDiagnosis,
     familyAnamnesis
 ) => {
-    const newPatient = new Patient({
+    const newPatient = new patientsModel({
         _id: new mongoose.Types.ObjectId(),
         jmbg,
         name,
@@ -53,7 +53,7 @@ const addNewPatient = async (
 };
 
 const deletePatient = async (jmbg) => {
-    await Patient.findOneAndDelete({ jmbg: jmbg }).exec();
+    await patientsModel.findOneAndDelete({ jmbg: jmbg }).exec();
 };
 
 module.exports = {
