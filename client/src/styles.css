@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --java: #15bec6;
+  --javat: #15bdc698;
+  --swans-down: #d8ecec;
+  --black: #040404;
+  --bermuda: #81d9dc;
+  --dove-gray: #6f6b69;
+  --blizzard-blue: #a8ebf0;
+  --delta: #a3a29f;
+  --makara: #847d6f;
+  --nomad: #bfb8a8;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
