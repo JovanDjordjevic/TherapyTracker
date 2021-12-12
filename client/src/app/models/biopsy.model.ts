@@ -18,7 +18,7 @@ export enum BiopsyHistotype {
     Type4 = "mesoviti Ca", 
     Type5 = "drugi morfoloski podtipovi CA", 
     Type6 = "infiltratio carcinomatosis cutis", 
-    Type7 = "DIN( atypia, ADH, DCIS)", 
+    Type7 = "DIN(atypia, ADH, DCIS)", 
     Type8 = "LIN", 
     Type9 = "Displasia"
 }
