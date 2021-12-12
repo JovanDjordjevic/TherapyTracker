@@ -1,0 +1,6 @@
+.ui.menu {
+  background: var(--java);
+  width: 300px;
+  margin-right: 20px;
+  padding-top: 180px;
+}
