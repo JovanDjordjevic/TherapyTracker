@@ -1,7 +1,7 @@
 <div class="form-container">
   <form class="ui form">
     <label>JMBG</label>
-    <input type="text" name="jmbg"/>
+    <input type="text" name="jmbg" />
 
     <label>Ime i Prezime</label>
     <input type="text" name="name">
@@ -13,14 +13,25 @@
       </div>
       <div class="radio">
         <label>Pol:</label>
-        <input type="radio" id="m" name="gender" value="m">
+        <input type="radio" id="m" name="gender" value="m" (change)="onMaleChecked()">
         <label for="male">M</label><br>
 
-        <input type="radio" id="z" name="gender" value="z">
+        <input type="radio" id="z" name="gender" value="z" (change)="onFemaleChecked()">
         <label for="female">Z</label><br>
       </div>
     </div>
-  
+    <div class="form-group menopause" [ngClass]="{active: shouldDisplayMenopauseForm}">
+      <label>Menopauza:</label>
+      <input type="radio" name="menopause" value=1>
+      <label for="pre">pre</label><br>
+
+      <input type="radio" name="menopause" value=2>
+      <label for="post">post</label><br>
+
+      <input type="radio" name="menopause" value=3>
+      <label for="peri">peri</label><br>
+    </div>
+
     <div class="form-group">
       <div>
         <label>Adresa boravka</label>
@@ -47,8 +58,8 @@
     <label>Porodicna anamneza</label>
     <textarea name="family"></textarea>
 
-    <button class="ui button" type="button">Save changes</button>
+    <button class="ui button" type="button">Sacuvaj</button>
   </form>
 
-  
+
 </div>

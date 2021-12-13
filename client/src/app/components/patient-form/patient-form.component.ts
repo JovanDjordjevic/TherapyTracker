@@ -4,13 +4,20 @@ import { Patient } from 'src/app/models/patient.model';
 @Component({
   selector: 'app-patient-form',
   templateUrl: './patient-form.component.html',
-  styleUrls: ['./patient-form.component.css']
+  styleUrls: ['./patient-form.component.css'],
 })
 export class PatientFormComponent implements OnInit {
+  shouldDisplayMenopauseForm: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onFemaleChecked() {
+    this.shouldDisplayMenopauseForm = true;
   }
 
+  onMaleChecked() {
+    this.shouldDisplayMenopauseForm = false;
+  }
 }

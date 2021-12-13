@@ -46,6 +46,15 @@ label {
   margin: 0px 10px 0px 5px;
 }
 
+.menopause {
+  display: none;
+}
+
+.menopause input {
+  margin-top: 12px;
+  margin-right: -15px;
+}
+
 .button,
 .button:focus {
   margin-top: 10px;
@@ -57,4 +66,8 @@ label {
 .button:hover {
   color: white;
   background: var(--javat);
+}
+
+.active {
+  display: flex;
 }
