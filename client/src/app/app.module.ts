@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PatientListComponent } from './components/patient-list/patient-list.component';
 import { PatientComponent } from './components/patient/patient.component';
+import { PatientFormComponent } from './components/patient-form/patient-form.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { PatientComponent } from './components/patient/patient.component';
     DashboardComponent,
     PatientListComponent,
     PatientComponent,
+    PatientFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
