@@ -1,6 +1,7 @@
 const express = require('express');
 const {json, urlencoded} = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const patientAPI = require('./routes/api/patient');
 const biopsyAPI = require('./routes/api/biopsy');
@@ -26,6 +27,8 @@ mongoose.connection.on('error', (error) => {
 });
 
 app.use(json());
+
+app.use(cors());
 
 app.use('/api/patient', patientAPI);
 app.use('/api/biopsy', biopsyAPI);

@@ -19,10 +19,6 @@ export class PatientService {
 
   // NOTE TO SELF: request ce da prodje lepo tek kada se u nekoj komponenti subscribuje na observable objekat
 
-  // FIXME: svaki zahtev u dev konzoli u browseru kaze da se desila neka ovakva greska:
-  // Access to XMLHttpRequest at 'http://localhost:5000/api/patient/' from origin 'http://localhost:4200' has been blocked by CORS 
-  // policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-
   public getAllPatients() : Observable<Patient[]>{
     const obs: Observable<Patient[]> = this.http.get<Patient[]>(this.urls.getAllPatients, {});
     return obs;
@@ -35,15 +31,20 @@ export class PatientService {
     return obs;
   }
 
-  // FIXME: ovaj zahtev se ne prihvata na serverskoj strani (?)
+  // FIXME: ovaj zahtev se prihvati na serverskoj strani, ali onda na client strani u konzoli kaze da postoji neka greska na serverskoj strani
+  // POST http://localhost:5000/api/patient/ 500 (Internal Server Error)
   public insertPatientInDB() : Observable<Patient>{
     const obs: Observable<Patient> = this.http.post<Patient>(this.urls.insertPatientInDB, {});
     return obs;
   }
 
   // FIXME: ovaj zahtev se ne prihvata na serverskoj strani (?)
-  public deletePatientFromDB() : Observable<Patient>{
-    const obs: Observable<Patient> = this.http.delete<Patient>(this.urls.insertPatientInDB, {});
+  // kada se posalje, na client strani dobijam isti DELETE ... internal server error kao za POST
+  public deletePatientFromDB(jmbg : string) : Observable<Patient>{
+    const body = {
+      'jmbg' : jmbg,
+    };
+    const obs: Observable<Patient> = this.http.delete<Patient>(this.urls.insertPatientInDB, {body: body});
     return obs;
   }
 
