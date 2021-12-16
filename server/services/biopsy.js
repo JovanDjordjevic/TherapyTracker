@@ -15,7 +15,6 @@ const addNewBiopsy = async (
     date, side, biopsyType, index, histotype, multifocality, comment
 ) => {
     const newBiopsy = new Biopsy({
-        _id: new mongoose.Types.ObjectId(),
         date,
         side,
         biopsyType,

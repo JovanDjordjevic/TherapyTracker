@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const biopsySchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     dateOfBiopsy: {
         type: Date,
         require: true,
@@ -19,6 +18,10 @@ const biopsySchema = new mongoose.Schema({
         require: true,
         unique: true,
     },
+    date: {
+        type: Date,
+        require: true,
+    },
     histotype: {
         type: String,
         require: true,
@@ -30,6 +33,10 @@ const biopsySchema = new mongoose.Schema({
     comment: {
         type: String,
         require: true,
+    },
+    history: {
+        type: mongoose.Types.ObjectId,
+        ref: "history",
     }
 });
 

@@ -10,12 +10,12 @@ const getHistory = async (req, res, next) => {
 };
 
 const addNewHistory = async (req, res, next) => {
-    const { date, index, patient } = req.body;
+    const { date, patient, index } = req.body;
     try {
         if (
             !date ||
-            !index ||
-            !patient
+            !patient ||
+            !index
         ) {
             const error = new Error('Check input data!');
             error.status = 400;

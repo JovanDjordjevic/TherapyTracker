@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const patientsSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
     jmbg: {
         type: String,
         require: true,
@@ -50,17 +49,17 @@ const patientsSchema = new mongoose.Schema({
         type: Date,
         require: true,
     },
-    //veca niska
     familyAnamnesis: {
         type: String,
         require: true,
+    },
+    history: {
+        type: mongoose.Types.ObjectId,
+        ref: "history",
     },
     
 });
 
 const patientsModel = mongoose.model('patients', patientsSchema);
 
-module.exports = {
-    patientsModel,
-    patientsSchema,
-}
+module.exports = patientsModel;
