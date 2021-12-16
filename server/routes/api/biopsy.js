@@ -9,7 +9,7 @@ router.get('/:name', biopsyController.getAllBiopsiesForPatient);
 
 router.post('/', biopsyController.addNewBiopsy);
 
-router.delete('/', biopsyController.deleteBiopsy);
+router.delete('/:index', biopsyController.deleteBiopsy);
 
 
 module.exports = router;

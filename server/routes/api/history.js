@@ -8,7 +8,7 @@ router.get('/', historyController.getHistory);
 
 router.post('/', historyController.addNewHistory);
 
-router.delete('/', historyController.deleteHistory);
+router.delete('/:index', historyController.deleteHistory);
 
 
 module.exports = router;

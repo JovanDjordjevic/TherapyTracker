@@ -14,7 +14,7 @@ const getPatientByJmbg = async (jmbg) => {
 const getPatientByName = async (name) => {
     const patient = await Patient.find({ name: name }).exec();
     return patient;
-  };
+};
 
 const addNewPatient = async (
     jmbg,
@@ -32,7 +32,6 @@ const addNewPatient = async (
     familyAnamnesis
 ) => {
     const newPatient = new Patient({
-        _id: new mongoose.Types.ObjectId(),
         jmbg,
         name,
         parentName,
