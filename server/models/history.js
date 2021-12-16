@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Tumor = require('./schemas/tumor')
 
 const historySchema = new mongoose.Schema({   
     date: {
@@ -41,7 +40,7 @@ const historySchema = new mongoose.Schema({
         type: [{type: mongoose.Types.ObjectId, ref: "biopsy"}]
     },
     tumor: {
-        type: [Tumor]
+        type: [{type: mongoose.Types.ObjectId, ref: "tumor"}]
     },
     therapy: {
         type: [{type: mongoose.Types.ObjectId, ref: "therapy"}]

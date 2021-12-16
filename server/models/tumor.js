@@ -65,7 +65,13 @@ const tumorSchema = new mongoose.Schema({
     },
     date: {
         type: Date
+    },
+    history: {
+        type: mongoose.Types.ObjectId,
+        ref: "history",
     }
 });
 
-module.exports = tumorSchema;
+const tumorModel = mongoose.model('tumor', tumorSchema);
+
+module.exports = tumorModel;
