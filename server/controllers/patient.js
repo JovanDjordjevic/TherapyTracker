@@ -10,42 +10,41 @@ const getAllPatients = async (req, res, next) => {
 };
 
 const getPatientByName = async (req, res, next) => {
-    const name = req.params.name;
+    const { firstName, lastName } = req.query;
+    //console.log("firstname ", firstName, " lastname ", lastName);
+
+    if (firstName == undefined && lastName == undefined) {
+        const error = new Error('First name and last name cannot be undefined!');
+        error.status = 400;
+        throw error;
+    }
 
     try {
-        if (name == undefined) {
-            const error = new Error('Name missing!');
-            error.status = 400;
-            throw error;
-        }
-
-        const patient = await patientsService.getPatientByName(name);
-        if (patient == null) {
-            res.status(404).json();
-        } else {
-            res.status(200).json(patient);
+        if (firstName !== "" && lastName === "") {           // samo po imenu
+            const patients = await patientsService.getPatientsByFirstName(firstName);
+            res.status(200).json(patients);
+        } else if (firstName === "" && lastName !== "") {           // samo po prezimenu
+            const patients = await patientsService.getPatientsByLastName(lastName);
+            res.status(200).json(patients);
+        } else {    // i ime i prezime
+            const patients = await patientsService.getPatientsByFullName(firstName, lastName);
+            res.status(200).json(patients);
         }
     } catch (error) {
         next(error);
     }
 };
 
+// TODO: izmeniti tako da se otvori novi karton za novog pacijenta i onda da se vrati taj karton
 const addNewPatient = async (req, res, next) => {
+    //console.log(req.body.patient);
     const { jmbg, name, parentName, surname, yearOfBirth, gender, menopause, address,
-        city, contact, email, tumorDateDiagnosis, familyAnamnesis } = req.body;
+        city, contact, email, tumorDateDiagnosis, familyAnamnesis } = req.body.patient;
+
     try {
-        if (
-            !jmbg ||
-            !name ||
-            !parentName ||
-            !surname ||
-            !yearOfBirth ||
-            !gender ||
-            !menopause ||
-            !city ||
-            !contact ||
-            !tumorDateDiagnosis ||
-            !familyAnamnesis
+        if (jmbg == undefined || name == undefined || parentName == undefined || surname == undefined || 
+            yearOfBirth == undefined || gender == undefined || menopause  == undefined || 
+            city == undefined || contact == undefined || tumorDateDiagnosis == undefined || familyAnamnesis == undefined
         ) {
             const error = new Error('Check input data!');
             error.status = 400;
@@ -53,31 +52,22 @@ const addNewPatient = async (req, res, next) => {
         }
 
         const newPatient = await patientsService.addNewPatient(
-            jmbg,
-            name,
-            parentName,
-            surname,
-            yearOfBirth,
-            gender,
-            menopause,
-            address,
-            city,
-            contact,
-            email,
-            tumorDateDiagnosis,
-            familyAnamnesis
+            jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
+            address,city, contact, email, tumorDateDiagnosis, familyAnamnesis
         );
         res.status(201).json(newPatient);
     } catch (error) {
+        console.log('caught');
         next(error);
     }
 };
 
+// TODO: da li je mozda bolje da se brisu na osnovu mongo _id ?
 const deletePatient = async (req, res, next) => {
     const jmbg = req.params.jmbg;
 
     try {
-        if (!jmbg) {
+        if (jmbg == undefined) {
             const error = new Error('Jmbg missing!');
             error.status = 400;
             throw error;

@@ -1,62 +1,63 @@
 const mongoose = require('mongoose');
 
 const patientsSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     jmbg: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     name: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     parentName: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     surname: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     yearOfBirth: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
     },
     gender: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
         maxlength: 1,
-        enum: ['m', 'z'],
+        enum: ["m", "z"],
     },
     menopause: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         default: 0,
         max: 3,
         min: 0,
         require: true,
     },
-    address: String,
+    address: mongoose.Schema.Types.String,
     city: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
         default: "Beograd",
     },
     contact: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
-    email: String,
+    email: mongoose.Schema.Types.String,
     tumorDateDiagnosis: {
-        type: Date,
+        type: mongoose.Schema.Types.Date,
         require: true,
     },
     familyAnamnesis: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
-    history: {
-        type: mongoose.Types.ObjectId,
-        ref: "history",
-    },
+    // history: {
+    //     type: mongoose.Types.ObjectId,
+    //     ref: "history",
+    // },
     
 });
 

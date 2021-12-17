@@ -5,7 +5,7 @@ const patientController = require('../../controllers/patient');
 const router = express.Router();
 
 router.get('/', patientController.getAllPatients);
-router.get('/:name', patientController.getPatientByName);
+router.get('/findByName', patientController.getPatientByName);
 
 router.post('/', patientController.addNewPatient);
 

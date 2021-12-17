@@ -1,22 +1,23 @@
 export enum Gender {
-  Male = 'M',
-  Female = 'Z',
+  Male = 'm',
+  Female = 'z',
 }
 
 export class Patient {
   constructor(
-    public JMBG: string,
+    public jmbg: string,
     public name: string,
     public parentName: string,
-    public lastName: string,
-    public birthYear: number,
+    public surname: string,
+    public yearOfBirth: number,
     public gender: Gender,
-    public adress: string,
+    public menopause: number,
+    public address: string,
     public city: string,
-    public phone: string,
+    public contact: string,
     public email: string,
-    public dateOfDiagnosis: Date,
-    public medicalHistory: string
+    public tumorDateDiagnosis: Date,
+    public familyAnamnesis: string
   ) {}
 }
 

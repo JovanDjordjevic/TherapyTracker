@@ -1,0 +1,1 @@
+mongoimport --db TherapyTracker --collection patients --file some_patients.json 
