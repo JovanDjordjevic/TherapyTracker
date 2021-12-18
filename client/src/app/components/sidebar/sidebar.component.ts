@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit {
   sendRequest(){
     this.ps.getAllPatients();      //works
 
-    this.ps.getPatientByName();      //works
+    this.ps.getPatientByName("Jana", "Janic");      //works
 
     const p = new Patient("1214966701524", "Ana", "Marija", "Anic", 1966, Gender.Female, 0, "Neka Ulica 55", "Beograd", "0112746172", "ana_anic@gmail.com", new Date(), "nesto nesto nesto nesto");
     this.ps.insertPatientInDB(p);    // works

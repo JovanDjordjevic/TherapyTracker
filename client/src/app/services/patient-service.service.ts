@@ -21,7 +21,7 @@ export class PatientService {
 
   public getAllPatients() : Observable<Patient[]>{
     const obs: Observable<Patient[]> = this.http.get<Patient[]>(this.urls.getAllPatients, {});
-    //obs.subscribe((data)=>{console.log(data)});      // for testing
+    //obs.subscribe((data)=>{console.log("All", data)});      // for testing
     return obs;
   }
 
@@ -29,13 +29,13 @@ export class PatientService {
   public getPatientByName(firstName : string= "", lastName : string = "") : Observable<Patient[]>{
     const params: HttpParams = new HttpParams().append('firstName', firstName).append('lastName', lastName);
     const obs: Observable<Patient[]> = this.http.get<Patient[]>(this.urls.getPatientByName, {params: params});
-    //obs.subscribe((data)=>{console.log(data)});      // for testing
+    //obs.subscribe((data)=>{console.log("ByName", data)});      // for testing
     return obs;
   }
 
   public insertPatientInDB(patient : Patient) : Observable<Patient>{
     const obs: Observable<Patient> = this.http.post<Patient>(this.urls.insertPatientInDB, {patient});
-    //obs.subscribe((data)=>{console.log(data)});      // for testing
+    //obs.subscribe((data)=>{console.log("inserted", data)});      // for testing
     return obs;
   }
 

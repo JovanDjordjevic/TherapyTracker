@@ -4,6 +4,8 @@ export enum Gender {
 }
 
 export class Patient {
+  public _id:string = '';  // mora zato sto server salje i _id iz baze
+  
   constructor(
     public jmbg: string,
     public name: string,
