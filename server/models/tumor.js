@@ -1,74 +1,76 @@
 const mongoose = require('mongoose');
 
 const tumorSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     degree: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         enum: [0, 1, 2, 3]
     },
     ErScore: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
     },
     ErPercentageScore: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         max: 100,
         min: 0
     },
     ErStatus: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         enum: [0, 1]
     },
     PgrScore: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
     },
     PgrPercentageScore: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         max: 100,
         min: 0
     },
     PgrStatus: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         enum: [0, 1]
     },
     Her2INC: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
     },
     Her2INCPercentage: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         max: 100,
         min: 0
     },
     Her2FISH_SICH: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     Her2Status: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         enum: [0, 1]
     }, 
     Ki67: { //moguce promene
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     molecularSubtype: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
     },
     date: {
-        type: Date
+        type: mongoose.Schema.Types.Date,
+        require: true,
     },
-    history: {
+    patient: {
         type: mongoose.Types.ObjectId,
-        ref: "history",
+        ref: "patients",
     }
 });
 

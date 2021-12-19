@@ -1,42 +1,39 @@
 const mongoose = require('mongoose');
 
 const biopsySchema = new mongoose.Schema({
-    dateOfBiopsy: {
-        type: Date,
+    _id: mongoose.Schema.Types.ObjectId,
+    date: {
+        type: mongoose.Schema.Types.Date,
         require: true,
     },
     biopsySide: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     biopsyType: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     index: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true,
         unique: true,
     },
-    date: {
-        type: Date,
-        require: true,
-    },
     histotype: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     multifocality: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
     comment: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
     },
-    history: {
+    patient: {
         type: mongoose.Types.ObjectId,
-        ref: "history",
+        ref: "patients",
     }
 });
 

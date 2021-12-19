@@ -54,11 +54,48 @@ const patientsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String,
         require: true,
     },
-    // history: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: "history",
-    // },
-    
+    history: {
+        date: {
+            type: mongoose.Schema.Types.Date,
+            require: true,
+        },
+        index: {
+            type: mongoose.Schema.Types.Number,
+            unique: true,
+        },
+        clinicalState: {
+            T_stage: {
+                type: mongoose.Schema.Types.String,
+                require: true,
+                enum: ["1", "1a", "1b", "1c", "2", "3",
+                       "4", "4a", "4b", "4c", "4d"]
+            },
+            N_stage: {
+                type: mongoose.Schema.Types.Number,
+                require: true,
+                enum: [0, 1, 2, 3],
+            },
+            M_stage: {
+                type: mongoose.Schema.Types.Number,
+                require: true,
+                enum: [0, 1],
+            },
+            clinicalStage: {
+                type: mongoose.Schema.Types.String,
+                require: true,
+                enum: ["IA", "IIA", "IIB", "IIIA", "IIIB", "IIIC"],
+            }
+        },
+        biopsies: {
+            type: [{type: mongoose.Types.ObjectId, ref: "biopsy"}]
+        },
+        tumor: {
+            type: [{type: mongoose.Types.ObjectId, ref: "tumor"}]
+        },
+        therapy: {
+            type: [{type: mongoose.Types.ObjectId, ref: "therapy"}]
+        }
+    }
 });
 
 const patientsModel = mongoose.model('patients', patientsSchema);

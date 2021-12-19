@@ -1,32 +1,33 @@
 const mongoose = require('mongoose');
 
 const therapySchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     numberOfCycels: {
-        type: Number,
+        type: mongoose.Schema.Types.Number,
         require: true
     },
     therapyType: {
-        type: String,
+        type: mongoose.Schema.Types.String,
         require: true,
         enum: ["AC", "FAC", "EC"]
     },
     cycleDescription: {
         neoadjuvantChemotherapy: {
-            type: String
+            type: mongoose.Schema.Types.String
         },
         herceptinTherapy: { //moguce promene
-            type: String
+            type: mongoose.Schema.Types.String
         },
         comment: {
-            type: String
+            type: mongoose.Schema.Types.String
         }
     },
     date: {
-        type: Date
+        type: mongoose.Schema.Types.Date
     },
-    history: {
+    patient: {
         type: mongoose.Types.ObjectId,
-        ref: "history",
+        ref: "patients",
     }
 });
 
