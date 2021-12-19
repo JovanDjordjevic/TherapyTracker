@@ -1,0 +1,9 @@
+i {
+  color: rgba(34, 36, 38, 0.15);
+  margin-top: -10px;
+}
+
+.ui.definition.table tr td.definition,
+.ui.definition.table tr td:first-child:not(.ignored) {
+  background: #f3f3f3;
+}

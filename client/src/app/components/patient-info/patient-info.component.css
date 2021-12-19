@@ -4,7 +4,7 @@
 }
 
 .ui.container {
-  height: 100%;
+  height: 105%;
   width: 100%;
 }
 
@@ -19,4 +19,9 @@
 .ui.segment {
   border-color: var(--java);
   margin: 0px -2px;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
