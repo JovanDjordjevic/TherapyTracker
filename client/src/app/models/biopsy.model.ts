@@ -24,6 +24,9 @@ export enum BiopsyHistotype {
 }
 
 export class Biopsy {
+    public _id : string = '';
+    public _patientId : string = '';
+
     public date : Date;
     public side : BiopsySide;
     public comment : string;
