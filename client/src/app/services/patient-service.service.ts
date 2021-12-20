@@ -13,7 +13,7 @@ export class PatientService {
     getPatientByName: "http://localhost:5000/api/patient/findByName",
     insertPatientInDB: "http://localhost:5000/api/patient/",
     updatePatientInfo: "http://localhost:5000/api/patient/",
-    deletePatientFromDB: "http://localhost:5000/api/patient/:id",
+    deletePatientFromDB: "http://localhost:5000/api/patient/",    // na ovo se nadoveze patientId u zahtevu, kaos to se zahteva u ruteru
   }
 
   constructor(private http: HttpClient) { }
@@ -47,8 +47,8 @@ export class PatientService {
   }
 
   public deletePatientFromDB(_id : string) : Observable<void>{
-    const obs: Observable<void> = this.http.delete<void>(this.urls.insertPatientInDB + '/' + _id);
-    obs.subscribe(()=>{console.log("deleted")});     // for testing
+    const obs: Observable<void> = this.http.delete<void>(this.urls.deletePatientFromDB + '/' + _id);
+    //obs.subscribe(()=>{console.log("deleted")});     // for testing
     return obs;
   }
 
