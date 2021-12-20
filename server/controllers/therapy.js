@@ -49,7 +49,7 @@ const addNewTherapyForPatient = async (req, res, next) => {
 
 const updateTherapyInfo = async (req, res, next) => {
     //console.log(req.body.therapy);
-    const {numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment} = req.body.therapy;
+    const {_id, isTherapyResponseSet, therapyResponse, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment} = req.body.therapy;
     // ...
 };
 

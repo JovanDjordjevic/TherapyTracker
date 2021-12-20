@@ -52,7 +52,7 @@ const addNewBiopsyForPatient = async (req, res, next) => {
 
 const updateBiopsyInfo = async (req, res, next) => {
     //console.log(req.body.biopsy);
-    const {date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRighr, histotypeRight, multifocalityRoght, comment} = req.body.biopsy;
+    const {_id, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRighr, histotypeRight, multifocalityRoght, comment} = req.body.biopsy;
 
     // ...
 }

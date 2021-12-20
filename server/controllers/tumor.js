@@ -53,7 +53,7 @@ const addNewTumorForPatient = async (req, res, next) => {
 
 const updateTumorInfo = async (req, res, next) => {
     //console.log(req.body.tumor);
-    const {gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
+    const {_id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
         her2INC, her2INCPercent, her2_FISH_SICH, her2Status,
         ki67, molecularSubtype} = req.body.tumor;
     // ...

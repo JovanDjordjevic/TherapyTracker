@@ -63,7 +63,10 @@ const addNewPatient = async (req, res, next) => {
 };
 
 const updatePatientInfo = async (req, res, next) => {
-    // const {   ...sva polja iz Patient...} = req.body.patient
+    const { _id, date, index, _biopsyIds, _tumorIds, _therapiyIds,
+        isClinicalStateSet, tStage, nStage, mStage, tnmStage, clinicalStage,
+        jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
+        address, city, contact, email, tumorDateDiagnosis, familyAnamnesis} = req.body.patient
 
     // provere...
 
