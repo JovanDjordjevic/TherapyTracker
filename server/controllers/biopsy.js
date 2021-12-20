@@ -32,8 +32,8 @@ const addNewBiopsyForPatient = async (req, res, next) => {
     try {
         // TODO: razmisli da li neka od ovih polja mogu da budu undefined
         if (date == undefined || side == undefined ||
-            biopsyTypeLeft == undefined || numLeft == undefined || histotypeLeft == undefined || multifocalityLeft ||
-            biopsyTypeRight == undefined || numRighr == undefined || histotypeRight == undefined || multifocalityRoght ||
+            biopsyTypeLeft == undefined || numLeft == undefined || histotypeLeft == undefined || multifocalityLeft  == undefined ||
+            biopsyTypeRight == undefined || numRighr == undefined || histotypeRight == undefined || multifocalityRoght  == undefined ||
             comment == undefined
         ) {
             const error = new Error('Check input data!');
@@ -41,7 +41,7 @@ const addNewBiopsyForPatient = async (req, res, next) => {
             throw error;
         }
 
-        // const newBiopsy = await biopsyService.addNewBiopsy(
+        // const newBiopsy = await biopsyService.addNewBiopsy( patientId,
         //     date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRighr, histotypeRight, multifocalityRoght, comment
         // );
         res.status(201).json(newBiopsy);

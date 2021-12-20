@@ -18,7 +18,6 @@ export enum Her2Status {
 
 export class Tumor {
     public _id = '';
-    public _patientId = '';
 
     // NOTE: Er status: 0 ako je vrednost Er skora izražena u procentima strogo manja od 1, inače 1 (ako je gradus nepoznato vrednost treba da bude 0)
     // ovu vrednost računati i prikazivati na osnovu korisničkog unosa npr. u nekom polju koje je disejblovano
@@ -40,3 +39,16 @@ export class Tumor {
         public molecularSubtype : number,
     ) {}
 }
+
+export interface TumorPagination {
+    docs: Tumor[],
+    totalDocs: number,
+    limit: number,
+    totalPages: number,
+    page: number,
+    pagingCounter: number,
+    hasPrevPage: boolean,
+    hasNextPage: boolean,
+    prevPage: number | null,
+    nextPage: number | null,
+  };

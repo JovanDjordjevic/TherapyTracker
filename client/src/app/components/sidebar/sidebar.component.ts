@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/biopsy.model';
 import { Gender, Patient } from 'src/app/models/patient.model';
 import { SideBar } from 'src/app/models/sidebar.model';
+import { Gradus, Her2Status, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { PatientService } from 'src/app/services/patient-service.service';
+import { TumorService } from 'src/app/services/tumor.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +13,7 @@ import { PatientService } from 'src/app/services/patient-service.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  constructor(private ps : PatientService, private bs : BiopsyService) {}
+  constructor(private ps : PatientService, private bs : BiopsyService, private ts : TumorService) {}
 
   ngOnInit(): void {}
 
@@ -30,5 +32,12 @@ export class SidebarComponent implements OnInit {
     //this.bs.addNewBiopsyForPatient("some id", b);
     //this.bs.updateBiopsyInfo(b);
     //this.bs.deleteBiopsyForPatient("some id1", "some id2");
+
+    //this.ts.getAllTumors();
+    // this.ts.getAllTumorsForPatient("some id");
+    //const t = new Tumor(Gradus.Type1, 1, 100, 1, 1, 100, 1, 1, 100, HER2_FISH_SICH.Negative, Her2Status.One, "ki67string", 1);
+    //this.ts.addNewTumorForPatient("some id", t);
+    //this.ts.updateTumorInfo(t);
+    //this.ts.deleteTumorForPatient("some id1", "some id2");
   }
 }
