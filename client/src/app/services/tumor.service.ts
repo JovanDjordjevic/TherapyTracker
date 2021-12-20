@@ -44,7 +44,7 @@ export class TumorService {
 
   public deleteTumorForPatient(patientId : string, tumorId : string) : Observable<Tumor>{
     const obs: Observable<Tumor> = this.http.delete<Tumor>(this.urls.deleteTumorForPatient + '/' + patientId + '/' + tumorId);
-    obs.subscribe((data)=>console.log(data));
+    //obs.subscribe((data)=>console.log(data));
     return obs;
   }
 }

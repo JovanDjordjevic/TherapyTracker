@@ -14,7 +14,6 @@ export enum TherapyResponse {
 
 export class Therapy {
     public _id = '';
-    public _patientId = '';
 
     // odgovor na terapiju ce moci da se unese naknadno preko patch zahteva
     public isTherapyResponseSet : boolean = false;
@@ -30,3 +29,16 @@ export class Therapy {
         public comment : string,
     ) {}
 }
+
+export interface TherapyPagination {
+    docs: Therapy[],
+    totalDocs: number,
+    limit: number,
+    totalPages: number,
+    page: number,
+    pagingCounter: number,
+    hasPrevPage: boolean,
+    hasNextPage: boolean,
+    prevPage: number | null,
+    nextPage: number | null,
+};

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/biopsy.model';
 import { Gender, Patient } from 'src/app/models/patient.model';
 import { SideBar } from 'src/app/models/sidebar.model';
+import { Therapy } from 'src/app/models/therapy.model';
 import { Gradus, Her2Status, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { PatientService } from 'src/app/services/patient-service.service';
+import { TherapyService } from 'src/app/services/therapy.service';
 import { TumorService } from 'src/app/services/tumor.service';
 
 @Component({
@@ -13,7 +15,7 @@ import { TumorService } from 'src/app/services/tumor.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  constructor(private ps : PatientService, private bs : BiopsyService, private ts : TumorService) {}
+  constructor(private ps : PatientService, private bs : BiopsyService, private ts : TumorService, private ths : TherapyService) {}
 
   ngOnInit(): void {}
 
@@ -25,7 +27,6 @@ export class SidebarComponent implements OnInit {
     // this.ps.insertPatientInDB(p);    // works
     // this.ps.deletePatientFromDB("some id"); // works
 
-
     //this.bs.getAllBiopsies();
     //this.bs.getAllBiopsiesForPatient("some id");
     //const b = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, "1/2021", BiopsyHistotype.Type0, "ne", BiopsyType.BreastBiopsy, "2/2021", BiopsyHistotype.Type1, "2", "");
@@ -34,10 +35,17 @@ export class SidebarComponent implements OnInit {
     //this.bs.deleteBiopsyForPatient("some id1", "some id2");
 
     //this.ts.getAllTumors();
-    // this.ts.getAllTumorsForPatient("some id");
+    //this.ts.getAllTumorsForPatient("some id");
     //const t = new Tumor(Gradus.Type1, 1, 100, 1, 1, 100, 1, 1, 100, HER2_FISH_SICH.Negative, Her2Status.One, "ki67string", 1);
     //this.ts.addNewTumorForPatient("some id", t);
     //this.ts.updateTumorInfo(t);
     //this.ts.deleteTumorForPatient("some id1", "some id2");
+
+    //this.ths.getAllTherapies();
+    //this.ths.getAllTherapiesForPatient("some id");
+    //const th = new Therapy(2, true, 2, 3, "nije primenljivo", "neki komentar");
+    //this.ths.addNewTherapyForPatient("some id", th);
+    //this.ths.updateTherapyInfo(th);
+    //this.ths.deleteTherapyForPatient("some id1", "some id2");
   }
 }
