@@ -5,7 +5,6 @@ const cors = require('cors');
 
 const patientAPI = require('./routes/api/patient');
 const biopsyAPI = require('./routes/api/biopsy');
-const historyAPI = require('./routes/api/history');
 const tumorAPI = require('./routes/api/tumor');
 const therapyAPI = require('./routes/api/therapy');
 
@@ -32,7 +31,6 @@ app.use(cors());
 
 app.use('/api/patient', patientAPI);
 app.use('/api/biopsy', biopsyAPI);
-app.use('/api/history', historyAPI);
 app.use('/api/tumor', tumorAPI);
 app.use('/api/therapy', therapyAPI);
 

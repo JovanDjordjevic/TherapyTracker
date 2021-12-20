@@ -89,3 +89,16 @@ export class Patient {
 
 /* Promeniti da adresa boravka bude opciona. 
 	Postaviti da Beograd bude podrazumevani grad. */
+
+export interface PatientPagination {
+  docs: Patient[],
+  totalDocs: number,
+  limit: number,
+  totalPages: number,
+  page: number,
+  pagingCounter: number,
+  hasPrevPage: boolean,
+  hasNextPage: boolean,
+  prevPage: number | null,
+  nextPage: number | null,
+};

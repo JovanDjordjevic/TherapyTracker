@@ -62,26 +62,35 @@ const addNewPatient = async (req, res, next) => {
     }
 };
 
+const updatePatientInfo = async (req, res, next) => {
+    // const {   ...sva polja iz Patient...} = req.body.patient
+
+    // provere...
+
+    // const updatedPatient = await patientService.updatePatientInfo( ... )
+    // res.status(201).json(updatedPatient)
+};
+
 // TODO: da li je mozda bolje da se brisu na osnovu mongo _id ?
 const deletePatient = async (req, res, next) => {
-    const jmbg = req.params.jmbg;
+    const id = req.params.id;
 
     try {
-        if (jmbg == undefined) {
-            const error = new Error('Jmbg missing!');
+        if (id == undefined) {
+            const error = new Error('Patient id missing!');
             error.status = 400;
             throw error;
         }
 
-        const patient = await patientsService.getPatientByJmbg(jmbg);
-        if (!patient) {
-            const error = new Error('Check jmbg!');
-            error.status = 404;
-            throw error;
-        }
+        //const patient = await patientsService.getPatientById(id);
+        // if (!patient) {
+        //     const error = new Error('Check id!');
+        //     error.status = 404;
+        //     throw error;
+        // }
 
-        await patientsService.deletePatient(jmbg);
-        res.status(200).json({ success: true });
+        success = await patientsService.deletePatient(id);
+        res.status(200).json({ success: success }); 
     } catch (error) {
         next(error);
     }
@@ -91,6 +100,6 @@ module.exports = {
     getAllPatients,
     getPatientByName,
     addNewPatient,
+    updatePatientInfo,
     deletePatient,
-    //...
 }

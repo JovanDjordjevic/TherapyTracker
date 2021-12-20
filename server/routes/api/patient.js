@@ -9,6 +9,8 @@ router.get('/findByName', patientController.getPatientByName);
 
 router.post('/', patientController.addNewPatient);
 
-router.delete('/:jmbg', patientController.deletePatient)
+router.put('/', patientController.updatePatientInfo);
+
+router.delete('/:id', patientController.deletePatient)
 
 module.exports = router;

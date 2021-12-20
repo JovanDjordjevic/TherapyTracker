@@ -12,7 +12,8 @@ export class PatientService {
     getAllPatients: "http://localhost:5000/api/patient",
     getPatientByName: "http://localhost:5000/api/patient/findByName",
     insertPatientInDB: "http://localhost:5000/api/patient/",
-    deletePatientFromDB: "http://localhost:5000/api/patient/",
+    updatePatientInfo: "http://localhost:5000/api/patient/",
+    deletePatientFromDB: "http://localhost:5000/api/patient/:id",
   }
 
   constructor(private http: HttpClient) { }
@@ -39,9 +40,15 @@ export class PatientService {
     return obs;
   }
 
-  public deletePatientFromDB(jmbg : string) : Observable<void>{
-    const obs: Observable<void> = this.http.delete<void>(this.urls.insertPatientInDB + '/' + jmbg);
-    //obs.subscribe(()=>{console.log("deleted")});     // for testing
+  public updatePatientInfo(patient : Patient) : Observable<Patient> {
+    const obs: Observable<Patient> = this.http.put<Patient>(this.urls.updatePatientInfo, {patient});
+    // obs.subscribe((data)=>{console.log("updated", data)});      // for testing
+    return obs;
+  }
+
+  public deletePatientFromDB(_id : string) : Observable<void>{
+    const obs: Observable<void> = this.http.delete<void>(this.urls.insertPatientInDB + '/' + _id);
+    obs.subscribe(()=>{console.log("deleted")});     // for testing
     return obs;
   }
 
