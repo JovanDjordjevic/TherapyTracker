@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
-const Therapy = require('../models/therapy');
+const therapyService = require('../services/therapy');
 
 const getAllTherapies = async (req, res, next) => {
     //console.log('getAllTherapies');
     try {
-        //const therapies = await therapyService.getAllTherapies();
+        const therapies = await therapyService.getAllTherapies();
         res.status(200).json(therapies);
     } catch (error) {
         next(error);
@@ -16,8 +15,8 @@ const getAllTherapiesForPatient = async (req, res, next) => {
     //console.log(patientId);
 
     try {
-        //const therapies = await therapyService.getAllTherapiesForPatient(patientId);
-        //res.status(200).json(therapies);
+        const therapies = await therapyService.getAllTherapiesForPatient(patientId);
+        res.status(200).json(therapies);
     } catch (error) {
         next(error);
     }
@@ -26,11 +25,11 @@ const getAllTherapiesForPatient = async (req, res, next) => {
 const addNewTherapyForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
     //console.log(patientId, req.body.therapy);
-    const {numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment} = req.body.therapy;
+    const {therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment} = req.body.therapy;
     // console.log('...');
     
     try {
-        if (numCycles == undefined || usingNeoadjuvant == undefined || numTaxol == undefined || 
+        if (therapyType == undefined || numCycles == undefined || usingNeoadjuvant == undefined || numTaxol == undefined || 
             numTxtr == undefined || herceptinTherapy == undefined || comment == undefined 
         ) {
             const error = new Error('Check input data!');
@@ -38,10 +37,10 @@ const addNewTherapyForPatient = async (req, res, next) => {
             throw error;
         }
 
-        // const newTherapy = await therapyService.addNewTherapy( patientId,
-        //     numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment
-        // );
-        // res.status(201).json(newTherapy);
+        const newTherapy = await therapyService.addNewTherapy( patientId, therapyType,
+            numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment
+        );
+        res.status(201).json(newTherapy);
     } catch (error) {
         next(error);
     }
@@ -65,8 +64,8 @@ const deleteTherapy = async (req, res, next) => {
             throw error;
         }
 
-        //success = await therapyService.deleteTherapy(patientId, therapyId);
-        //res.status(200).json({ success: success });
+        success = await therapyService.deleteTherapy(patientId, therapyId);
+        res.status(200).json({ success: success });
     } catch (error) {
         next(error);
     }

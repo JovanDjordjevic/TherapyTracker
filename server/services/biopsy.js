@@ -18,19 +18,19 @@ const addNewBiopsy = async (patientId, date, side, biopsyTypeLeft, numLeft, hist
     //indeksi provera
     const newBiopsy = new Biopsy();
     const biopsyId = new mongoose.Types.ObjectId();
-    newBiopsy._id = biopsyId
-    newBiopsy.date = date,
-    newBiopsy.side = side,
-    newBiopsy.biopsyTypeLeft = biopsyTypeLeft,
-    newBiopsy.numLeft = numLeft,
-    newBiopsy.histotypeLeft = histotypeLeft,
-    newBiopsy.multifocalityLeft = multifocalityLeft,
-    newBiopsy.biopsyTypeRight = biopsyTypeRight,
-    newBiopsy.numRight = numRight,
-    newBiopsy.histotypeRight = histotypeRight,
-    newBiopsy.multifocalityRight = multifocalityRight,
-    newBiopsy.comment = comment
-    newBiopsy.patient = patientId
+    newBiopsy._id = biopsyId;
+    newBiopsy.date = date;
+    newBiopsy.side = side;
+    newBiopsy.biopsyTypeLeft = biopsyTypeLeft;
+    newBiopsy.numLeft = numLeft;
+    newBiopsy.histotypeLeft = histotypeLeft;
+    newBiopsy.multifocalityLeft = multifocalityLeft;
+    newBiopsy.biopsyTypeRight = biopsyTypeRight;
+    newBiopsy.numRight = numRight;
+    newBiopsy.histotypeRight = histotypeRight;
+    newBiopsy.multifocalityRight = multifocalityRight;
+    newBiopsy.comment = comment;
+    newBiopsy.patient = patientId;
 
     await newBiopsy.save();
 
