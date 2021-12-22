@@ -44,7 +44,7 @@ const addNewPatient = async (req, res, next) => {
     try {
         if (jmbg == undefined || name == undefined || parentName == undefined || surname == undefined || 
             yearOfBirth == undefined || gender == undefined || menopause  == undefined || 
-            city == undefined || contact == undefined || tumorDateDiagnosis == undefined || familyAnamnesis == undefined
+            city == undefined || contact == undefined || familyAnamnesis == undefined
         ) {
             const error = new Error('Check input data!');
             error.status = 400;
@@ -93,7 +93,7 @@ const deletePatient = async (req, res, next) => {
         // }
 
         success = await patientsService.deletePatient(id);
-        res.status(200).json({ success: success }); 
+        res.status(200).json({ success: true }); 
     } catch (error) {
         next(error);
     }
