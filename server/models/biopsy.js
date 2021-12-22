@@ -1,17 +1,5 @@
 const mongoose = require('mongoose');
 
-//date
-// public side : BiopsySide,
-//         public biopsyTypeLeft : BiopsyType,
-//         public numLeft : string, 
-//         public histotypeLeft : BiopsyHistotype,
-//         public multifocalityLeft : string,
-//         public biopsyTypeRight : BiopsyType,
-//         public numRight : string,   
-//         public histotypeRight : BiopsyHistotype,
-//         public multifocalityRight : string,  
-//         public comment : string,
-
 const biopsySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     date: {
@@ -34,16 +22,16 @@ const biopsySchema = new mongoose.Schema({
     multifocalityLeft: {
         type: mongoose.Schema.Types.String,
     },
-    biopsyTypeRigt: {
+    biopsyTypeRight: {
         type: mongoose.Schema.Types.String,
     },
-    numRigt: {
+    numRight: {
         type: mongoose.Schema.Types.String,
     },
-    histotypeRigt: {
+    histotypeRight: {
         type: mongoose.Schema.Types.String,
     },
-    multifocalityRigt: {
+    multifocalityRight: {
         type: mongoose.Schema.Types.String,
     },
     comment: {

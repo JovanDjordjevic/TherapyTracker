@@ -16,8 +16,8 @@ const getAllBiopsiesForPatient = async (req, res, next) => {
     //console.log(patientId);
 
     try {
-        //const biopsies = await biopsyService.getAllBiopsiesForPatient(patientId);
-        //res.status(200).json(biopsies);
+        const biopsies = await biopsyService.getAllBiopsiesForPatient(patientId);
+        res.status(200).json(biopsies);
     } catch (error) {
         next(error);
     }
@@ -31,9 +31,9 @@ const addNewBiopsyForPatient = async (req, res, next) => {
     
     try {
         // TODO: razmisli da li neka od ovih polja mogu da budu undefined
-        if (date == undefined || side == undefined ||
+        if (date == undefined || side == undefined || 
             biopsyTypeLeft == undefined || numLeft == undefined || histotypeLeft == undefined || multifocalityLeft  == undefined ||
-            biopsyTypeRight == undefined || numRighr == undefined || histotypeRight == undefined || multifocalityRoght  == undefined ||
+            biopsyTypeRight == undefined || numRight == undefined || histotypeRight == undefined || multifocalityRight  == undefined ||
             comment == undefined
         ) {
             const error = new Error('Check input data!');

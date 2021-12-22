@@ -32,8 +32,6 @@ const addNewBiopsy = async (patientId, date, side, biopsyTypeLeft, numLeft, hist
     newBiopsy.comment = comment
     newBiopsy.patient = patientId
 
-    console.log(newBiopsy._id);
-
     await newBiopsy.save();
 
     await Patient.findByIdAndUpdate(patientId, {$push: {'history.biopsies': biopsyId}}).exec();

@@ -2,70 +2,61 @@ const mongoose = require('mongoose');
 
 const tumorSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    degree: {
-        type: mongoose.Schema.Types.Number,
+    //
+    gradus: {
+        type: mongoose.Schema.Types.String,
         require: true,
-        enum: [0, 1, 2, 3]
+        enum: ["1", "2", "3", "Nepoznato"]
     },
-    ErScore: {
-        type: mongoose.Schema.Types.Number,
-        require: true,
-    },
-    ErPercentageScore: {
-        type: mongoose.Schema.Types.Number,
-        require: true,
-        max: 100,
-        min: 0
-    },
-    ErStatus: {
-        type: mongoose.Schema.Types.Number,
-        require: true,
-        enum: [0, 1]
-    },
-    PgrScore: {
+    erScore: {
         type: mongoose.Schema.Types.Number,
         require: true,
     },
-    PgrPercentageScore: {
+    erPercentageScore: {
         type: mongoose.Schema.Types.Number,
         require: true,
-        max: 100,
-        min: 0
     },
-    PgrStatus: {
+    erStatus: {
         type: mongoose.Schema.Types.Number,
         require: true,
         enum: [0, 1]
     },
-    Her2INC: {
+    egrScore: {
         type: mongoose.Schema.Types.Number,
         require: true,
     },
-    Her2INCPercentage: {
+    pgrPercentageScore: {
         type: mongoose.Schema.Types.Number,
         require: true,
-        max: 100,
-        min: 0
     },
-    Her2FISH_SICH: {
+    pgrStatus: {
+        type: mongoose.Schema.Types.Number,
+        require: true,
+        enum: [0, 1]
+    },
+    her2INC: {
+        type: mongoose.Schema.Types.Number,
+        require: true,
+    },
+    her2INCPercentage: {
+        type: mongoose.Schema.Types.Number,
+        require: true,
+    },
+    her2_FISH_SICH: {
         type: mongoose.Schema.Types.String,
         require: true,
     },
-    Her2Status: {
+    her2Status: {
         type: mongoose.Schema.Types.Number,
         require: true,
         enum: [0, 1]
     }, 
-    Ki67: { //moguce promene
+    ki67: { //moguce promene
         type: mongoose.Schema.Types.String,
         require: true,
     },
     molecularSubtype: {
         type: mongoose.Schema.Types.Number,
-        require: true,
-    },
-    date: {
-        type: mongoose.Schema.Types.Date,
         require: true,
     },
     patient: {

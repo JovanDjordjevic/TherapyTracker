@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
-const Tumor = require('../models/tumor');
+const tumorService = require('../services/tumor');
 
 const getAllTumors = async (req, res, next) => {
     //console.log('getAllTumors');
     try {
-        //const tumors = await tumorService.getAllTumors();
+        const tumors = await tumorService.getAllTumors();
         res.status(200).json(tumors);
     } catch (error) {
         next(error);
@@ -16,8 +15,8 @@ const getAllTumorsForPatient = async (req, res, next) => {
     //console.log(patientId);
 
     try {
-        //const tumors = await tumorService.getAllTumorsForPatient(patientId);
-        //res.status(200).json(tumors);
+        const tumors = await tumorService.getAllTumorsForPatient(patientId);
+        res.status(200).json(tumors);
     } catch (error) {
         next(error);
     }
@@ -42,10 +41,10 @@ const addNewTumorForPatient = async (req, res, next) => {
             throw error;
         }
 
-        // const newTumor = await tumorService.addNewTumor( patientId,
-        //     gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype
-        // );
-        // res.status(201).json(newTumor);
+        const newTumor = await tumorService.addNewTumor( patientId,
+            gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype
+        );
+        res.status(201).json(newTumor);
     } catch (error) {
         next(error);
     }
@@ -71,8 +70,8 @@ const deleteTumor = async (req, res, next) => {
             throw error;
         }
 
-        //success = await tumorService.deleteTumor(patientId, tumorId);
-        //res.status(200).json({ success: success });
+        success = await tumorService.deleteTumor(patientId, tumorId);
+        res.status(200).json({ success: success });
     } catch (error) {
         next(error);
     }
