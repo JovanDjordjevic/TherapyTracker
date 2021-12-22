@@ -26,7 +26,7 @@ const getAllBiopsiesForPatient = async (req, res, next) => {
 const addNewBiopsyForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
     //console.log(patientId);
-    const {date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRighr, histotypeRight, multifocalityRoght, comment} = req.body.biopsy;
+    const {date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment} = req.body.biopsy;
     // console.log('...');
     
     try {
@@ -41,9 +41,9 @@ const addNewBiopsyForPatient = async (req, res, next) => {
             throw error;
         }
 
-        // const newBiopsy = await biopsyService.addNewBiopsy( patientId,
-        //     date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRighr, histotypeRight, multifocalityRoght, comment
-        // );
+        const newBiopsy = await biopsyService.addNewBiopsy( patientId,
+            date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment
+        );
         res.status(201).json(newBiopsy);
     } catch (error) {
         next(error);
@@ -52,7 +52,7 @@ const addNewBiopsyForPatient = async (req, res, next) => {
 
 const updateBiopsyInfo = async (req, res, next) => {
     //console.log(req.body.biopsy);
-    const {_id, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRighr, histotypeRight, multifocalityRoght, comment} = req.body.biopsy;
+    const {_id, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft, biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment} = req.body.biopsy;
 
     // ...
 }

@@ -57,7 +57,7 @@ const patientsSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.Date
         },
         index: {
-            type: mongoose.Schema.Types.Number
+            type: mongoose.Schema.Types.String
         },
         isClinicalStateSet: {
             type: mongoose.Schema.Types.Boolean,
