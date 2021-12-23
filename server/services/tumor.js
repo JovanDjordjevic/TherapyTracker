@@ -8,7 +8,7 @@ const getAllTumors = async () => {
 };
 
 const getAllTumorsForPatient = async (patientId) => {
-    const patient = await Patient.findById(patientId).exec();
+    const patient = await Patient.findById(patientId).populate("history.tumor");
     return patient.history.tumor;
 };
 

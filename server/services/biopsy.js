@@ -8,7 +8,7 @@ const getAllBiopsies = async () => {
 };
 
 const getAllBiopsiesForPatient = async (patientId) => {
-    const patient = await Patient.findById(patientId).exec();
+    const patient = await Patient.findById(patientId).populate("history.biopsy");
     return patient.history.biopsies;
 };
 

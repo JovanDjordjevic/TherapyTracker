@@ -8,13 +8,12 @@ const getAllTherapies = async () => {
 };
 
 const getAllTherapiesForPatient = async (patientId) => {
-    const patient = await Patient.findById(patientId).exec();
+    const patient = await Patient.findById(patientId).populate("history.therapy");
     return patient.history.therapy;
 };
 
 const addNewTherapy = async (patientId, therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment) => {
 
-    //indeksi provera
     const newTherapy = new Therapy();
     const therapyId = new mongoose.Types.ObjectId();
     newTherapy._id = therapyId;
@@ -23,6 +22,7 @@ const addNewTherapy = async (patientId, therapyType, numCycles, usingNeoadjuvant
     newTherapy.usingNeoadjuvant = usingNeoadjuvant;
     newTherapy.numTaxol = numTaxol;
     newTherapy.numTxtr = numTxtr;
+    newTherapy.herceptinTherapy = herceptinTherapy;
     newTherapy.comment = comment;
     newTherapy.patient = patientId;
 
