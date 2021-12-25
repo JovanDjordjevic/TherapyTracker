@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TherapyResponse, TherapyType } from 'src/app/models/therapy.model';
+import { MustBeNumber } from 'src/app/validators/common.validator';
 
 declare const $: any;
 
@@ -30,7 +31,7 @@ export class TherapyFormComponent implements OnInit {
     }
 
     this.therapyForm = this.formBuilder.group({
-      numCycles  : ['', [Validators.required]],
+      numCycles  : ['', [Validators.required, MustBeNumber]],
       therapyType  : ['', [Validators.required]],
       usingNeoadjuvant : ['', [Validators.required]],
       numTaxol   : ['', [Validators.required]],

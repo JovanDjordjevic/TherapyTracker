@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Gradus, Her2Status, HER2_FISH_SICH } from 'src/app/models/tumor.model';
-import { Ki67Validator, MustBeNumber } from 'src/app/validators/tumor.validator';
+import { MustBeNumber } from 'src/app/validators/common.validator';
+import { Ki67Validator } from 'src/app/validators/tumor.validator';
 
 declare const $: any;
 
