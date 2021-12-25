@@ -1,7 +1,7 @@
 <form class="ui form" [formGroup]="tumorForm" (ngSubmit)="onTumorFormSubmit()">
     <div class="ui fluid field">
         <label>Gradus</label>
-        <select formControlName="gradus" class="ui fluid search selection dropdown">
+        <select formControlName="gradus" class="ui fluid search selection dropdown" (change)="gradusSelected()">
           <option value="GradusEnum.Type1">{{ GradusEnum.Type1 }}</option>
           <option value="GradusEnum.Type2">{{ GradusEnum.Type2 }}</option>
           <option value="GradusEnum.Type3">{{ GradusEnum.Type3 }}</option>
@@ -17,7 +17,7 @@
 
         <div class="ui field column">
             <label>Er skor %</label>
-            <input type="text" formControlName="erScorePercent"/>
+            <input type="text" formControlName="erScorePercent" (change)="erPercentEntered()"/>
         </div>
 
         <div class="ui field column disabled">
