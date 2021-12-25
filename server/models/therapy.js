@@ -9,6 +9,7 @@ const therapySchema = new mongoose.Schema({
     },
     isTherapyResponseSet: {
         type: mongoose.Schema.Types.Boolean,
+        default: false
     },
     therapyResponse: {
         type: mongoose.Schema.Types.String,

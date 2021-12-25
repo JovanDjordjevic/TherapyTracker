@@ -55,7 +55,27 @@ const updateTumorInfo = async (req, res, next) => {
     const {_id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
         her2INC, her2INCPercent, her2_FISH_SICH, her2Status,
         ki67, molecularSubtype} = req.body.tumor;
-    // ...
+    
+    try{
+        if (_id == undefined || gradus == undefined || erScore == undefined || erScorePercent == undefined ||
+            erStatus == undefined || pgrScore == undefined || pgrScorePercent == undefined || pgrStatus == undefined || 
+            her2INC == undefined || her2INCPercent == undefined || her2_FISH_SICH == undefined || her2Status == undefined ||
+            ki67 == undefined || molecularSubtype == undefined
+        ) {
+            const error = new Error('Check input data!');
+            error.status = 400;
+            throw error;
+        }
+
+        const updatedTumor = await tumorService.updateTumorInfo(
+            _id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
+            pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status,
+            ki67, molecularSubtype
+        );
+        res.status(201).json(updatedTumor);
+    } catch (error) {
+        next(error);
+    }
 };
 
 const deleteTumor = async (req, res, next) => {

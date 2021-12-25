@@ -33,19 +33,19 @@ const addNewTherapy = async (patientId, therapyType, numCycles, usingNeoadjuvant
     return newTherapy;
 };
 
-const updateTherapyInfo = async (id, therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment) => {
+const updateTherapyInfo = async (id, isTherapyResponseSet, therapyResponse, therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment) => {
 
-        const updatedTherapy = await Tumor.findOneAndUpdate(
+        const updatedTherapy = await Therapy.findOneAndUpdate(
             { _id: id },
             {
                 $set: {
+                    isTherapyResponseSet: isTherapyResponseSet,
+                    therapyResponse: therapyResponse,
                     therapyType: therapyType,
                     numCycles: numCycles,
                     usingNeoadjuvant: usingNeoadjuvant,
-                    numLeft: numLeft,
                     numTaxol: numTaxol,
                     numTxtr: numTxtr,
-                    numRight: numRight,
                     herceptinTherapy: herceptinTherapy,
                     comment: comment,
                 },
