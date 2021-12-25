@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const biopsySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -43,6 +44,8 @@ const biopsySchema = new mongoose.Schema({
         ref: "patients",
     }
 });
+
+biopsySchema.plugin(mongoosePaginate);
 
 const biopsyModel = mongoose.model('biopsy', biopsySchema);
 

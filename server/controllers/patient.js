@@ -2,8 +2,11 @@ const patientsService = require('../services/patients');
 
 const getAllPatients = async (req, res, next) => {
     try {
-        const allPatients = await patientsService.getAllPatients();
+        // const allPatients = await patientsService.getAllPatients();
+        // res.status(200).json(allPatients);
+        const allPatients = await patientsService.paginateThroughPatients();
         res.status(200).json(allPatients);
+
     } catch (error) {
         next(error);
     }

@@ -3,7 +3,7 @@ const therapyService = require('../services/therapy');
 const getAllTherapies = async (req, res, next) => {
     //console.log('getAllTherapies');
     try {
-        const therapies = await therapyService.getAllTherapies();
+        const therapies = await therapyService.paginateThroughTherapies();
         res.status(200).json(therapies);
     } catch (error) {
         next(error);

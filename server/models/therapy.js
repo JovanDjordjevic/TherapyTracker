@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const therapySchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -43,6 +44,8 @@ const therapySchema = new mongoose.Schema({
         ref: "patients",
     }
 });
+
+therapySchema.plugin(mongoosePaginate);
 
 const therapyModel = mongoose.model('therapy', therapySchema);
 
