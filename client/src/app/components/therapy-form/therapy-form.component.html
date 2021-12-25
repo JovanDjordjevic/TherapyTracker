@@ -1,0 +1,73 @@
+<form class="ui form" [formGroup]="therapyForm" (ngSubmit)="onTherapyFormSubmit()">
+    <div class="ui fluid field">
+        <label>Broj ciklusa</label>
+        <input type="text" formControlName="numCycles"/>
+    </div>
+
+    <div class="ui fluid field">
+        <label>Tip terapije</label>
+        <select formControlName="therapyType" class="ui fluid search selection dropdown">
+          <option value="TherapyTypeEnum.AC">{{ TherapyTypeEnum.AC }}</option>
+          <option value="TherapyTypeEnum.FAC">{{ TherapyTypeEnum.FAC }}</option>
+          <option value="TherapyTypeEnum.EC">{{ TherapyTypeEnum.EC }}</option>
+        </select>
+    </div>
+
+    <hr>
+    <div class="ui fluid field">
+        <label>Opis jednog ciklusa</label>
+    </div>
+    <br>
+
+    <div class="ui two column grid">
+        <div class="ui field column">
+            <label>Taxol</label>
+            <select formControlName="numTaxol" class="ui fluid search selection dropdown">
+                <option *ngFor="let number of numberValues">{{ number }}</option>
+            </select>
+        </div>
+
+        <div class="ui field column">
+            <label>TXTR</label>
+            <select formControlName="numTxtr" class="ui fluid search selection dropdown">
+                <option *ngFor="let number of numberValues">{{ number }}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="ui two column grid">
+        <div class="ui fluid column">
+            <input type="checkbox" (change)="onHerceptinCheckboxChange()"/>
+            <label>Terapija herceptinom</label>
+        </div>
+
+        <div class="ui field column" [ngClass]="{disabled : herceptinDisabled}">
+            <label>Broj ciklusa terapije herceptinom</label>
+            <input type="text" formControlName="herceptinTherapy"/>
+        </div>
+    </div>
+
+    <div class="fluid field">
+        <label>Komentar</label>
+        <textarea type="number" formControlName="comment" rows="5"> </textarea>
+    </div>
+
+    <br>
+    
+    <div *ngIf="placeholder">  <!-- TODO: izmeniti palceholder-->
+        <hr>
+
+        <div class="ui fluid field">
+            <label>Terapijski odgovor</label>
+            <select formControlName="therapyResponse" class="ui fluid search selection dropdown">
+              <option value="TherapyResponseEnum.CR">{{ TherapyResponseEnum.CR }}</option>
+              <option value="TherapyResponseEnum.DCIS">{{ TherapyResponseEnum.DCIS }}</option>
+              <option value="TherapyResponseEnum.MCG">{{ TherapyResponseEnum.MCG }}</option>
+              <option value="TherapyResponseEnum.pPR ">{{ TherapyResponseEnum.pPR }}</option>
+              <option value="TherapyResponseEnum.NoChange">{{ TherapyResponseEnum.NoChange }}</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="ui fluid button" type="submit">Sacuvaj podatke</button>
+  </form>

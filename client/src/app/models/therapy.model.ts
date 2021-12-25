@@ -22,6 +22,7 @@ export class Therapy {
     // za slanje zahteva za ubacivanje u bazu
     constructor(
         public numCycles : number,
+        public therapyType : TherapyType,
         public usingNeoadjuvant : boolean,  // (?)
         public numTaxol : number,
         public numTxtr : number,

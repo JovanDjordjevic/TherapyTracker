@@ -13,6 +13,7 @@ import { PatientComponent } from './components/patient/patient.component';
 import { PatientFormComponent } from './components/patient-form/patient-form.component';
 import { BiopsyFormComponent } from './components/biopsy-form/biopsy-form.component';
 import { TumorFormComponent } from './components/tumor-form/tumor-form.component';
+import { TherapyFormComponent } from './components/therapy-form/therapy-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TumorFormComponent } from './components/tumor-form/tumor-form.component
     PatientComponent,
     PatientFormComponent,
     BiopsyFormComponent,
-    TumorFormComponent
+    TumorFormComponent,
+    TherapyFormComponent
   ],
   imports: [
     BrowserModule,
