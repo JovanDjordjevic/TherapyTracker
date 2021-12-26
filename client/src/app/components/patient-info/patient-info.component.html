@@ -1,0 +1,22 @@
+<div class="ui container">
+  <h1> Karton </h1>
+  <div class="ui top attached tabular menu">
+    <a class="item active" data-tab="patient-tab">Klinicko stanje</a>
+    <a class="item" data-tab="biopsy-tab">Biopsije</a>
+    <a class="item" data-tab="tumor-tab">Tumor</a>
+    <a class="item" data-tab="treatment-tab">Terapije</a>
+  </div>
+
+  <div class="ui bottom attached tab segment active" data-tab="patient-tab">
+    <app-patient-tab></app-patient-tab>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="biopsy-tab">
+    <app-biopsy-tab></app-biopsy-tab>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="tumor-tab">
+    <app-tumor-tab></app-tumor-tab>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="treatment-tab">
+    <app-treatment-tab></app-treatment-tab>
+  </div>
+</div>

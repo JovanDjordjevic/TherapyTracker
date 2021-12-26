@@ -1,0 +1,27 @@
+.ui.menu {
+  justify-content: flex-end;
+  border-color: var(--java);
+}
+
+.ui.container {
+  height: 105%;
+  width: 100%;
+}
+
+.tab {
+  height: 85%;
+}
+
+.ui.tabular.menu .active.item {
+  border-color: var(--java);
+}
+
+.ui.segment {
+  border-color: var(--java);
+  margin: 0px -2px;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

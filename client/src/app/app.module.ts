@@ -14,6 +14,10 @@ import { PatientFormComponent } from './components/patient-form/patient-form.com
 import { BiopsyFormComponent } from './components/biopsy-form/biopsy-form.component';
 import { TumorFormComponent } from './components/tumor-form/tumor-form.component';
 import { TherapyFormComponent } from './components/therapy-form/therapy-form.component';
+import { PatientInfoComponent } from './components/patient-info/patient-info.component';
+import { PatientTabComponent } from './components/patient-tab/patient-tab.component';
+import { BiopsyTabComponent } from './components/biopsy-tab/biopsy-tab.component';
+import { TreatmentTabComponent } from './components/treatment-tab/treatment-tab.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,10 @@ import { TherapyFormComponent } from './components/therapy-form/therapy-form.com
     FormsModule,         
     ReactiveFormsModule,
     HttpClientModule,
+    PatientInfoComponent,
+    PatientTabComponent,
+    BiopsyTabComponent,
+    TreatmentTabComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
