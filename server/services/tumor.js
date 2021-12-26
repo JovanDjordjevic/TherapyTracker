@@ -7,9 +7,11 @@ const getAllTumors = async () => {
     return tumor;
 };
 
-const getAllTumorsForPatient = async (patientId) => {
-    const patient = await Patient.findById(patientId).populate("history.tumor");
-    return patient.history.tumor;
+const getAllTumorsForPatient = async (patientId, page=1, limit=10) => {
+    // const patient = await Patient.findById(patientId).populate("history.tumor");
+    // return patient.history.tumor;
+
+    return await Tumor.paginate({patient: patientId}, {page, limit})
 };
 
 const addNewTumor = async (patientId, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
@@ -76,10 +78,15 @@ const deleteTumor = async (patientId, tumorId) => {
     await Patient.findByIdAndUpdate(patientId, {$pull: {'history.tumor': tumorId}}).exec();
 };
 
+async function paginateThroughTumors(page = 1, limit = 10) {
+    return await Tumor.paginate({}, {page, limit});
+}
+
 module.exports = {
     getAllTumors,
     addNewTumor,
     getAllTumorsForPatient,
     deleteTumor,
-    updateTumorInfo
+    updateTumorInfo,
+    paginateThroughTumors
 }

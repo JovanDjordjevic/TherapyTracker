@@ -2,8 +2,11 @@ const patientsService = require('../services/patients');
 
 const getAllPatients = async (req, res, next) => {
     try {
-        const allPatients = await patientsService.getAllPatients();
+        // const allPatients = await patientsService.getAllPatients();
+        // res.status(200).json(allPatients);
+        const allPatients = await patientsService.paginateThroughPatients();
         res.status(200).json(allPatients);
+
     } catch (error) {
         next(error);
     }
@@ -63,15 +66,29 @@ const addNewPatient = async (req, res, next) => {
 };
 
 const updatePatientInfo = async (req, res, next) => {
-    const { _id, date, index, _biopsyIds, _tumorIds, _therapiyIds,
-        isClinicalStateSet, tStage, nStage, mStage, tnmStage, clinicalStage,
-        jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
-        address, city, contact, email, tumorDateDiagnosis, familyAnamnesis} = req.body.patient
+    const { _id, date, index, isClinicalStateSet, tStage, nStage, mStage, tnmStage,
+        clinicalStage, jmbg, name, parentName, surname, yearOfBirth, gender,
+        menopause, address, city, contact, email, tumorDateDiagnosis, familyAnamnesis} = req.body.patient
 
-    // provere...
+    try{
+        if (_id == undefined || jmbg == undefined || name == undefined || parentName == undefined || surname == undefined || 
+            yearOfBirth == undefined || gender == undefined || menopause  == undefined || 
+            city == undefined || contact == undefined || familyAnamnesis == undefined
+        ) {
+            const error = new Error('Check input data!');
+            error.status = 400;
+            throw error;
+        }
 
-    // const updatedPatient = await patientService.updatePatientInfo( ... )
-    // res.status(201).json(updatedPatient)
+        const updatedPatient = await patientsService.updatePatientInfo(
+            _id, date, index, isClinicalStateSet, tStage, nStage, mStage, tnmStage,
+            clinicalStage, jmbg, name, parentName, surname, yearOfBirth, gender,
+            menopause, address, city, contact, email, tumorDateDiagnosis, familyAnamnesis
+        ); 
+        res.status(201).json(updatedPatient);
+    } catch (error) {
+        next(error);
+    }
 };
 
 // TODO: da li je mozda bolje da se brisu na osnovu mongo _id ?

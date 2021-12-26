@@ -64,18 +64,21 @@ const patientsSchema = new mongoose.Schema({
             default: false
         },
         clinicalState: {
-            T_stage: {
+            tStage: {
                 type: mongoose.Schema.Types.String,
                 enum: ["1", "1a", "1b", "1c", "2", "3",
                        "4", "4a", "4b", "4c", "4d"]
             },
-            N_stage: {
+            nStage: {
                 type: mongoose.Schema.Types.Number,
                 enum: [0, 1, 2, 3],
             },
-            M_stage: {
+            mStage: {
                 type: mongoose.Schema.Types.Number,
                 enum: [0, 1],
+            },
+            tnmStage: {
+                type: mongoose.Schema.Types.String,
             },
             clinicalStage: {
                 type: mongoose.Schema.Types.String,

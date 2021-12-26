@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const tumorSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -64,6 +65,8 @@ const tumorSchema = new mongoose.Schema({
         ref: "patients",
     }
 });
+
+tumorSchema.plugin(mongoosePaginate);
 
 const tumorModel = mongoose.model('tumor', tumorSchema);
 
