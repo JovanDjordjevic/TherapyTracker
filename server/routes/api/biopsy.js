@@ -5,11 +5,12 @@ const biopsyController = require('../../controllers/biopsy');
 const router = express.Router();
 
 router.get('/', biopsyController.getAllBiopsies);
-router.get('/:name', biopsyController.getAllBiopsiesForPatient);
+router.get('/getBiopsiesForPatient', biopsyController.getAllBiopsiesForPatient);
 
-router.post('/', biopsyController.addNewBiopsy);
+router.post('/', biopsyController.addNewBiopsyForPatient);
 
-router.delete('/', biopsyController.deleteBiopsy);
+router.put('/', biopsyController.updateBiopsyInfo);
 
+router.delete('/:patientId/:biopsyId/', biopsyController.deleteBiopsy);
 
 module.exports = router;

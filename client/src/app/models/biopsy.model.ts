@@ -24,37 +24,34 @@ export enum BiopsyHistotype {
 }
 
 export class Biopsy {
-    public date : Date;
-    public side : BiopsySide;
-    public comment : string;
+    public _id : string = '';
 
-    public biopsyTypeLeft : BiopsyType;
-    public numLeft : string;   // string posto se trazi u obliku  broj/godina (?)
-    public histotypeLeft : BiopsyHistotype;
-    public multifocalityLeft : string;  // jer hoce da bude broj ili podrazumevano 'ne'
-
-    public biopsyTypeRight : BiopsyType;
-    public numRight : string;   
-    public histotypeRight : BiopsyHistotype;
-    public multifocalityRight : string;  
-
-    constructor(date : Date, side : BiopsySide, 
-        biopsyTypeLeft : BiopsyType, numLeft : string, histotypeLeft : BiopsyHistotype, multifocalityLeft : string,
-        biopsyTypeRight : BiopsyType, numRight : string, histotypeRight : BiopsyHistotype, multifocalityRight : string,
-        comment : string) {
-        this.date = date
-        this.side = side;
-        this.comment = comment;
-        
-        this.biopsyTypeLeft = biopsyTypeLeft;
-        this.numLeft = numLeft;
-        this.histotypeLeft = histotypeLeft;
-        this.multifocalityLeft = multifocalityLeft;
-        
-        this.biopsyTypeRight = biopsyTypeRight;
-        this.numRight = numRight;
-        this.histotypeRight = histotypeRight;
-        this.multifocalityRight = multifocalityRight;
-    }
-  }
+    // numLeft i numRight string jer hoce u obliku broj/godina (?) 
+    // multifocalityLeft i multifocalityRight isto string jer hoce da bude broj ili 'ne' (?)
+    constructor(
+        public date : Date,
+        public side : BiopsySide,
+        public biopsyTypeLeft : BiopsyType,
+        public numLeft : string, 
+        public histotypeLeft : BiopsyHistotype,
+        public multifocalityLeft : string,
+        public biopsyTypeRight : BiopsyType,
+        public numRight : string,   
+        public histotypeRight : BiopsyHistotype,
+        public multifocalityRight : string,  
+        public comment : string,
+    ) {}
+}
   
+export interface BiopsyPagination {
+    docs: Biopsy[],
+    totalDocs: number,
+    limit: number,
+    totalPages: number,
+    page: number,
+    pagingCounter: number,
+    hasPrevPage: boolean,
+    hasNextPage: boolean,
+    prevPage: number | null,
+    nextPage: number | null,
+  };

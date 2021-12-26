@@ -1,16 +1,16 @@
 const express = require('express');
 const {json, urlencoded} = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const patientAPI = require('./routes/api/patient');
 const biopsyAPI = require('./routes/api/biopsy');
-const historyAPI = require('./routes/api/history');
 const tumorAPI = require('./routes/api/tumor');
 const therapyAPI = require('./routes/api/therapy');
 
 const app = express();
 
-const databaseString = 'mongodb://localhost:27017/patients';
+const databaseString = 'mongodb://localhost:27017/TherapyTracker';
 
 mongoose.connect(databaseString, {
   useNewUrlParser: true,
@@ -27,9 +27,10 @@ mongoose.connection.on('error', (error) => {
 
 app.use(json());
 
+app.use(cors());
+
 app.use('/api/patient', patientAPI);
 app.use('/api/biopsy', biopsyAPI);
-app.use('/api/history', historyAPI);
 app.use('/api/tumor', tumorAPI);
 app.use('/api/therapy', therapyAPI);
 
