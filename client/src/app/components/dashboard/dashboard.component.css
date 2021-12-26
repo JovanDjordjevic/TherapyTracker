@@ -16,7 +16,7 @@
 }
 
 .content {
-  height: 80%;
+  height: fit-content;
   margin: -40px 40px 0px 40px;
   background: white;
   border-radius: 15px;

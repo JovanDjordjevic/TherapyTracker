@@ -1,4 +1,4 @@
-<form class="ui form" [formGroup]="biopsyForm" (ngSubmit)="onBiopsyFormSubmit()">
+<form class="ui mini form" [formGroup]="biopsyForm" (ngSubmit)="onBiopsyFormSubmit()">
   <div class="ui required fluid field">
     <label>Datum</label>
     <input type="date" formControlName="date" />
@@ -10,21 +10,22 @@
   <div class="required inline-grouped fields">
     <div class="field">
       <div class="ui radio checkbox">
-        <input type="radio" [value]="BiopsySideEnum.Left" formControlName="side" (change)="leftSideChecked()"/>
+        <input type="radio" [value]="BiopsySideEnum.Left" formControlName="side" (change)="leftSideChecked()"
+          checked="checked">
         <label>{{ BiopsySideEnum.Left }}</label>
       </div>
     </div>
 
     <div class="field">
       <div class="ui radio checkbox">
-        <input type="radio" [value]="BiopsySideEnum.Right" formControlName="side" (change)="rightSideChecked()"/>
+        <input type="radio" [value]="BiopsySideEnum.Right" formControlName="side" (change)="rightSideChecked()" />
         <label>{{ BiopsySideEnum.Right }}</label>
       </div>
     </div>
 
     <div class="field">
       <div class="ui radio checkbox">
-        <input type="radio" [value]="BiopsySideEnum.Both" formControlName="side" (change)="bothSidesChecked()"/>
+        <input type="radio" [value]="BiopsySideEnum.Both" formControlName="side" (change)="bothSidesChecked()" />
         <label>{{ BiopsySideEnum.Both }}</label>
       </div>
     </div>
@@ -32,7 +33,7 @@
 
   <br>
 
-  <div class="ui two column grid">
+  <div class="ui stackable two column grid">
     <!-- levi i desni deo formulara-->
     <div class="ui field column" [ngClass]="{disabled: this.leftFormDisabled}">
       <!-- levi -->
@@ -62,7 +63,7 @@
 
       <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled}">
         <label>Broj</label>
-        <input type="text" formControlName="numLeft"/>
+        <input type="text" formControlName="numLeft" />
       </div>
 
       <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled}">
@@ -80,7 +81,7 @@
           <option value="BiopsyHistotypeEnum.Type9">{{ BiopsyHistotypeEnum.Type9 }}</option>
         </select>
       </div>
-      
+
       <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled}">
         <label>Multifokalnost</label>
         <input type="text" value="ne" formControlName="multifocalityLeft" />
@@ -140,7 +141,7 @@
 
       <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled}">
         <label>Multifokalnost</label>
-        <input type="text" value="ne" formControlName="multifocalityRight"/>
+        <input type="text" value="ne" formControlName="multifocalityRight" />
       </div>
     </div>
   </div>

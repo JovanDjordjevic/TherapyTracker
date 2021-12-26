@@ -19,6 +19,8 @@ import { PatientTabComponent } from './components/patient-tab/patient-tab.compon
 import { BiopsyTabComponent } from './components/biopsy-tab/biopsy-tab.component';
 import { TreatmentTabComponent } from './components/treatment-tab/treatment-tab.component';
 import { TumorTabComponent } from './components/tumor-tab/tumor-tab.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { BiopsyListComponent } from './components/biopsy-list/biopsy-list.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { TumorTabComponent } from './components/tumor-tab/tumor-tab.component';
     PatientTabComponent,
     BiopsyTabComponent,
     TreatmentTabComponent,
-    TumorTabComponent
+    TumorTabComponent,
+    TabsComponent,
+    BiopsyListComponent
   ],
   imports: [
     BrowserModule,

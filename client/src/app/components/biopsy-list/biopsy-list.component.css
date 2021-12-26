@@ -5,19 +5,20 @@ tbody {
 }
 
 .ui.table {
-  height: 600px;
-  border-top: 1px solid;
-  border-color: var(--javat);
+  height: 400px;
   overflow: hidden;
   padding: 0px;
 }
 
-thead {
+thead,
+tr {
   display: table;
   width: 100%;
   table-layout: fixed;
-  padding-right: 10px;
-  border-bottom: 0.1px solid var(--delta);
+}
+
+thead {
+  padding-right: 5px;
   background-color: rgb(226, 226, 226);
 }
 
@@ -29,10 +30,18 @@ thead tr th {
   background: #f1f1f1;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
 ::-webkit-scrollbar-thumb {
   background: var(--javat);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--java);
+}
+
+tr:hover {
+  background-color: var(--swans-down);
 }
