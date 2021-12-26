@@ -5,5 +5,46 @@ i {
 
 .ui.definition.table tr td.definition,
 .ui.definition.table tr td:first-child:not(.ignored) {
-  background: #f3f3f3;
+  background: white;
+  color: rgba(0, 0, 0, 0.6);
+  text-shadow: 0.3px 0.3px #8f9494;
+  border: 1px solid #8f9494b9;
+}
+
+.ui.table {
+  border-collapse: collapse;
+}
+
+.ui.grid > .column:not(.row) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#anamneza button {
+  padding: 0px;
+  border: none;
+  background: none;
+  color: var(--java);
+}
+
+.showText {
+  word-wrap: break-word;
+}
+
+.showText button {
+  display: none;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.ui.button {
+  margin: 5px;
+  border: 1px solid #15bec6;
+  background: none;
 }
