@@ -1,10 +1,13 @@
 const patientsService = require('../services/patients');
 
 const getAllPatients = async (req, res, next) => {
+    const page = req.query.page;
+    const limit = req.query.limit;
+
     try {
         // const allPatients = await patientsService.getAllPatients();
         // res.status(200).json(allPatients);
-        const allPatients = await patientsService.paginateThroughPatients();
+        const allPatients = await patientsService.paginateThroughPatients(page, limit);
         res.status(200).json(allPatients);
 
     } catch (error) {

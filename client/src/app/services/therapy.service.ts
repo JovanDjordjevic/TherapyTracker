@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Therapy } from '../models/therapy.model';
+import { map, Observable } from 'rxjs';
+import { Therapy, TherapyPagination } from '../models/therapy.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +17,18 @@ export class TherapyService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllTherapies() : Observable<Therapy[]>{
-    const obs: Observable<Therapy[]> = this.http.get<Therapy[]>(this.urls.getAllTherapies, {});
+  public getAllTherapies(page : number = 1, limit: number = 20) : Observable<Therapy[]>{
+    const params: HttpParams = new HttpParams().append('page', page).append('limit', limit);
+    const obs: Observable<Therapy[]> = this.http.get<TherapyPagination>(this.urls.getAllTherapies, {params})
+                                                .pipe( map( (pagination : TherapyPagination) => {return pagination.docs}) );
     //obs.subscribe((data : Therapy[])=>console.log(data));
     return obs;
   }
   
-  public getAllTherapiesForPatient(patientId : string) : Observable<Therapy[]>{
-    const params: HttpParams = new HttpParams().append('_id', patientId)
-    const obs: Observable<Therapy[]> = this.http.get<Therapy[]>(this.urls.getAllTherapiesForPatient, {params: params});
+  public getAllTherapiesForPatient(patientId : string, page : number = 1, limit: number = 20) : Observable<Therapy[]>{
+    const params: HttpParams = new HttpParams().append('_id', patientId).append('page', page).append('limit', limit);
+    const obs: Observable<Therapy[]> = this.http.get<TherapyPagination>(this.urls.getAllTherapiesForPatient, {params: params})
+                                                .pipe( map( (pagination : TherapyPagination) => {return pagination.docs}) );
     //obs.subscribe((data)=>console.log(data));
     return obs;
   }

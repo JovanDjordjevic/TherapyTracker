@@ -7,7 +7,7 @@ const getAllTherapies = async () => {
     return therapy;
 };
 
-const getAllTherapiesForPatient = async (patientId, page, limit) => {
+const getAllTherapiesForPatient = async (patientId, page=1, limit=20) => {
     // const patient = await Patient.findById(patientId).populate("history.therapy");
     // return patient.history.therapy;
     return await Therapy.paginate({patient: patientId}, {page, limit});
@@ -65,7 +65,7 @@ const deleteTherapy = async (patientId, tumorId) => {
     await Patient.findByIdAndUpdate(patientId, {$pull: {'history.biopsies': tumorId}}).exec();
 };
 
-async function paginateThroughTherapies(page = 1, limit = 10) {
+async function paginateThroughTherapies(page = 1, limit = 20) {
     return await Therapy.paginate({}, {page, limit});
 }
 

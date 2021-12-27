@@ -1,9 +1,11 @@
 const tumorService = require('../services/tumor');
 
 const getAllTumors = async (req, res, next) => {
+    const page = req.query.page;
+    const limit = req.query.limit;
     //console.log('getAllTumors');
     try {
-        const tumors = await tumorService.paginateThroughTumors();
+        const tumors = await tumorService.paginateThroughTumors(page, limit);
         res.status(200).json(tumors);
     } catch (error) {
         next(error);
@@ -12,10 +14,12 @@ const getAllTumors = async (req, res, next) => {
 
 const getAllTumorsForPatient = async (req, res, next) => {
     const patientId = req.query._id;
+    const page = req.query.page;
+    const limit = req.query.limit;
     //console.log(patientId);
 
     try {
-        const tumors = await tumorService.getAllTumorsForPatient(patientId);
+        const tumors = await tumorService.getAllTumorsForPatient(patientId, page,);
         res.status(200).json(tumors);
     } catch (error) {
         next(error);

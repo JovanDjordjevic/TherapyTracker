@@ -1,11 +1,13 @@
 const biopsyService = require('../services/biopsy');
 
 const getAllBiopsies = async (req, res, next) => {
+    const page = req.query.page;
+    const limit = req.query.limit;
     //console.log("get all biopsies");
 
     try {
         //const biopsies = await biopsyService.getAllBiopsies();
-        const biopsies = await biopsyService.paginateThroughBiopsies();
+        const biopsies = await biopsyService.paginateThroughBiopsies(page, limit);
         res.status(200).json(biopsies);
     } catch (error) {
         next(error);
@@ -14,10 +16,12 @@ const getAllBiopsies = async (req, res, next) => {
 
 const getAllBiopsiesForPatient = async (req, res, next) => {
     const patientId = req.query._id;
-    //console.log(patientId);
+    const page = req.query.page;
+    const limit = req.query.limit;
+    //console.log(patientId, page, limit);
 
     try {
-        const biopsies = await biopsyService.getAllBiopsiesForPatient(patientId);
+        const biopsies = await biopsyService.getAllBiopsiesForPatient(patientId, page, limit);
         res.status(200).json(biopsies);
     } catch (error) {
         next(error);

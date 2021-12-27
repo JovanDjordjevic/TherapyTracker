@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first, Observable } from 'rxjs';
-import { Patient } from '../models/patient.model';
+import { first, map, Observable } from 'rxjs';
+import { Patient, PatientPagination } from '../models/patient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +20,12 @@ export class PatientService {
 
   // NOTE TO SELF: request ce da prodje lepo tek kada se u nekoj komponenti subscribuje na observable objekat
 
-  public getAllPatients() : Observable<Patient[]>{
-    const obs: Observable<Patient[]> = this.http.get<Patient[]>(this.urls.getAllPatients, {});
-    //obs.subscribe((data)=>{console.log("All", data)});      // for testing
-    return obs;
+  public getAllPatients(page : number = 1, limit: number = 20) : Observable<Patient[]>{
+    const params: HttpParams = new HttpParams().append('page', page).append('limit', limit);
+    const obs: Observable<Patient[]> = this.http.get<PatientPagination>(this.urls.getAllPatients, {params})
+                                                .pipe( map( (pagination : PatientPagination) => {return pagination.docs}) );
+    //obs.subscribe((data)=>{console.log(data)});      // for testing
+    return obs
   }
 
   // Patient[] jer moze da se desi da ih ima vise sa istim imenom 

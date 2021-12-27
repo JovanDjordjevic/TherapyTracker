@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Biopsy } from '../models/biopsy.model';
+import { map, Observable } from 'rxjs';
+import { Biopsy, BiopsyPagination } from '../models/biopsy.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,18 @@ export class BiopsyService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllBiopsies() : Observable<Biopsy[]>{
-    const obs: Observable<Biopsy[]> = this.http.get<Biopsy[]>(this.urls.getAllBiopsies, {});
-    //obs.subscribe((data : Biopsy[])=>console.log(data));
+  public getAllBiopsies(page : number = 1, limit: number = 20) : Observable<Biopsy[]>{
+    const params: HttpParams = new HttpParams().append('page', page).append('limit', limit);
+    const obs: Observable<Biopsy[]> = this.http.get<BiopsyPagination>(this.urls.getAllBiopsies, {params})
+                                               .pipe( map( (pagination : BiopsyPagination) => {return pagination.docs}) );
+    //obs.subscribe((data)=>console.log(data));
     return obs;
   }
   
-  public getAllBiopsiesForPatient(patientId : string) : Observable<Biopsy[]>{
-    const params: HttpParams = new HttpParams().append('_id', patientId)
-    const obs: Observable<Biopsy[]> = this.http.get<Biopsy[]>(this.urls.getAllBiopsiesForPatient, {params: params});
+  public getAllBiopsiesForPatient(patientId : string, page : number = 1, limit: number = 20) : Observable<Biopsy[]>{
+    const params: HttpParams = new HttpParams().append('_id', patientId).append('page', page).append('limit', limit);
+    const obs: Observable<Biopsy[]> = this.http.get<BiopsyPagination>(this.urls.getAllBiopsiesForPatient, {params: params})
+                                               .pipe( map( (pagination : BiopsyPagination) => {return pagination.docs}) );
     //obs.subscribe((data)=>console.log(data));
     return obs;
   }

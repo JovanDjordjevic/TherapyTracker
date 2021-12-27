@@ -1,9 +1,11 @@
 const therapyService = require('../services/therapy');
 
 const getAllTherapies = async (req, res, next) => {
+    const page = req.query.page;
+    const limit = req.query.limit;
     //console.log('getAllTherapies');
     try {
-        const therapies = await therapyService.paginateThroughTherapies();
+        const therapies = await therapyService.paginateThroughTherapies(page, limit);
         res.status(200).json(therapies);
     } catch (error) {
         next(error);
@@ -12,10 +14,12 @@ const getAllTherapies = async (req, res, next) => {
 
 const getAllTherapiesForPatient = async (req, res, next) => {
     const patientId = req.query._id;
+    const page = req.query.page;
+    const limit = req.query.limit;
     //console.log(patientId);
 
     try {
-        const therapies = await therapyService.getAllTherapiesForPatient(patientId);
+        const therapies = await therapyService.getAllTherapiesForPatient(patientId, page, limit);
         res.status(200).json(therapies);
     } catch (error) {
         next(error);

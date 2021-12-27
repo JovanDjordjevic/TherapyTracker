@@ -7,7 +7,7 @@ const getAllTumors = async () => {
     return tumor;
 };
 
-const getAllTumorsForPatient = async (patientId, page=1, limit=10) => {
+const getAllTumorsForPatient = async (patientId, page=1, limit=20) => {
     // const patient = await Patient.findById(patientId).populate("history.tumor");
     // return patient.history.tumor;
 
@@ -78,7 +78,7 @@ const deleteTumor = async (patientId, tumorId) => {
     await Patient.findByIdAndUpdate(patientId, {$pull: {'history.tumor': tumorId}}).exec();
 };
 
-async function paginateThroughTumors(page = 1, limit = 10) {
+async function paginateThroughTumors(page = 1, limit = 20) {
     return await Tumor.paginate({}, {page, limit});
 }
 
