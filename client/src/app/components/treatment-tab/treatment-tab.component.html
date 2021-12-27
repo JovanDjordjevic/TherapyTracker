@@ -1,64 +1,42 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column">
+      <app-therapy-form *ngIf="showTherapyForm"></app-therapy-form>
+      <app-patient-info *ngIf="showPatientInfo"></app-patient-info>
+    </div>
+    <div class="column">
       <table class="ui mini definition table">
         <tbody>
           <tr>
-            <td class="six wide column">Ime</td>
+            <td class="six wide column">Broj ciklusa</td>
             <td></td>
           </tr>
           <tr>
-            <td>Prezime</td>
+            <td>Tip terapije</td>
             <td></td>
           </tr>
           <tr>
-            <td>Ime roditelja</td>
+            <td>Taxol</td>
             <td></td>
           </tr>
           <tr>
-            <td>JMBG</td>
+            <td>TXTR</td>
             <td></td>
           </tr>
           <tr>
-            <td>Godina rodjenja</td>
+            <td>Terapija herceptinom</td>
             <td></td>
           </tr>
           <tr>
-            <td>Pol</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Adresa boravka</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Grad</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kontakt telefon</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Datum dijagnostikovanja tumora</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Porodicna anamneza</td>
+            <td>Komentar</td>
             <td></td>
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="column">
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
+      <div class="buttons">
+        <button class="ui button" (click)="onShowBiopsyForm()">{{showPatientInfo ? 'Unesi podatke o terapiji' : 'Prikazi
+          informacije o pacijentu'}}</button>
+      </div>
     </div>
   </div>
   <div class="ui vertical divider">

@@ -12,9 +12,3 @@
 .showText button {
   display: none;
 }
-
-.ui.definition.table tr td.definition,
-.ui.definition.table tr td:first-child:not(.ignored) {
-  background: #e3e3e3c2;
-  color: rgba(0, 0, 0, 0.6);
-}

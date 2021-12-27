@@ -1,64 +1,49 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column">
+      <app-tumor-form *ngIf="showTumorForm"></app-tumor-form>
+      <app-patient-info *ngIf="showPatientInfo"></app-patient-info>
+    </div>
+    <div class="column">
       <table class="ui mini definition table">
         <tbody>
           <tr>
-            <td class="six wide column">Ime</td>
+            <td class="six wide column">Gradus</td>
             <td></td>
           </tr>
           <tr>
-            <td>Prezime</td>
+            <td>Er</td>
+            <td>skor / skor% / status</td>
+          </tr>
+          <tr>
+            <td>Pgr</td>
+            <td>skor / skor% / status</td>
+          </tr>
+          <tr>
+            <td>Her2 INC</td>
             <td></td>
           </tr>
           <tr>
-            <td>Ime roditelja</td>
+            <td>Her2 INC%</td>
             <td></td>
           </tr>
           <tr>
-            <td>JMBG</td>
+            <td>Her2 FISH-SICH</td>
             <td></td>
           </tr>
           <tr>
-            <td>Godina rodjenja</td>
+            <td>Ki67</td>
             <td></td>
           </tr>
           <tr>
-            <td>Pol</td>
+            <td>Molekularni tip</td>
             <td></td>
           </tr>
-          <tr>
-            <td>Adresa boravka</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Grad</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Kontakt telefon</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Datum dijagnostikovanja tumora</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Porodicna anamneza</td>
-            <td></td>
-          </tr>
+
         </tbody>
       </table>
-    </div>
-    <div class="column">
-      <p></p>
-      <p></p>
-      <p></p>
-      <p></p>
+      <button class="ui button" (click)="onShowTumorForm()">{{showPatientInfo ? 'Unesi podatke o tumoru' : 'Prikazi
+        informacije o pacijentu'}}</button>
     </div>
   </div>
   <div class="ui vertical divider">
