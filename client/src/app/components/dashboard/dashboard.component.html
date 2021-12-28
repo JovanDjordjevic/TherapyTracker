@@ -1,10 +1,12 @@
 <div class="dashboard">
   <div class="header">
+    <button class="ui button" (click)="onNewPatient()">Dodaj novog pacijenta</button>
   </div>
   <div class="colored-header">
     <h1>Dashboard</h1>
   </div>
   <div class="content">
-    <app-tabs></app-tabs>
+    <app-patient-form *ngIf="displayPatientForm" (onDisplayPatientForm)="setShowPatientForm($event)"></app-patient-form>
+    <app-patient-list *ngIf="!displayPatientForm"></app-patient-list>
   </div>
 </div>

@@ -28,7 +28,7 @@
 
 .ui.button {
   margin: 20px 0px 0px 50px;
-  background: var(--blizzard-blue);
+  /*   background: var(--blizzard-blue);
   color: var(--black);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.5px; */
 }
