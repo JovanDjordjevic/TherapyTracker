@@ -8,20 +8,6 @@
     </tr>
   </thead>
   <tbody>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
-    <app-patient></app-patient>
+    <app-patient *ngFor="let patient of patients | async" [patient]="patient"></app-patient>
   </tbody>
 </table>

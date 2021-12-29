@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Patient } from '../../models/patient.model';
 
 declare const $: any;
 
@@ -8,6 +10,8 @@ declare const $: any;
   styleUrls: ['./patient-list.component.css'],
 })
 export class PatientListComponent implements OnInit {
+  @Input() patients: Observable<Patient[]> = {} as Observable<Patient[]>;
+
   constructor() {}
 
   ngOnInit(): void {

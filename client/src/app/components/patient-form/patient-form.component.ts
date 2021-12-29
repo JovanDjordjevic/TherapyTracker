@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ValidationErrors,
+} from '@angular/forms';
 import { Patient } from 'src/app/models/patient.model';
 import { Gender, Menopause } from 'src/app/models/patient.model';
 import { Output, EventEmitter } from '@angular/core';
+import { PatientService } from '../../services/patient-service.service';
 
 declare const $: any;
 
@@ -18,7 +24,10 @@ export class PatientFormComponent implements OnInit {
   Menopause = Menopause;
   @Output() onDisplayPatientForm = new EventEmitter<boolean>();
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private patientService: PatientService
+  ) {
     this.patientForm = this.formBuilder.group({
       jmbg: ['', [Validators.required]],
       name: ['', [Validators.required]],
@@ -41,6 +50,32 @@ export class PatientFormComponent implements OnInit {
   onPatientFormSubmit() {
     //console.log(this.patientForm);
     this.onDisplayPatientForm.emit(false);
+    const data = this.patientForm.value;
+
+    const newPatient = new Patient(
+      data.jmbg,
+      data.name,
+      data.parentName,
+      data.surname,
+      data.yearOfBirth,
+      data.gender,
+      data.menopause,
+      data.address,
+      data.city,
+      data.contact,
+      data.email,
+      data.tumorDateDiagnosis,
+      data.familyAnamnesis
+    );
+
+    if (data.gender == Gender.Male) newPatient.menopause = Menopause.None;
+
+    this.patientService.insertPatientInDB(newPatient);
+
+    console.log(newPatient);
+    this.patientService
+      .getAllPatients(1)
+      .subscribe((data) => console.log(data));
   }
 
   onFemaleChecked() {
@@ -49,5 +84,11 @@ export class PatientFormComponent implements OnInit {
 
   onMaleChecked() {
     this.shouldDisplayMenopauseForm = false;
+  }
+
+  nameHasErrors(): boolean {
+    const errors: ValidationErrors | undefined | null =
+      this.patientForm.get('name')?.errors;
+    return errors !== null;
   }
 }

@@ -6,7 +6,7 @@
     </div>
 
     <div class="required inline-grouped fields">
-      <div class="five wide field">
+      <div class="five wide field" [ngClass]="{error: nameHasErrors()}">
         <label>Ime</label>
         <input type="text" formControlName="name">
       </div>
