@@ -21,6 +21,7 @@ import { TreatmentTabComponent } from './components/treatment-tab/treatment-tab.
 import { TumorTabComponent } from './components/tumor-tab/tumor-tab.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { BiopsyListComponent } from './components/biopsy-list/biopsy-list.component';
+import { ClinicalStateFormComponent } from './components/clinical-state-form/clinical-state-form.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { BiopsyListComponent } from './components/biopsy-list/biopsy-list.compon
     TreatmentTabComponent,
     TumorTabComponent,
     TabsComponent,
-    BiopsyListComponent
+    BiopsyListComponent,
+    ClinicalStateFormComponent
   ],
   imports: [
     BrowserModule,
