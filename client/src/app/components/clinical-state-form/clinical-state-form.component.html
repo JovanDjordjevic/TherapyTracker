@@ -1,0 +1,57 @@
+<form class="ui form" [formGroup]="clinicalStateForm" (ngSubmit)="onClinicalStateFormSubmit()">
+
+    <div class="ui required fluid field">
+        <label>TStage</label>
+        <select formControlName="tStage" class="ui fluid search selection dropdown" (change)="setTnmStage()">
+          <option [value]="TStageEnum.Type0">{{ TStageEnum.Type0 }}</option>
+          <option [value]="TStageEnum.Type1">{{ TStageEnum.Type1 }}</option>
+          <option [value]="TStageEnum.Type2">{{ TStageEnum.Type2 }}</option>
+          <option [value]="TStageEnum.Type3">{{ TStageEnum.Type3 }}</option>
+          <option [value]="TStageEnum.Type4">{{ TStageEnum.Type4 }}</option>
+          <option [value]="TStageEnum.Type5">{{ TStageEnum.Type5 }}</option>
+          <option [value]="TStageEnum.Type6">{{ TStageEnum.Type6 }}</option>
+          <option [value]="TStageEnum.Type7">{{ TStageEnum.Type7 }}</option>
+          <option [value]="TStageEnum.Type8">{{ TStageEnum.Type8 }}</option>
+          <option [value]="TStageEnum.Type9">{{ TStageEnum.Type9 }}</option>
+          <option [value]="TStageEnum.Type10">{{ TStageEnum.Type10 }}</option>
+        </select>
+    </div>
+    
+
+    <div class="ui required fluid field">
+        <label>NStage</label>
+        <select formControlName="nStage" class="ui fluid search selection dropdown" (change)="setTnmStage()">
+          <option [value]="NStageEnum.Type0">{{ NStageEnum.Type0 }}</option>
+          <option [value]="NStageEnum.Type1">{{ NStageEnum.Type1 }}</option>
+          <option [value]="NStageEnum.Type2">{{ NStageEnum.Type2 }}</option>
+          <option [value]="NStageEnum.Type3">{{ NStageEnum.Type3 }}</option>
+        </select>
+    </div>
+
+    <div class="ui required fluid field">
+        <label>MStage</label>
+        <select formControlName="mStage" class="ui fluid search selection dropdown" (change)="setTnmStage()">
+          <option [value]="MStageEnum.Type0">{{ MStageEnum.Type0 }}</option>
+          <option [value]="MStageEnum.Type1">{{ MStageEnum.Type1 }}</option>
+        </select>
+    </div>
+      
+    <div class="ui disabled fluid field column">
+        <label>TNM</label>
+        <input type="text" formControlName="tnmStage"/>
+    </div>
+
+    <div class="ui required fluid field">
+        <label>Klinicki stadijum</label>
+        <select formControlName="clinicalStage" class="ui fluid search selection dropdown">
+          <option [value]="ClinicalStaegEnum.Type0">{{ ClinicalStaegEnum.Type0 }}</option>
+          <option [value]="ClinicalStaegEnum.Type1">{{ ClinicalStaegEnum.Type1 }}</option>
+          <option [value]="ClinicalStaegEnum.Type2">{{ ClinicalStaegEnum.Type2 }}</option>
+          <option [value]="ClinicalStaegEnum.Type3">{{ ClinicalStaegEnum.Type3 }}</option>
+          <option [value]="ClinicalStaegEnum.Type4">{{ ClinicalStaegEnum.Type4 }}</option>
+          <option [value]="ClinicalStaegEnum.Type5">{{ ClinicalStaegEnum.Type5 }}</option>
+        </select>
+    </div>
+  
+    <button class="ui fluid button" type="submit">Sacuvaj podatke</button>
+  </form>
