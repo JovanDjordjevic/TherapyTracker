@@ -27,7 +27,7 @@ const getPatientsByFullName = async (firstName, lastName) => {
 };
 
 const addNewPatient = async (
-    jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
+    date, index, jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
     address, city, contact, email, tumorDateDiagnosis, familyAnamnesis
 ) => {
 
@@ -44,9 +44,17 @@ const addNewPatient = async (
         throw error;
     }
 
+    if(gender === "z" && menopause === 0){
+        const error = new Error('Zena mora imati menopauzu!');
+        error.status = 403;
+        throw error; 
+    }
+
 
     const newPatient = new Patient();
     newPatient._id = new mongoose.Types.ObjectId();
+    newPatient.history.date = date;
+    newPatient.history.index = index;
     newPatient.jmbg = jmbg;
     newPatient.name = name;
     newPatient.parentName = parentName;

@@ -1,4 +1,5 @@
 const patientsService = require('../services/patients');
+const counterService = require('../services/counter')
 
 const getAllPatients = async (req, res, next) => {
     const page = req.query.page;
@@ -45,11 +46,11 @@ const getPatientByName = async (req, res, next) => {
 const addNewPatient = async (req, res, next) => {
     //console.log(req.body.patient);
     const { jmbg, name, parentName, surname, yearOfBirth, gender, menopause, address,
-        city, contact, email, tumorDateDiagnosis, familyAnamnesis } = req.body.patient;
+        city, contact, email, tumorDateDiagnosis, familyAnamnesis} = req.body.patient;
 
     try {
         if (jmbg == undefined || name == undefined || parentName == undefined || surname == undefined || 
-            yearOfBirth == undefined || gender == undefined || menopause  == undefined || 
+            yearOfBirth == undefined || gender == undefined || menopause  == undefined ||
             city == undefined || contact == undefined || familyAnamnesis == undefined
         ) {
             const error = new Error('Check input data!');
@@ -57,9 +58,15 @@ const addNewPatient = async (req, res, next) => {
             throw error;
         }
 
+        await counterServices.checkCounter();
+        const historyIndex = await counterService.getHistoryIndex();
+
+        const date = new Date();
+        const index = historyIndex + '/' + date.getFullYear();
+
         const newPatient = await patientsService.addNewPatient(
-            jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
-            address,city, contact, email, tumorDateDiagnosis, familyAnamnesis
+            date, index, jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
+            address, city, contact, email, tumorDateDiagnosis, familyAnamnesis
         );
         res.status(201).json(newPatient);
     } catch (error) {
