@@ -7,7 +7,9 @@ export const MustBeNumber : ValidatorFn = (control: AbstractControl) : Validatio
 
     if (!data.match(new RegExp("^[0-9]+|[0-9]+.[0-9]+"))) {
         return {
-            message: "Polje mora sadrzati numericku vrednost!"
+            mustBeNumber: {
+                message: "Polje mora sadrzati numericku vrednost"
+            }
         };
     }
 
