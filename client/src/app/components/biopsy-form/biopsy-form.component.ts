@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   Biopsy,
@@ -6,6 +6,8 @@ import {
   BiopsySide,
   BiopsyHistotype,
 } from 'src/app/models/biopsy.model';
+import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
+import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import {
   BiopsyMultifocalityValidator,
   BiopsyNumberValidator,
@@ -27,9 +29,30 @@ export class BiopsyFormComponent implements OnInit {
   leftFormDisabled: boolean;
   rightFormDisabled: boolean;
 
-  constructor(private formBuilder: FormBuilder) {
+  @Input() patient: Patient;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private biopsyService: BiopsyService
+  ) {
     this.leftFormDisabled = false;
     this.rightFormDisabled = true;
+
+    this.patient = new Patient(
+      'aaa',
+      '',
+      '',
+      '',
+      0,
+      Gender.Female,
+      Menopause.None,
+      '',
+      '',
+      '',
+      '',
+      new Date(),
+      ''
+    );
 
     this.biopsyForm = this.formBuilder.group({
       date: ['', [Validators.required]],
@@ -53,6 +76,28 @@ export class BiopsyFormComponent implements OnInit {
 
   onBiopsyFormSubmit() {
     //console.log(this.biopsyForm);
+
+    const data = this.biopsyForm.value;
+
+    const newBiopsy = new Biopsy(
+      data.date,
+      data.side,
+      data.biopsyTypeLeft,
+      data.numLeft,
+      data.histotypeLeft,
+      data.multifocalityLeft,
+      data.biopsyTypeRight,
+      data.numRight,
+      data.histotypeRight,
+      data.multifocalityRight,
+      data.comment
+    );
+
+    console.log(this.patient._id);
+    this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
+      .subscribe;
+
+    this.biopsyService.getAllBiopsies(1).subscribe((data) => console.log(data));
   }
 
   leftSideChecked() {

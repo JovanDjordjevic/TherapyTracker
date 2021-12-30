@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 import { PatientService } from 'src/app/services/patient-service.service';
 
@@ -13,11 +13,13 @@ export class DashboardComponent implements OnInit {
   displayPatientHistory: boolean = false;
   displayPatientList: boolean = true;
 
-  patients: Observable<Patient[]>;
+  patients: Observable<Patient[]> = {} as Observable<Patient[]>;
   patient: Patient;
+  private sub: Subscription;
 
   constructor(private patientsService: PatientService) {
-    this.patients = this.patientsService.getAllPatients(1);
+    this.sub = this.patientsService.getAllPatients(1).subscribe();
+    //this.patients = this.patientsService.getAllPatients(1);
     this.patient = new Patient(
       'a',
       'a',
