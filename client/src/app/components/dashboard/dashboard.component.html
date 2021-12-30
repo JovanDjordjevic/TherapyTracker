@@ -6,9 +6,9 @@
     <h1>Dashboard</h1>
   </div>
   <div class="content">
-    <app-patient-form *ngIf="displayPatientForm" (onDisplayPatientForm)="setShowPatientForm()"></app-patient-form>
-    <app-patient-list *ngIf="displayPatientList" [patients]="patients" (selectPatient)="openHistory($event)">
-    </app-patient-list>
-    <app-tabs *ngIf="displayPatientHistory" [patient]="patient"></app-tabs>
+    <app-patient-form *ngIf="displayPatientForm" (onDisplayPatientForm)="setShowPatientForm()"> </app-patient-form>
+    <app-patient-list *ngIf="displayPatientList" [patients]="patients" (selectPatient)="openHistory()"> </app-patient-list>
+    <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
+    <app-tabs *ngIf="displayPatientHistory"> </app-tabs>
   </div>
 </div>

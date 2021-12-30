@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PatientService } from 'src/app/services/patient-service.service';
 import { Patient } from '../../models/patient.model';
 
 declare const $: any;
@@ -10,15 +11,21 @@ declare const $: any;
   styleUrls: ['./patient-list.component.css'],
 })
 export class PatientListComponent implements OnInit {
-  @Input() patients: Observable<Patient[]> = {} as Observable<Patient[]>;
+  @Input() patients: Patient[] = [];
 
-  @Output() selectPatient = new EventEmitter<Patient>();
+  @Output() selectPatient = new EventEmitter<void>();
 
+  constructor(private patientService : PatientService) {}
+
+  //openHistory(patient: Patient) {
   openHistory(patient: Patient) {
-    this.selectPatient.emit(patient);
+    // u ovom trenutku se postavlja pacijent globalno i ne mora da se radi input/output 
+    this.patientService.setCurrentPatient(patient);
+    // da li ovaj emit mora da ostane (?)
+    //this.selectPatient.emit(patient);
+    this.selectPatient.emit();
   }
 
-  constructor() {}
 
   ngOnInit(): void {
     // $('.sortable.table').tablesort(); implementirati sortiranje kolona

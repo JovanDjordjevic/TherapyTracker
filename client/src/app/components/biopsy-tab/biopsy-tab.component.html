@@ -1,8 +1,10 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column">
-      <app-biopsy-form *ngIf="showBiopsyForm" [patient]="patient"></app-biopsy-form>
-      <app-patient-info *ngIf="showPatientInfo" [patient]="patient"></app-patient-info>
+      <!-- <app-biopsy-form *ngIf="showBiopsyForm" [patient]="patient"></app-biopsy-form>
+      <app-patient-info *ngIf="showPatientInfo" [patient]="patient"></app-patient-info> -->
+      <app-biopsy-form *ngIf="showBiopsyForm"> </app-biopsy-form>
+      <app-patient-info *ngIf="showPatientInfo"> </app-patient-info>
     </div>
     <div class="column">
       <app-biopsy-list class="list" [biopsies]="biopsies"></app-biopsy-list>

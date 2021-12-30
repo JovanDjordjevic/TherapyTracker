@@ -9,7 +9,7 @@ import { Patient, Gender, Menopause } from 'src/app/models/patient.model';
   styleUrls: ['./biopsy-list.component.css'],
 })
 export class BiopsyListComponent implements OnInit {
-  @Input() biopsies: Observable<Biopsy[]> = {} as Observable<Biopsy[]>;
+  @Input() biopsies: Biopsy[] = [];
   @Output() selectBiopsy = new EventEmitter<Biopsy>();
 
   openBiopsy(biopsy: Biopsy) {

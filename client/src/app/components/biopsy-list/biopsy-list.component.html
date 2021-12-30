@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <app-biopsy (click)="openBiopsy(biopsy)" *ngFor="let biopsy of biopsies | async" [biopsy]="biopsy">
+    <app-biopsy (click)="openBiopsy(biopsy)" *ngFor="let biopsy of biopsies" [biopsy]="biopsy">
     </app-biopsy>
   </tbody>
 </table>

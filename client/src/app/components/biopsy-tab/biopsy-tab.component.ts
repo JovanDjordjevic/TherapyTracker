@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Patient, Gender, Menopause } from 'src/app/models/patient.model';
 import { Biopsy } from 'src/app/models/biopsy.model';
 import { Observable } from 'rxjs';
+import { PatientService } from 'src/app/services/patient-service.service';
 
 @Component({
   selector: 'app-biopsy-tab',
@@ -12,30 +13,18 @@ export class BiopsyTabComponent implements OnInit {
   showBiopsyForm: boolean = false;
   showPatientInfo: boolean = true;
 
-  @Input() patient: Patient;
-  @Input() biopsies: Observable<Biopsy[]> = {} as Observable<Biopsy[]>;
+  //@Input() patient: Patient;
+  patient : Patient;
+  @Input() biopsies: Biopsy[] = [];
 
   onShowBiopsyForm() {
     this.showBiopsyForm = !this.showBiopsyForm;
     this.showPatientInfo = !this.showPatientInfo;
   }
 
-  constructor() {
-    this.patient = new Patient(
-      'aaa',
-      '',
-      '',
-      '',
-      0,
-      Gender.Female,
-      Menopause.None,
-      '',
-      '',
-      '',
-      '',
-      new Date(),
-      ''
-    );
+  constructor(private patientService : PatientService) {
+    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  ); 
+    this.patient = this.patientService.getCurrentPatient();
   }
 
   ngOnInit(): void {}

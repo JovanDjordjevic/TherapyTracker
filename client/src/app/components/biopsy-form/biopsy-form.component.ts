@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import {
   Biopsy,
   BiopsyType,
@@ -8,6 +9,7 @@ import {
 } from 'src/app/models/biopsy.model';
 import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
+import { PatientService } from 'src/app/services/patient-service.service';
 import {
   BiopsyMultifocalityValidator,
   BiopsyNumberValidator,
@@ -20,40 +22,24 @@ declare const $: any;
   templateUrl: './biopsy-form.component.html',
   styleUrls: ['./biopsy-form.component.css'],
 })
-export class BiopsyFormComponent implements OnInit {
+export class BiopsyFormComponent implements OnInit, OnDestroy {
   biopsyForm: FormGroup;
   BiopsyTypeEnum = BiopsyType;
   BiopsySideEnum = BiopsySide;
   BiopsyHistotypeEnum = BiopsyHistotype;
 
-  leftFormDisabled: boolean;
-  rightFormDisabled: boolean;
+  leftFormDisabled: boolean = false;
+  rightFormDisabled: boolean = false;
 
-  @Input() patient: Patient;
+  //@Input() patient: Patient;
+  patient: Patient;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private biopsyService: BiopsyService
-  ) {
-    this.leftFormDisabled = false;
-    this.rightFormDisabled = true;
+  sub : Subscription = new Subscription();
 
-    this.patient = new Patient(
-      'aaa',
-      '',
-      '',
-      '',
-      0,
-      Gender.Female,
-      Menopause.None,
-      '',
-      '',
-      '',
-      '',
-      new Date(),
-      ''
-    );
-
+  constructor(private formBuilder: FormBuilder, private patientService : PatientService, private biopsyService: BiopsyService) {
+    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  ); 
+    this.patient = this.patientService.getCurrentPatient();
+  
     this.biopsyForm = this.formBuilder.group({
       date: ['', [Validators.required]],
       side: ['', [Validators.required]],
@@ -72,6 +58,10 @@ export class BiopsyFormComponent implements OnInit {
   ngOnInit(): void {
     $('.ui.checkbox').checkbox();
     $('.ui.radio.checkbox').checkbox();
+  }
+
+  ngOnDestroy(): void {
+      this.sub.unsubscribe();
   }
 
   onBiopsyFormSubmit() {
@@ -93,11 +83,13 @@ export class BiopsyFormComponent implements OnInit {
       data.comment
     );
 
-    console.log(this.patient._id);
-    this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
-      .subscribe;
+    //console.log(this.patient._id);
+    this.sub = this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
+                                 .subscribe((addedBiopsy : Biopsy) => {
+                                   console.log("added biopsy for ", this.patient._id, " : ", addedBiopsy);
+                                 });
 
-    this.biopsyService.getAllBiopsies(1).subscribe((data) => console.log(data));
+    //this.biopsyService.getAllBiopsies(1).subscribe((data) => console.log(data));
   }
 
   leftSideChecked() {

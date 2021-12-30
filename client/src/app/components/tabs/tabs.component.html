@@ -7,10 +7,12 @@
   </div>
 
   <div class="ui bottom attached tab segment active" data-tab="patient-tab">
-    <app-patient-tab [patient]="patient"></app-patient-tab>
+    <!--<app-patient-tab [patient]="patient"></app-patient-tab> -->
+    <app-patient-tab></app-patient-tab>
   </div>
   <div class="ui bottom attached tab segment" data-tab="biopsy-tab">
-    <app-biopsy-tab [patient]="patient" [biopsies]="biopsies"></app-biopsy-tab>
+    <!--<app-biopsy-tab [patient]="patient" [biopsies]="biopsies"></app-biopsy-tab>-->
+    <app-biopsy-tab [biopsies]="biopsies"></app-biopsy-tab>
   </div>
   <div class="ui bottom attached tab segment" data-tab="tumor-tab">
     <app-tumor-tab></app-tumor-tab>

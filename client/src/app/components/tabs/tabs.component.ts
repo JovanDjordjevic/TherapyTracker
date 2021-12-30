@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
+import { PatientService } from 'src/app/services/patient-service.service';
 
 declare const $: any;
 
@@ -11,37 +12,30 @@ declare const $: any;
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.css'],
 })
-export class TabsComponent implements OnInit {
-  @Input() patient: Patient;
-  biopsies: Observable<Biopsy[]> = {} as Observable<Biopsy[]>;
-  constructor(private biopsyService: BiopsyService) {
-    this.patient = new Patient(
-      's',
-      '',
-      '',
-      '',
-      0,
-      Gender.Female,
-      Menopause.Peri,
-      '',
-      '',
-      '',
-      '',
-      new Date(),
-      ''
-    );
+export class TabsComponent implements OnInit, OnDestroy{
+  //@Input() patient: Patient;
+  currentPatient : Patient;
+
+  biopsies: Biopsy[] = []
+  sub : Subscription = new Subscription;
+
+  constructor(private patietnService : PatientService, private biopsyService: BiopsyService) {
+
+    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );   
+    this.currentPatient = patietnService.getCurrentPatient();
+
+    //console.log(this.patient._id);  // error
+    this.sub =  this.biopsyService.getAllBiopsiesForPatient(this.currentPatient._id, 1).subscribe( (biopsies : Biopsy[]) => {
+      this.biopsies = biopsies;
+      //console.log("all biopsies for patient: ", this.biopsies);
+    });
   }
 
   ngOnInit() {
-    console.log(this.patient._id);
-    this.biopsies = this.biopsyService.getAllBiopsiesForPatient(
-      this.patient._id,
-      1
-    );
-
-    this.biopsyService
-      .getAllBiopsiesForPatient(this.patient._id, 1)
-      .subscribe((data) => console.log(data));
     $('.menu .item').tab();
+  }
+
+  ngOnDestroy(): void {
+      this.sub.unsubscribe();
   }
 }
