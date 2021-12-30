@@ -47,29 +47,56 @@ export class TumorFormComponent implements OnInit {
   }
 
   gradusSelected(){
-    const gradusValue = this.tumorForm.get("gradus")?.value
-    if (gradusValue === "GradusEnum.Unknown") {   // kao string jer ovaj value vraca string a mrzi me da pravim konverziju
+    const gradusValue : Gradus = this.tumorForm.get("gradus")?.value
+    if (gradusValue === Gradus.Unknown) {
       this.tumorForm.patchValue({erStatus: 0, pgrStatus : 0})
+    }
+    else {
+      const erPercentValue = parseFloat(this.tumorForm.get("erScorePercent")?.value)
+      if (!Number.isNaN(erPercentValue)){
+        if (erPercentValue < 1) {
+          this.tumorForm.patchValue({erStatus: 0})
+        }
+        else {
+          this.tumorForm.patchValue({erStatus: 1})
+        }
+      }
+
+      const pgrPercentValue = parseFloat(this.tumorForm.get("pgrScorePercent")?.value)
+      if (!Number.isNaN(pgrPercentValue)){
+        if (pgrPercentValue < 1) {
+          this.tumorForm.patchValue({pgrStatus: 0})
+        }
+        else {
+          this.tumorForm.patchValue({pgrStatus: 1})
+        }
+      }
     }
   }
 
   erPercentEntered(){
-    const erPercentValue = parseInt(this.tumorForm.get("erScorePercent")?.value)
-    if (erPercentValue < 1) {
-      this.tumorForm.patchValue({erStatus: 0})
-    }
-    else {
-      this.tumorForm.patchValue({erStatus: 1})
+    const erPercentValue = parseFloat(this.tumorForm.get("erScorePercent")?.value)
+    const gradusValue : Gradus = this.tumorForm.get("gradus")?.value
+    if (gradusValue != Gradus.Unknown) {
+      if (erPercentValue < 1) {
+        this.tumorForm.patchValue({erStatus: 0})
+      }
+      else {
+        this.tumorForm.patchValue({erStatus: 1})
+      }
     }
   }
 
   pgrPercentEntered(){
-    const pgrPercentValue = parseInt(this.tumorForm.get("pgrScorePercent")?.value)
-    if (pgrPercentValue < 1) {
-      this.tumorForm.patchValue({erStatus: 0})
-    }
-    else {
-      this.tumorForm.patchValue({erStatus: 1})
+    const pgrPercentValue = parseFloat(this.tumorForm.get("pgrScorePercent")?.value)
+    const gradusValue : Gradus = this.tumorForm.get("gradus")?.value
+    if (gradusValue != Gradus.Unknown) {
+      if (pgrPercentValue < 1) {
+        this.tumorForm.patchValue({pgrStatus: 0})
+      }
+      else {
+        this.tumorForm.patchValue({pgrStatus: 1})
+      }
     }
   }
 

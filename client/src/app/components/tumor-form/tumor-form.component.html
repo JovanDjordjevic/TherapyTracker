@@ -2,10 +2,10 @@
     <div class="ui fluid field">
         <label>Gradus</label>
         <select formControlName="gradus" class="ui fluid search selection dropdown" (change)="gradusSelected()">
-          <option value="GradusEnum.Type1">{{ GradusEnum.Type1 }}</option>
-          <option value="GradusEnum.Type2">{{ GradusEnum.Type2 }}</option>
-          <option value="GradusEnum.Type3">{{ GradusEnum.Type3 }}</option>
-          <option value="GradusEnum.Unknown">{{ GradusEnum.Unknown }}</option>
+          <option [value]="GradusEnum.Type1">{{ GradusEnum.Type1 }}</option>
+          <option [value]="GradusEnum.Type2">{{ GradusEnum.Type2 }}</option>
+          <option [value]="GradusEnum.Type3">{{ GradusEnum.Type3 }}</option>
+          <option [value]="GradusEnum.Unknown">{{ GradusEnum.Unknown }}</option>
         </select>
     </div>
       
@@ -34,7 +34,7 @@
 
         <div class="ui field column">
             <label>Pgr skor %</label>
-            <input type="text" formControlName="pgrScorePercent"/>
+            <input type="text" formControlName="pgrScorePercent" (change)="pgrPercentEntered()"/>
         </div>
 
         <div class="ui field column disabled">
@@ -57,17 +57,17 @@
         <div class="ui field column">
             <label>Her2 FISH-SICH</label>
             <select formControlName="her2_FISH_SICH" class="ui fluid search selection dropdown">
-                <option value="HER2_FISH_SICH_Enum.Positive">{{ HER2_FISH_SICH_Enum.Positive }}</option>
-                <option value="HER2_FISH_SICH_Enum.Negative">{{ HER2_FISH_SICH_Enum.Negative }}</option>
-                <option value="HER2_FISH_SICH_Enum.Unusable">{{ HER2_FISH_SICH_Enum.Unusable }}</option>
+                <option [value]="HER2_FISH_SICH_Enum.Positive">{{ HER2_FISH_SICH_Enum.Positive }}</option>
+                <option [value]="HER2_FISH_SICH_Enum.Negative">{{ HER2_FISH_SICH_Enum.Negative }}</option>
+                <option [value]="HER2_FISH_SICH_Enum.Unusable">{{ HER2_FISH_SICH_Enum.Unusable }}</option>
             </select>
         </div>
 
         <div class="ui field column">
             <label>Her2 status</label>
             <select formControlName="her2Status" class="ui fluid search selection dropdown">
-                <option value="Her2StatusEnum.Zero">{{ Her2StatusEnum.Zero }}</option>
-                <option value="Her2StatusEnum.One">{{ Her2StatusEnum.One }}</option>
+                <option [value]="Her2StatusEnum.Zero">{{ Her2StatusEnum.Zero }}</option>
+                <option [value]="Her2StatusEnum.One">{{ Her2StatusEnum.One }}</option>
             </select>
         </div>
     </div>
