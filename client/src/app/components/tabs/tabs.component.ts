@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 
 declare const $: any;
 
@@ -8,7 +9,25 @@ declare const $: any;
   styleUrls: ['./tabs.component.css'],
 })
 export class TabsComponent implements OnInit {
-  constructor() {}
+  @Input() patient: Patient;
+
+  constructor() {
+    this.patient = new Patient(
+      'aaa',
+      '',
+      '',
+      '',
+      0,
+      Gender.Female,
+      Menopause.Peri,
+      '',
+      '',
+      '',
+      '',
+      new Date(),
+      ''
+    );
+  }
 
   ngOnInit() {
     $('.menu .item').tab();

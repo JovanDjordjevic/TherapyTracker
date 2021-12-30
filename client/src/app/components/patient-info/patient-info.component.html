@@ -2,52 +2,52 @@
   <tbody>
     <tr>
       <td class="six wide column">Ime</td>
-      <td>Selena</td>
+      <td>{{patient.name}}</td>
     </tr>
     <tr>
       <td>Prezime</td>
-      <td>Hocevar</td>
+      <td>{{patient.surname}}</td>
     </tr>
     <tr>
       <td>Ime roditelja</td>
-      <td>Olga</td>
+      <td>{{patient.parentName}}</td>
     </tr>
     <tr>
       <td>JMBG</td>
-      <td>1111111111111</td>
+      <td>{{patient.jmbg}}</td>
     </tr>
     <tr>
       <td>Godina rodjenja</td>
-      <td>1998</td>
+      <td>{{patient.yearOfBirth}}</td>
     </tr>
     <tr>
       <td>Pol</td>
-      <td>Z</td>
+      <td>{{patient.gender}}</td>
     </tr>
     <tr>
       <td>Adresa boravka</td>
-      <td>adresa 12 </td>
+      <td>{{patient.address}}} </td>
     </tr>
     <tr>
       <td>Grad</td>
-      <td>Beograd</td>
+      <td>{{patient.city}}</td>
     </tr>
     <tr>
       <td>Kontakt telefon</td>
-      <td>123457889</td>
+      <td>{{patient.contact}}</td>
     </tr>
     <tr>
       <td>Email</td>
-      <td>selena.hocevar@gmail.com</td>
+      <td>{{patient.email}}</td>
     </tr>
     <tr>
       <td>Datum dijagnostikovanja tumora</td>
-      <td>12.23.4343</td>
+      <td>{{patient.tumorDateDiagnosis}}</td>
     </tr>
     <tr>
       <td>Porodicna anamneza</td>
       <td id="anamneza" class="">
-        asjkajsasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddasjkajsasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddasjkajsasddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        {{patient.familyAnamnesis}}
         <button>Ucitaj jos...</button>
     </tr>
   </tbody>

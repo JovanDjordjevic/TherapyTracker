@@ -7,6 +7,8 @@
   </div>
   <div class="content">
     <app-patient-form *ngIf="displayPatientForm" (onDisplayPatientForm)="setShowPatientForm($event)"></app-patient-form>
-    <app-patient-list *ngIf="!displayPatientForm" [patients]="patients"></app-patient-list>
+    <app-patient-list *ngIf="displayPatientList" [patients]="patients" (selectPatient)="openHistory($event)">
+    </app-patient-list>
+    <app-tabs *ngIf="displayPatientHistory" [patient]="patient"></app-tabs>
   </div>
 </div>
