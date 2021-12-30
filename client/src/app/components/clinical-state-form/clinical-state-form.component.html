@@ -2,7 +2,7 @@
 
     <div class="ui required fluid field">
         <label>TStage</label>
-        <select formControlName="tStage" class="ui fluid search selection dropdown" (change)="setTnmStage()">
+        <select formControlName="tStage" class="ui fluid search selection dropdown" (change)="setTnmStage()" [ngClass]="{error: tStageHasErrors}">
           <option [value]="TStageEnum.Type0">{{ TStageEnum.Type0 }}</option>
           <option [value]="TStageEnum.Type1">{{ TStageEnum.Type1 }}</option>
           <option [value]="TStageEnum.Type2">{{ TStageEnum.Type2 }}</option>
@@ -16,24 +16,44 @@
           <option [value]="TStageEnum.Type10">{{ TStageEnum.Type10 }}</option>
         </select>
     </div>
-    
+    <div class="ui negative message" *ngIf="tStageHasErrors">
+      <ul>
+          <li *ngFor="let msg of tStageErrors">
+              {{msg}}
+          </li>
+      </ul>
+    </div>
 
     <div class="ui required fluid field">
         <label>NStage</label>
-        <select formControlName="nStage" class="ui fluid search selection dropdown" (change)="setTnmStage()">
+        <select formControlName="nStage" class="ui fluid search selection dropdown" (change)="setTnmStage()" [ngClass]="{error: nStageHasErrors}">
           <option [value]="NStageEnum.Type0">{{ NStageEnum.Type0 }}</option>
           <option [value]="NStageEnum.Type1">{{ NStageEnum.Type1 }}</option>
           <option [value]="NStageEnum.Type2">{{ NStageEnum.Type2 }}</option>
           <option [value]="NStageEnum.Type3">{{ NStageEnum.Type3 }}</option>
         </select>
     </div>
+    <div class="ui negative message" *ngIf="nStageHasErrors">
+      <ul>
+          <li *ngFor="let msg of nStageErrors">
+              {{msg}}
+          </li>
+      </ul>
+    </div>
 
     <div class="ui required fluid field">
         <label>MStage</label>
-        <select formControlName="mStage" class="ui fluid search selection dropdown" (change)="setTnmStage()">
+        <select formControlName="mStage" class="ui fluid search selection dropdown" (change)="setTnmStage()" [ngClass]="{error: mStageHasErrors}">
           <option [value]="MStageEnum.Type0">{{ MStageEnum.Type0 }}</option>
           <option [value]="MStageEnum.Type1">{{ MStageEnum.Type1 }}</option>
         </select>
+    </div>
+    <div class="ui negative message" *ngIf="mStageHasErrors">
+      <ul>
+          <li *ngFor="let msg of mStageErrors">
+              {{msg}}
+          </li>
+      </ul>
     </div>
       
     <div class="ui disabled fluid field column">
@@ -43,7 +63,7 @@
 
     <div class="ui required fluid field">
         <label>Klinicki stadijum</label>
-        <select formControlName="clinicalStage" class="ui fluid search selection dropdown">
+        <select formControlName="clinicalStage" class="ui fluid search selection dropdown" [ngClass]="{error: clinicalStageHasErrors}">
           <option [value]="ClinicalStaegEnum.Type0">{{ ClinicalStaegEnum.Type0 }}</option>
           <option [value]="ClinicalStaegEnum.Type1">{{ ClinicalStaegEnum.Type1 }}</option>
           <option [value]="ClinicalStaegEnum.Type2">{{ ClinicalStaegEnum.Type2 }}</option>
@@ -51,6 +71,13 @@
           <option [value]="ClinicalStaegEnum.Type4">{{ ClinicalStaegEnum.Type4 }}</option>
           <option [value]="ClinicalStaegEnum.Type5">{{ ClinicalStaegEnum.Type5 }}</option>
         </select>
+    </div>
+    <div class="ui negative message" *ngIf="clinicalStageHasErrors">
+      <ul>
+          <li *ngFor="let msg of clinicalStageErrors">
+              {{msg}}
+          </li>
+      </ul>
     </div>
   
     <button class="ui fluid button" type="submit">Sacuvaj podatke</button>
