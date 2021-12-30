@@ -58,7 +58,7 @@ const addNewPatient = async (req, res, next) => {
             throw error;
         }
 
-        await counterServices.checkCounter();
+        await counterService.checkCounter();
         const historyIndex = await counterService.getHistoryIndex();
 
         const date = new Date();
