@@ -36,8 +36,10 @@ export class DashboardComponent implements OnInit {
     //this.patients.subscribe((data) => console.log(data));
   }
 
-  setShowPatientForm(value: boolean) {
-    this.displayPatientForm = value;
+  setShowPatientForm() {
+    this.displayPatientForm = false;
+    this.displayPatientHistory = false;
+    this.displayPatientList = true;
   }
 
   openHistory(patient: Patient) {
