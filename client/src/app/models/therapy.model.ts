@@ -23,7 +23,7 @@ export class Therapy {
     constructor(
         public numCycles : number,
         public therapyType : TherapyType,
-        public usingNeoadjuvant : boolean,  // (?)
+        public usingNeoadjuvant : boolean,  // ovo izgleda nije potrebno(?)
         public numTaxol : number,
         public numTxtr : number,
         public herceptinTherapy : string,  // jer hoce numericku vrednost ili 'nije primenljivo'
