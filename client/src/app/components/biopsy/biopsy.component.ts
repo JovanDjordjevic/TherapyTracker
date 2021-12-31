@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   Biopsy,
@@ -29,5 +30,10 @@ export class BiopsyComponent implements OnInit {
       ''
     );
   }
+
+  formattedDate(date: Date) {
+    return formatDate(date, 'dd/MM/yyyy', 'en-US');
+  }
+
   ngOnInit(): void {}
 }
