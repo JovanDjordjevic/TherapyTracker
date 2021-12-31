@@ -53,8 +53,8 @@ const addNewPatient = async (
 
     const newPatient = new Patient();
     newPatient._id = new mongoose.Types.ObjectId();
-    newPatient.history.date = date;
-    newPatient.history.index = index;
+    newPatient.date = date;
+    newPatient.index = index;
     newPatient.jmbg = jmbg;
     newPatient.name = name;
     newPatient.parentName = parentName;
@@ -86,14 +86,14 @@ const updatePatientInfo = async (id, date, index, isClinicalStateSet,
         { _id: id },
         {
             $set: {
-                'history.date': date,
-                'history.index': index,
-                'history.isClinicalStateSet': isClinicalStateSet,
-                'history.clinicalState.tStage': tStage,
-                'history.clinicalState.nStage': nStage,
-                'history.clinicalState.mStage': mStage,
-                'history.clinicalState.tnmStage': tnmStage,
-                'history.clinicalState.clinicalStage': clinicalStage,
+                date: date,
+                index: index,
+                isClinicalStateSet: isClinicalStateSet,
+                tStage: tStage,
+                nStage: nStage,
+                mStage: mStage,
+                tnmStage: tnmStage,
+                clinicalStage: clinicalStage,
                 jmbg: jmbg,
                 name: name,
                 parentName: parentName,

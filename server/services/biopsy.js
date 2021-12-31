@@ -8,8 +8,7 @@ const getAllBiopsies = async () => {
 };
 
 const getAllBiopsiesForPatient = async (patientId, page=1, limit=20) => {
-    // const patient = await Patient.findById(patientId).populate("history.biopsy");
-    // return patient.history.biopsies;
+
     return await Biopsy.paginate({patient: patientId}, {page, limit, sort: 'date'});
 };
 
@@ -35,7 +34,7 @@ const addNewBiopsy = async (patientId, date, side, biopsyTypeLeft, numLeft, hist
 
     await newBiopsy.save();
 
-    await Patient.findByIdAndUpdate(patientId, {$push: {'history.biopsies': biopsyId}}).exec();
+    await Patient.findByIdAndUpdate(patientId, {$push: {_biopsyIds: biopsyId}}).exec();
 
     return newBiopsy;
 };
@@ -71,7 +70,7 @@ const updateBiopsyInfo = async (id, date, side, biopsyTypeLeft, numLeft, histoty
 const deleteBiopsy = async (patientId, biopsyId) => {
     await Biopsy.findByIdAndDelete(biopsyId).exec();
 
-    await Patient.findByIdAndUpdate(patientId, {$pull: {'history.biopsies': biopsyId}}).exec();
+    await Patient.findByIdAndUpdate(patientId, {$pull: {_biopsyIds: biopsyId}}).exec();
 };
 
 async function paginateThroughBiopsies(page = 1, limit = 20) {

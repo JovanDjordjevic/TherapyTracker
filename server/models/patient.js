@@ -52,48 +52,44 @@ const patientsSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String,
         require: true,
     },
-    history: {
-        date: {
-            type: mongoose.Schema.Types.Date
-        },
-        index: {
-            type: mongoose.Schema.Types.String
-        },
-        isClinicalStateSet: {
-            type: mongoose.Schema.Types.Boolean,
-            default: false
-        },
-        clinicalState: {
-            tStage: {
-                type: mongoose.Schema.Types.String,
-                enum: ["1", "1a", "1b", "1c", "2", "3",
-                       "4", "4a", "4b", "4c", "4d"]
-            },
-            nStage: {
-                type: mongoose.Schema.Types.Number,
-                enum: [0, 1, 2, 3],
-            },
-            mStage: {
-                type: mongoose.Schema.Types.Number,
-                enum: [0, 1],
-            },
-            tnmStage: {
-                type: mongoose.Schema.Types.String,
-            },
-            clinicalStage: {
-                type: mongoose.Schema.Types.String,
-                enum: ["IA", "IIA", "IIB", "IIIA", "IIIB", "IIIC"],
-            }
-        },
-        biopsies: {
-            type: [{type: mongoose.Types.ObjectId, ref: "biopsy"}]
-        },
-        tumor: {
-            type: [{type: mongoose.Types.ObjectId, ref: "tumor"}]
-        },
-        therapy: {
-            type: [{type: mongoose.Types.ObjectId, ref: "therapy"}]
-        }
+    date: {
+        type: mongoose.Schema.Types.Date
+    },
+    index: {
+        type: mongoose.Schema.Types.String
+    },
+    isClinicalStateSet: {
+        type: mongoose.Schema.Types.Boolean,
+        default: false
+    },
+    tStage: {
+        type: mongoose.Schema.Types.String,
+        enum: ["1", "1a", "1b", "1c", "2", "3",
+                "4", "4a", "4b", "4c", "4d"]
+    },
+    nStage: {
+        type: mongoose.Schema.Types.Number,
+        enum: [0, 1, 2, 3],
+    },
+    mStage: {
+        type: mongoose.Schema.Types.Number,
+        enum: [0, 1],
+    },
+    tnmStage: {
+        type: mongoose.Schema.Types.String,
+    },
+    clinicalStage: {
+        type: mongoose.Schema.Types.String,
+        enum: ["IA", "IIA", "IIB", "IIIA", "IIIB", "IIIC"],
+    },
+    _biopsyIds: {
+        type: [{type: mongoose.Types.ObjectId, ref: "biopsy"}]
+    },
+    _tumorIds: {
+        type: [{type: mongoose.Types.ObjectId, ref: "tumor"}]
+    },
+    _therapyIds: {
+        type: [{type: mongoose.Types.ObjectId, ref: "therapy"}]
     }
 });
 

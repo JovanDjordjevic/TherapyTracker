@@ -8,8 +8,7 @@ const getAllTherapies = async () => {
 };
 
 const getAllTherapiesForPatient = async (patientId, page=1, limit=20) => {
-    // const patient = await Patient.findById(patientId).populate("history.therapy");
-    // return patient.history.therapy;
+    
     return await Therapy.paginate({patient: patientId}, {page, limit});
 };
 
@@ -29,7 +28,7 @@ const addNewTherapy = async (patientId, therapyType, numCycles, usingNeoadjuvant
 
     await newTherapy.save();
 
-    await Patient.findByIdAndUpdate(patientId, {$push: {'history.therapy': therapyId}}).exec();
+    await Patient.findByIdAndUpdate(patientId, {$push: {_therapyIds: therapyId}}).exec();
 
     return newTherapy;
 };
@@ -62,7 +61,7 @@ const updateTherapyInfo = async (id, isTherapyResponseSet, therapyResponse, ther
 const deleteTherapy = async (patientId, tumorId) => {
     await Tumor.findByIdAndDelete(tumorId).exec();
 
-    await Patient.findByIdAndUpdate(patientId, {$pull: {'history.biopsies': tumorId}}).exec();
+    await Patient.findByIdAndUpdate(patientId, {$pull: {_therapyIds: tumorId}}).exec();
 };
 
 async function paginateThroughTherapies(page = 1, limit = 20) {
