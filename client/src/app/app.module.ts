@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';     
-import { HttpClientModule } from '@angular/common/http';  
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +22,6 @@ import { TumorTabComponent } from './components/tumor-tab/tumor-tab.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { BiopsyListComponent } from './components/biopsy-list/biopsy-list.component';
 import { ClinicalStateFormComponent } from './components/clinical-state-form/clinical-state-form.component';
-import { BiopsyComponent } from './components/biopsy/biopsy.component';
 
 @NgModule({
   declarations: [
@@ -43,13 +42,12 @@ import { BiopsyComponent } from './components/biopsy/biopsy.component';
     TumorTabComponent,
     TabsComponent,
     BiopsyListComponent,
-    BiopsyComponent,
-    ClinicalStateFormComponent
+    ClinicalStateFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,         
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
   ],

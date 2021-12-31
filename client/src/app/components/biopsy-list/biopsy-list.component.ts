@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
@@ -16,6 +17,10 @@ export class BiopsyListComponent implements OnInit {
     this.selectBiopsy.emit(biopsy);
   }
   constructor() {}
+
+  formattedDate(date: Date) {
+    return formatDate(date, 'dd/MM/yyyy', 'en-US');
+  }
 
   ngOnInit(): void {}
 }
