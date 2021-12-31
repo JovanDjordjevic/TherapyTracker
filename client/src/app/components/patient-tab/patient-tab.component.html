@@ -2,35 +2,38 @@
   <div class="ui two column very relaxed grid">
     <div class="column">
       <!-- <app-patient-info [patient]="patient"></app-patient-info> -->
-      <app-patient-info></app-patient-info>
+      <app-patient-info *ngIf="showPatientInfo"></app-patient-info>
+      <app-clinical-state-form *ngIf="showClinicalStateForm"></app-clinical-state-form>
     </div>
     <div class="column">
       <table class="ui mini definition table">
         <tbody>
           <tr>
             <td class="six wide column">T stage</td>
-            <td></td>
+            <td>{{patient.tStage}}</td>
           </tr>
           <tr>
             <td>N stage</td>
-            <td></td>
+            <td>{{patient.nStage}}</td>
           </tr>
           <tr>
             <td>M stage</td>
-            <td></td>
+            <td>{{patient.mStage}}</td>
           </tr>
           <tr>
             <td>TNM clinical stage</td>
-            <td></td>
+            <td>{{patient.tnmStage}}</td>
           </tr>
           <tr>
             <td>Klinicki stadijum</td>
-            <td></td>
+            <td>{{patient.clinicalStage}}</td>
           </tr>
         </tbody>
       </table>
       <div class="buttons">
-        <button class="ui button">Unesi informacije o klinickom stanju</button>
+        <button class="ui button" (click)="AddClinicalStateInfo()">{{showPatientInfo ? 'Unesi podatke o klinicikom
+          stanju' : 'Prikazi
+          informacije o pacijentu'}}</button>
         <button class="ui button">Izmeni informacije o pacijentu</button>
       </div>
     </div>

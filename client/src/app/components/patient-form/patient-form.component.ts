@@ -49,7 +49,6 @@ export class PatientFormComponent implements OnInit {
 
   onPatientFormSubmit() {
     //console.log(this.patientForm);
-    this.onDisplayPatientForm.emit(false);
     const data = this.patientForm.value;
 
     const newPatient = new Patient(
@@ -76,6 +75,8 @@ export class PatientFormComponent implements OnInit {
     this.patientService
       .getAllPatients(1)
       .subscribe((data) => console.log(data));
+
+    this.onDisplayPatientForm.emit(false);
   }
 
   onFemaleChecked() {

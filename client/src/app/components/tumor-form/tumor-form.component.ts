@@ -64,6 +64,10 @@ export class TumorFormComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
   ngOnInit(): void {
     $('.ui.checkbox').checkbox();
   }

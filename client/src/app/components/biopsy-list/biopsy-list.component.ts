@@ -16,6 +16,7 @@ export class BiopsyListComponent implements OnInit {
   openBiopsy(biopsy: Biopsy) {
     this.selectBiopsy.emit(biopsy);
   }
+
   constructor() {}
 
   formattedDate(date: Date) {

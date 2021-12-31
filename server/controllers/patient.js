@@ -94,8 +94,36 @@ const updatePatientInfo = async (req, res, next) => {
             _id, date, index, isClinicalStateSet, tStage, nStage, mStage, tnmStage,
             clinicalStage, jmbg, name, parentName, surname, yearOfBirth, gender,
             menopause, address, city, contact, email, tumorDateDiagnosis, familyAnamnesis
-        ); 
-        res.status(201).json(updatedPatient);
+        );
+        const patient = {
+             _id:updatedPatient._id,
+             date: updatedPatient.history.date,
+             index :updatedPatient.history.index,
+             isClinicalStateSet : updatedPatient.history.isClinicalStateSet,
+             tStage : updatedPatient.history.clinicalState.tStage,
+             nStage : updatedPatient.history.clinicalState.nStage,
+             mStage : updatedPatient.history.clinicalState.mStage,
+             tnmStage : updatedPatient.history.clinicalState.tnmStage,
+             clinicalStage : updatedPatient.history.clinicalState.clinicalStage,
+             jmbg : updatedPatient.jmbg,
+             name : updatedPatient.name,
+             parentName : updatedPatient.parentName,
+             surname : updatedPatient.surname,
+             yearOfBirth :updatedPatient.yearOfBirth,
+             gender : updatedPatient.gender,
+             menopause : updatedPatient.menopause,
+             address : updatedPatient.address,
+             city : updatedPatient.city,
+             contact : updatedPatient.contact,
+             email : updatedPatient.email,
+             tumorDateDiagnosis : updatedPatient.tumorDateDiagnosis,
+             familyAnamnesis : updatedPatient.familyAnamnesis,
+             _biopsiyIds : updatedPatient.biopsies,
+             _tumorIds  : updatedPatient.tumor,
+             _therapiyIds  : updatedPatient.therapy
+             
+        }        
+        res.status(201).json(patient);
     } catch (error) {
         next(error);
     }

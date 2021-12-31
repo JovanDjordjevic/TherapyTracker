@@ -1,7 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
-import { Gender, Menopause, Patient, PatientPagination } from '../models/patient.model';
+import {
+  Gender,
+  Menopause,
+  Patient,
+  PatientPagination,
+} from '../models/patient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,17 +21,31 @@ export class PatientService {
   };
 
   // temp value
-  // kada se selektuje neki pacijent iz patient-liste, poziva se set, i onda da se nebi cesto koristili input/output za njega 
+  // kada se selektuje neki pacijent iz patient-liste, poziva se set, i onda da se nebi cesto koristili input/output za njega
   // treba samo da se pzoove get
-  private currentPatient : Patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );
+  private currentPatient: Patient = new Patient(
+    'a',
+    'a',
+    'a',
+    'a',
+    0,
+    Gender.Female,
+    Menopause.Peri,
+    '',
+    '',
+    '',
+    '',
+    new Date(),
+    ''
+  );
 
   constructor(private http: HttpClient) {}
 
-  public setCurrentPatient(patient : Patient) : void {
+  public setCurrentPatient(patient: Patient): void {
     this.currentPatient = patient;
   }
 
-  public getCurrentPatient() : Patient {
+  public getCurrentPatient(): Patient {
     return this.currentPatient;
   }
 
