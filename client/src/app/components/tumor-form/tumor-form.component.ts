@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  Tumor,
-  Gradus,
-  Her2Status,
-  HER2_FISH_SICH,
-} from 'src/app/models/tumor.model';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Tumor, Gradus, Her2Status, HER2_FISH_SICH } from 'src/app/models/tumor.model';
 import { MustBeNumber } from 'src/app/validators/common.validator';
 import { Ki67Validator } from 'src/app/validators/tumor.validator';
 import { Subscription } from 'rxjs';
@@ -31,36 +26,47 @@ export class TumorFormComponent implements OnInit {
   patient: Patient;
   sub: Subscription = new Subscription();
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private patientService: PatientService,
-    private tumorService: TumorService
-  ) {
-    this.patient = this.patientService.getCurrentPatient();
+  gradusHasErrors : boolean = false;
+  erScoreHasErrors : boolean = false;
+  erScorePercentHasErrors : boolean = false;
+  pgrScoreHasErrors : boolean = false;
+  pgrScorePercentHasErrors : boolean = false;
+  her2INCHasErrors : boolean = false;
+  her2INCPercentHasErrors : boolean = false;
+  her2_FISH_SICHHasErrors : boolean = false;
+  her2StatusHasErrors : boolean = false;
+  ki67HasErrors : boolean = false;
+  molecularSubtypeHasErrors : boolean = false;
 
+  gradusErrors : string[] = [];
+  erScoreErrors : string[] = [];
+  erScorePercentErrors : string[] = [];
+  pgrScoreErrors : string[] = [];
+  pgrScorePercentErrors : string[] = [];
+  her2INCErrors : string[] = [];
+  her2INCPercentErrors : string[] = [];
+  her2_FISH_SICHErrors : string[] = [];
+  her2StatusErrors : string[] = [];
+  ki67Errors : string[] = [];
+  molecularSubtypeErrors : string[] = [];
+
+  constructor(private formBuilder : FormBuilder, private patientService : PatientService, private tumorService : TumorService) { 
+    this.patient = this.patientService.getCurrentPatient();
+    
     this.tumorForm = this.formBuilder.group({
-      gradus: ['', [Validators.required]],
-      erScore: ['', [Validators.required, MustBeNumber]],
-      erScorePercent: [
-        '',
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      erStatus: ['', [Validators.required]],
-      pgrScore: ['', [Validators.required], MustBeNumber],
-      pgrScorePercent: [
-        '',
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      pgrStatus: ['', [Validators.required]],
-      her2INC: ['', [Validators.required], MustBeNumber],
-      her2INCPercent: [
-        '',
-        [Validators.required, Validators.min(0), Validators.max(100)],
-      ],
-      her2_FISH_SICH: ['', [Validators.required]],
-      her2Status: ['', [Validators.required]],
-      ki67: ['nepoznato', [Validators.required, Ki67Validator]],
-      molecularSubtype: ['', [Validators.required], MustBeNumber],
+      gradus : ['', [Validators.required]],
+      erScore : ['', [Validators.required, MustBeNumber]],
+      erScorePercent : ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      erStatus : ['', []],
+      pgrScore : ['', [Validators.required, MustBeNumber]],
+      pgrScorePercent : ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      pgrStatus : ['', []],
+      her2INC : ['', [Validators.required, MustBeNumber]],
+      her2INCPercent : ['', [Validators.required, Validators.min(0), Validators.max(100)]],
+      her2_FISH_SICH : ['', [Validators.required]],
+      her2Status : ['', [Validators.required]],
+      ki67 : ['nepoznato', [Validators.required, Ki67Validator]],
+      molecularSubtype : ['', [Validators.required, MustBeNumber]],
     });
   }
 
@@ -73,30 +79,225 @@ export class TumorFormComponent implements OnInit {
   }
 
   onTumorFormSubmit() {
+    if (this.tumorForm.invalid) {
+      //window.alert('Neka polja nemaju validnu vrednost!');
+      this.updateGradusErrors();
+      this.updateErScoreErrors();
+      this.updateErScorePercentErrors();
+      this.updatePgrScoreErrors();
+      this.updatePgrScorePercentErrors();
+      this.updateHer2INCErrors();
+      this.updateHer2INCPercentErrors();
+      this.updateHer2_FISH_SICHErrors();
+      this.updateHer2StatusErrors();
+      this.updateKi67Errors();
+      this.updateMolecularSubtypeErrors();
+      return;
+    }
+
+    this.gradusHasErrors  = false;
+    this.erScoreHasErrors = false;
+    this.erScorePercentHasErrors = false;
+    this.pgrScoreHasErrors = false;
+    this.pgrScorePercentHasErrors  = false;
+    this.her2INCHasErrors = false;
+    this.her2INCPercentHasErrors = false;
+    this.her2_FISH_SICHHasErrors = false;
+    this.her2StatusHasErrors = false;
+    this.ki67HasErrors = false;
+    this.molecularSubtypeHasErrors = false;
+
+    // slanje zahteva:
+    //console.log(this.tumorForm);
     const data = this.tumorForm.value;
 
-    const newTumor = new Tumor(
-      data.gradus,
-      data.erScore,
-      data.erScorePercent,
-      data.erStatus,
-      data.pgrScore,
-      data.pgrScorePercent,
-      data.pgrStatus,
-      data.her2INC,
-      data.her2INCPercent,
-      data.her2_FISH_SICH,
-      data.her2Status,
-      data.ki67,
-      data.molecularSubtype
+    const newTumor = new Tumor(data.gradus, data.erScore, data.erScorePercent, data.erStatus, data.pgrScore, data.pgrScorePercent, 
+      data.pgrStatus, data.her2INC, data.her2INCPercent, data.her2_FISH_SICH, data.her2Status, data.ki67, data.molecularSubtype
     );
 
     //console.log(this.patient._id);
-    this.sub = this.tumorService
-      .addNewTumorForPatient(this.patient._id, newTumor)
-      .subscribe((addedTumor: Tumor) => {
-        console.log('added tumor for ', this.patient._id, ' : ', addedTumor);
-      });
+    this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
+                                .subscribe((addedTumor: Tumor) => {
+                                  console.log('added tumor for ', this.patient._id, ' : ', addedTumor);
+                                });
+  }
+
+  updateGradusErrors(){
+    this.gradusErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('gradus')?.errors;
+    if (errors === null || errors === undefined) {
+      this.gradusHasErrors = false;
+    }
+    else {
+      this.gradusHasErrors = true;
+      if(errors['required']){
+        this.gradusErrors.push("Gradus mora imati vrednost");
+      }
+    }
+  }
+  
+  updateErScoreErrors(){
+    this.erScoreErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('erScore')?.errors;
+    if (errors === null || errors === undefined) {
+      this.erScoreHasErrors = false;
+    }
+    else {
+      this.erScoreHasErrors = true;
+      if(errors['required']){
+        this.erScoreErrors.push("Er skor mora imati vrednost");
+      }
+      if(errors['mustBeNumber']){
+        this.erScoreErrors.push(errors['mustBeNumber'].message);
+      }
+    }
+  }
+
+  updateErScorePercentErrors(){
+    this.erScorePercentErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('erScorePercent')?.errors;
+    if (errors === null || errors === undefined) {
+      this.erScorePercentHasErrors = false;
+    }
+    else {
+      this.erScorePercentHasErrors = true;
+      if(errors['required']){
+        this.erScorePercentErrors.push("Er skor % mora imati vrednost");
+      }
+      if(errors['min'] || errors['max']){  
+        this.erScorePercentErrors.push("Vrednost mora biti broj izmedju 0 i 100");
+      }
+    }
+  }
+
+  updatePgrScoreErrors() {
+    this.pgrScoreErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('pgrScore')?.errors;
+    if (errors === null || errors === undefined) {
+      this.pgrScoreHasErrors = false;
+    }
+    else {
+      this.pgrScoreHasErrors = true;
+      if(errors['required']){
+        this.pgrScoreErrors.push("Pgr skor mora imati vrednost");
+      }
+      if(errors['mustBeNumber']){
+        this.pgrScoreErrors.push(errors['mustBeNumber'].message);
+      }
+    }
+  }
+
+  updatePgrScorePercentErrors(){
+    this.pgrScorePercentErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('pgrScorePercent')?.errors;
+    if (errors === null || errors === undefined) {
+      this.pgrScorePercentHasErrors = false;
+    }
+    else {
+      this.pgrScorePercentHasErrors = true;
+      if(errors['required']){
+        this.pgrScorePercentErrors.push("Pgr skor % mora imati vrednost");
+      }
+      if(errors['min'] || errors['max']){  
+        this.pgrScorePercentErrors.push("Vrednost mora biti broj izmedju 0 i 100");
+      }
+    }
+  }
+
+  updateHer2INCErrors(){
+    this.her2INCErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('her2INC')?.errors;
+    if (errors === null || errors === undefined) {
+      this.her2INCHasErrors = false;
+    }
+    else {
+      this.her2INCHasErrors = true;
+      if(errors['required']){
+        this.her2INCErrors.push("Her2 INC mora imati vrednost");
+      }
+      if(errors['mustBeNumber']){
+        this.her2INCErrors.push(errors['mustBeNumber'].message);
+      }
+    }
+  }
+
+  updateHer2INCPercentErrors(){
+    this.her2INCPercentErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('her2INCPercent')?.errors;
+    if (errors === null || errors === undefined) {
+      this.her2INCPercentHasErrors = false;
+    }
+    else {
+      this.her2INCPercentHasErrors = true;
+      if(errors['required']){
+        this.her2INCPercentErrors.push("Her2 INC % mora imati vrednost");
+      }
+      if(errors['min'] || errors['max']){  
+        this.her2INCPercentErrors.push("Vrednost mora biti broj izmedju 0 i 100");
+      }
+    }
+  }
+
+  updateHer2_FISH_SICHErrors(){
+    this.her2_FISH_SICHErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('her2_FISH_SICH')?.errors;
+    if (errors === null || errors === undefined) {
+      this.her2_FISH_SICHHasErrors = false;
+    }
+    else {
+      this.her2_FISH_SICHHasErrors = true;
+      if(errors['required']){
+        this.her2_FISH_SICHErrors.push("Her2 FISH-SICH mora imati vrednost");
+      }
+    }
+  }
+
+  updateHer2StatusErrors(){
+    this.her2StatusErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('her2Status')?.errors;
+    if (errors === null || errors === undefined) {
+      this.her2StatusHasErrors = false;
+    }
+    else {
+      this.her2StatusHasErrors = true;
+      if(errors['required']){
+        this.her2StatusErrors.push("Her2 status mora imati vrednost");
+      }
+    }
+  }
+
+  updateKi67Errors(){
+    this.ki67Errors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('ki67')?.errors;
+    if (errors === null || errors === undefined) {
+      this.ki67HasErrors = false;
+    }
+    else {
+      this.ki67HasErrors = true;
+      if(errors['required']){
+        this.ki67Errors.push("Ki67 mora imati vrednost");
+      }
+      if(errors['ki67']){
+        this.ki67Errors.push(errors['ki67'].message);
+      }
+    }
+  }
+
+  updateMolecularSubtypeErrors(){
+    this.molecularSubtypeErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('molecularSubtype')?.errors;
+    if (errors === null || errors === undefined) {
+      this.molecularSubtypeHasErrors = false;
+    }
+    else {
+      this.molecularSubtypeHasErrors = true;
+      if(errors['required']){
+        this.molecularSubtypeErrors.push("Molekularni subtip mora imati vrednost");
+      }
+      if(errors['mustBeNumber']){
+        this.molecularSubtypeErrors.push(errors['mustBeNumber'].message);
+      }
+    }
   }
 
   gradusSelected() {

@@ -18,7 +18,9 @@ import { PatientInfoComponent } from './components/patient-info/patient-info.com
 import { PatientTabComponent } from './components/patient-tab/patient-tab.component';
 import { BiopsyTabComponent } from './components/biopsy-tab/biopsy-tab.component';
 import { TreatmentTabComponent } from './components/treatment-tab/treatment-tab.component';
+import { TreatmentListComponent } from './components/treatment-list/treatment-list.component';
 import { TumorTabComponent } from './components/tumor-tab/tumor-tab.component';
+import { TumorListComponent } from './components/tumor-list/tumor-list.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { BiopsyListComponent } from './components/biopsy-list/biopsy-list.component';
 import { ClinicalStateFormComponent } from './components/clinical-state-form/clinical-state-form.component';
@@ -43,6 +45,8 @@ import { ClinicalStateFormComponent } from './components/clinical-state-form/cli
     TabsComponent,
     BiopsyListComponent,
     ClinicalStateFormComponent,
+    TumorListComponent,
+    TreatmentListComponent
   ],
   imports: [
     BrowserModule,

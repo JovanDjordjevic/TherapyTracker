@@ -1,16 +1,30 @@
 <form class="ui form" [formGroup]="therapyForm" (ngSubmit)="onTherapyFormSubmit()">
-    <div class="ui fluid field">
+    <div class="ui fluid field" [ngClass]="{error: numCyclesHasErrors}">
         <label>Broj ciklusa</label>
         <input type="text" formControlName="numCycles"/>
+    </div>
+    <div class="ui negative message" *ngIf="numCyclesHasErrors">
+        <ul>
+            <li *ngFor="let msg of numCyclesErrors">
+                {{msg}}
+            </li>
+        </ul>
     </div>
 
     <div class="ui fluid field">
         <label>Tip terapije</label>
-        <select formControlName="therapyType" class="ui fluid search selection dropdown">
+        <select formControlName="therapyType" class="ui fluid search selection dropdown" [ngClass]="{error: therapyTypeHasErrors}">
           <option value="TherapyTypeEnum.AC">{{ TherapyTypeEnum.AC }}</option>
           <option value="TherapyTypeEnum.FAC">{{ TherapyTypeEnum.FAC }}</option>
           <option value="TherapyTypeEnum.EC">{{ TherapyTypeEnum.EC }}</option>
         </select>
+    </div>
+    <div class="ui negative message" *ngIf="therapyTypeHasErrors">
+        <ul>
+            <li *ngFor="let msg of therapyTypeErrors">
+                {{msg}}
+            </li>
+        </ul>
     </div>
 
     <hr>
@@ -20,22 +34,36 @@
     <br>
 
     <div class="ui two column grid">
-        <div class="ui field column">
+        <div class="ui field column" [ngClass]="{error: numTaxolHasErrors}">
             <label>Taxol</label>
             <select formControlName="numTaxol" class="ui fluid search selection dropdown">
                 <option *ngFor="let number of numberValues">{{ number }}</option>
             </select>
+            <div class="ui negative message" *ngIf="numTaxolHasErrors">
+                <ul>
+                    <li *ngFor="let msg of numTaxolErrors">
+                        {{msg}}
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="ui field column">
+        <div class="ui field column" [ngClass]="{error: numTxtrHasErrors}">
             <label>TXTR</label>
             <select formControlName="numTxtr" class="ui fluid search selection dropdown">
                 <option *ngFor="let number of numberValues">{{ number }}</option>
             </select>
+            <div class="ui negative message" *ngIf="numTxtrHasErrors">
+                <ul>
+                    <li *ngFor="let msg of numTxtrErrors">
+                        {{msg}}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="ui two column grid">
+    <div class="ui two column grid" [ngClass]="{error: herceptinTherapyHasErrors}">
         <div class="ui fluid column">
             <input type="checkbox" (change)="onHerceptinCheckboxChange()"/>
             <label>Terapija herceptinom</label>
@@ -45,6 +73,13 @@
             <label>Broj ciklusa terapije herceptinom</label>
             <input type="text" formControlName="herceptinTherapy"/>
         </div>
+    </div>
+    <div class="ui negative message" *ngIf="herceptinTherapyHasErrors">
+        <ul>
+            <li *ngFor="let msg of herceptinTherapyErrors">
+                {{msg}}
+            </li>
+        </ul>
     </div>
 
     <div class="fluid field">

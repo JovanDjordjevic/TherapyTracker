@@ -90,9 +90,9 @@ export class PatientService {
       this.urls.insertPatientInDB,
       { patient }
     );
-    obs.subscribe((data) => {
-      console.log('inserted', data);
-    }); // for testing
+    // obs.subscribe((data) => {
+    //   console.log('inserted', data);
+    // }); // for testing
     return obs;
   }
 

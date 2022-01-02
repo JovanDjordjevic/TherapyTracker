@@ -1,13 +1,20 @@
 <form class="ui mini form" [formGroup]="biopsyForm" (ngSubmit)="onBiopsyFormSubmit()">
-  <div class="ui required fluid field">
+  <div class="ui required fluid field" [ngClass]="{error: dateHasErrors}">
     <label>Datum</label>
     <input type="date" formControlName="date" />
+  </div>
+  <div class="ui negative message" *ngIf="dateHasErrors">
+    <ul>
+        <li *ngFor="let msg of dateErrors">
+            {{msg}}
+        </li>
+    </ul>
   </div>
 
   <br>
 
   <label>Strana</label>
-  <div class="required inline-grouped fields">
+  <div class="required inline-grouped fields" [ngClass]="{error: sideHasErrors}">
     <div class="field">
       <div class="ui radio checkbox">
         <input type="radio" [value]="BiopsySideEnum.Left" formControlName="side" (change)="leftSideChecked()"
@@ -30,6 +37,13 @@
       </div>
     </div>
   </div>
+  <div class="ui negative message" *ngIf="sideHasErrors">
+    <ul>
+        <li *ngFor="let msg of sideErrors">
+            {{msg}}
+        </li>
+    </ul>
+  </div>
 
   <br>
 
@@ -38,7 +52,7 @@
     <div class="ui field column" [ngClass]="{disabled: this.leftFormDisabled}">
       <!-- levi -->
       <label>Tip</label>
-      <div class="inline-grouped fields" [ngClass]="{required: !this.leftFormDisabled}">
+      <div class="inline-grouped fields" [ngClass]="{required: !this.leftFormDisabled, error: biopsyTypeLeftHasErrors}">
         <div class="field">
           <div class="ui radio checkbox">
             <input type="radio" [value]="BiopsyTypeEnum.AxillaBiopsy" formControlName="biopsyTypeLeft" />
@@ -60,40 +74,66 @@
           </div>
         </div>
       </div>
+      <div class="ui negative message" *ngIf="biopsyTypeLeftHasErrors">
+        <ul>
+            <li *ngFor="let msg of biopsyTypeLeftErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
 
-      <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled}">
+      <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled, error: numLeftHasErrors}">
         <label>Broj</label>
         <input type="text" formControlName="numLeft" />
       </div>
-
-      <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled}">
-        <label>Histotip</label>
-        <select formControlName="histotypeLeft" class="ui fluid search selection dropdown">
-          <option value="BiopsyHistotypeEnum.Type0">{{ BiopsyHistotypeEnum.Type0 }}</option>
-          <option value="BiopsyHistotypeEnum.Type1">{{ BiopsyHistotypeEnum.Type1 }}</option>
-          <option value="BiopsyHistotypeEnum.Type2">{{ BiopsyHistotypeEnum.Type2 }}</option>
-          <option value="BiopsyHistotypeEnum.Type3">{{ BiopsyHistotypeEnum.Type3 }}</option>
-          <option value="BiopsyHistotypeEnum.Type4">{{ BiopsyHistotypeEnum.Type4 }}</option>
-          <option value="BiopsyHistotypeEnum.Type5">{{ BiopsyHistotypeEnum.Type5 }}</option>
-          <option value="BiopsyHistotypeEnum.Type6">{{ BiopsyHistotypeEnum.Type6 }}</option>
-          <option value="BiopsyHistotypeEnum.Type7">{{ BiopsyHistotypeEnum.Type7 }}</option>
-          <option value="BiopsyHistotypeEnum.Type8">{{ BiopsyHistotypeEnum.Type8 }}</option>
-          <option value="BiopsyHistotypeEnum.Type9">{{ BiopsyHistotypeEnum.Type9 }}</option>
-        </select>
+      <div class="ui negative message" *ngIf="numLeftHasErrors">
+        <ul>
+            <li *ngFor="let msg of numLeftErrors">
+                {{msg}}
+            </li>
+        </ul>
       </div>
 
-      <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled}">
+      <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled, error: histotypeLeftHasErrors}">
+        <label>Histotip</label>
+        <select formControlName="histotypeLeft" class="ui fluid search selection dropdown">
+          <option [value]="BiopsyHistotypeEnum.Type0">{{ BiopsyHistotypeEnum.Type0 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type1">{{ BiopsyHistotypeEnum.Type1 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type2">{{ BiopsyHistotypeEnum.Type2 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type3">{{ BiopsyHistotypeEnum.Type3 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type4">{{ BiopsyHistotypeEnum.Type4 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type5">{{ BiopsyHistotypeEnum.Type5 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type6">{{ BiopsyHistotypeEnum.Type6 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type7">{{ BiopsyHistotypeEnum.Type7 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type8">{{ BiopsyHistotypeEnum.Type8 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type9">{{ BiopsyHistotypeEnum.Type9 }}</option>
+        </select>
+      </div>
+      <div class="ui negative message" *ngIf="histotypeLeftHasErrors">
+        <ul>
+            <li *ngFor="let msg of histotypeLeftErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
+
+      <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled, error: multifocalityLeftHasErrors}">
         <label>Multifokalnost</label>
         <input type="text" value="ne" formControlName="multifocalityLeft" />
       </div>
+      <div class="ui negative message" *ngIf="multifocalityLeftHasErrors">
+        <ul>
+            <li *ngFor="let msg of multifocalityLeftErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
     </div>
-
-
-
+    
     <!-- desni -->
     <div class="ui field column" [ngClass]="{disabled: this.rightFormDisabled}">
       <label>Tip</label>
-      <div class="required inline-grouped fields" [ngClass]="{required: !this.rightFormDisabled}">
+      <div class="required inline-grouped fields" [ngClass]="{required: !this.rightFormDisabled, error: biopsyTypeRightHasErrors}">
         <div class="field">
           <div class="ui radio checkbox">
             <input type="radio" class="hidden" [value]="BiopsyTypeEnum.AxillaBiopsy"
@@ -117,31 +157,59 @@
           </div>
         </div>
       </div>
+      <div class="ui negative message" *ngIf="biopsyTypeRightHasErrors">
+        <ul>
+            <li *ngFor="let msg of biopsyTypeRightErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
 
-      <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled}">
+      <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled, error: numRightHasErrors}">
         <label>Broj</label>
         <input type="text" formControlName="numRight" />
       </div>
-
-      <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled}">
-        <label>Histotip</label>
-        <select formControlName="histotypeRight" class="ui fluid search selection dropdown">
-          <option value="BiopsyHistotypeEnum.Type0">{{ BiopsyHistotypeEnum.Type0 }}</option>
-          <option value="BiopsyHistotypeEnum.Type1">{{ BiopsyHistotypeEnum.Type1 }}</option>
-          <option value="BiopsyHistotypeEnum.Type2">{{ BiopsyHistotypeEnum.Type2 }}</option>
-          <option value="BiopsyHistotypeEnum.Type3">{{ BiopsyHistotypeEnum.Type3 }}</option>
-          <option value="BiopsyHistotypeEnum.Type4">{{ BiopsyHistotypeEnum.Type4 }}</option>
-          <option value="BiopsyHistotypeEnum.Type5">{{ BiopsyHistotypeEnum.Type5 }}</option>
-          <option value="BiopsyHistotypeEnum.Type6">{{ BiopsyHistotypeEnum.Type6 }}</option>
-          <option value="BiopsyHistotypeEnum.Type7">{{ BiopsyHistotypeEnum.Type7 }}</option>
-          <option value="BiopsyHistotypeEnum.Type8">{{ BiopsyHistotypeEnum.Type8 }}</option>
-          <option value="BiopsyHistotypeEnum.Type9">{{ BiopsyHistotypeEnum.Type9 }}</option>
-        </select>
+      <div class="ui negative message" *ngIf="numRightHasErrors">
+        <ul>
+            <li *ngFor="let msg of numRightErrors">
+                {{msg}}
+            </li>
+        </ul>
       </div>
 
-      <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled}">
+      <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled, error: histotypeRightHasErrors}">
+        <label>Histotip</label>
+        <select formControlName="histotypeRight" class="ui fluid search selection dropdown">
+          <option [value]="BiopsyHistotypeEnum.Type0">{{ BiopsyHistotypeEnum.Type0 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type1">{{ BiopsyHistotypeEnum.Type1 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type2">{{ BiopsyHistotypeEnum.Type2 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type3">{{ BiopsyHistotypeEnum.Type3 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type4">{{ BiopsyHistotypeEnum.Type4 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type5">{{ BiopsyHistotypeEnum.Type5 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type6">{{ BiopsyHistotypeEnum.Type6 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type7">{{ BiopsyHistotypeEnum.Type7 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type8">{{ BiopsyHistotypeEnum.Type8 }}</option>
+          <option [value]="BiopsyHistotypeEnum.Type9">{{ BiopsyHistotypeEnum.Type9 }}</option>
+        </select>
+      </div>
+      <div class="ui negative message" *ngIf="histotypeRightHasErrors">
+        <ul>
+            <li *ngFor="let msg of histotypeRightErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
+
+      <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled, error: multifocalityRightHasErrors}">
         <label>Multifokalnost</label>
         <input type="text" value="ne" formControlName="multifocalityRight" />
+      </div>
+      <div class="ui negative message" *ngIf="multifocalityRightHasErrors">
+        <ul>
+            <li *ngFor="let msg of multifocalityRightErrors">
+                {{msg}}
+            </li>
+        </ul>
       </div>
     </div>
   </div>

@@ -1,96 +1,203 @@
 <div class="form-container">
   <form class="ui form" [formGroup]="patientForm" (ngSubmit)="onPatientFormSubmit()">
-    <div class="ui required fluid field">
+
+    <div class="ui required fluid field" [ngClass]="{error: jmbgHasErrors}">
       <label>JMBG</label>
       <input type="text" formControlName="jmbg" />
-    </div>
-
-    <div class="required inline-grouped fields">
-      <div class="five wide field" [ngClass]="{error: nameHasErrors()}">
-        <label>Ime</label>
-        <input type="text" formControlName="name">
-      </div>
-      <div class="five wide field">
-        <label>Ime roditelja</label>
-        <input type="text" formControlName="parentName">
-      </div>
-      <div class="six wide field">
-        <label>Prezime</label>
-        <input type="text" formControlName="surname">
+      <div class="ui negative message" *ngIf="jmbgHasErrors">
+        <ul>
+            <li *ngFor="let msg of jmbgErrors">
+                {{msg}}
+            </li>
+        </ul>
       </div>
     </div>
+  
+
+    <div class="ui required inline-grouped fields">
+      <div class="ui five wide field" [ngClass]="{error: nameHasErrors}">
+          <label>Ime</label>
+          <input type="text" formControlName="name">
+          <div class="ui negative message" *ngIf="nameHasErrors">
+            <ul>
+                <li *ngFor="let msg of nameErrors">
+                    {{msg}}
+                </li>
+            </ul>
+          </div>
+      </div>
+
+      <div class="ui required five wide field" [ngClass]="{error: parentNameHasErrors}">
+          <label>Ime roditelja</label>
+          <input type="text" formControlName="parentName">
+          <div class="ui negative message" *ngIf="parentNameHasErrors">
+            <ul>
+                <li *ngFor="let msg of parentNameErrors">
+                    {{msg}}
+                </li>
+            </ul>
+          </div>
+      </div>
+
+      <div class="ui six wide field" [ngClass]="{error: surnameHasErrors}">
+          <label>Prezime</label>
+          <input type="text" formControlName="surname">
+          <div class="ui negative message" *ngIf="surnameHasErrors">
+            <ul>
+                <li *ngFor="let msg of surnameErrors">
+                    {{msg}}
+                </li>
+            </ul>
+          </div>
+      </div>
+    </div>
+
 
     <div class="required inline-grouped fields">
-      <div class="five wide field">
-        <label>Godina rodjenja</label>
-        <input type="number" formControlName="yearOfBirth">
+      <div class="ui five wide field" [ngClass]="{error: yearOfBirthHasErrors}">
+          <label>Godina rodjenja</label>
+          <input type="number" formControlName="yearOfBirth">
+          <div class="ui negative message" *ngIf="yearOfBirthHasErrors">
+            <ul>
+                <li *ngFor="let msg of yearOfBirthErrors">
+                    {{msg}}
+                </li>
+            </ul>
+          </div>
       </div>
-      <div class="five wide field">
-        <label>Pol:</label>
-        <div class="radio inline-grouped fields ">
-          <div class="field">
-            <input type="radio" formControlName="gender" [value]="Gender.Male" (change)="onMaleChecked()">
-            <label>{{Gender.Male}}</label><br>
+
+      <div class="ui five wide field" [ngClass]="{error: genderHasErrors}">
+          <label>Pol:</label>
+          <div class="ui radio inline-grouped fields ">
+            <div class="ui field">
+              <input type="radio" formControlName="gender" [value]="Gender.Male" (change)="onMaleChecked()">
+              <label>{{Gender.Male}}</label><br>
+            </div>
+            <div class="ui field">
+              <input type="radio" formControlName="gender" [value]="Gender.Female" (change)="onFemaleChecked()">
+              <label>{{Gender.Female}}</label><br>
+            </div>
           </div>
-          <div class="field">
-            <input type="radio" formControlName="gender" [value]="Gender.Female" (change)="onFemaleChecked()">
-            <label>{{Gender.Female}}</label><br>
+          <div class="ui negative message" *ngIf="genderHasErrors">
+            <ul>
+                <li *ngFor="let msg of genderErrors">
+                    {{msg}}
+                </li>
+            </ul>
           </div>
+      </div>
+
+      <div class="ui required field" *ngIf="shouldDisplayMenopauseForm" [ngClass]="{error: menopauseHasErrors}">
+          <label>Menopauza:</label>
+          <div class="radio inline-grouped fields">
+            <div class="ui field">
+              <input type="radio" formControlName="menopause" [value]="Menopause.Pre">
+              <label for="pre">pre</label><br>
+            </div>
+
+            <div class="ui field">
+              <input type="radio" formControlName="menopause" [value]="Menopause.Post">
+              <label for="post">post</label><br>
+            </div>
+
+            <div class="ui field">
+              <input type="radio" formControlName="menopause" [value]="Menopause.Peri">
+              <label for="peri">peri</label><br>
+            </div>
+          </div>
+        <div class="ui negative message" *ngIf="menopauseHasErrors">
+          <ul>
+              <li *ngFor="let msg of menopauseErrors">
+                  {{msg}}
+              </li>
+          </ul>
         </div>
       </div>
-      <div class="field" *ngIf="shouldDisplayMenopauseForm">
-        <label>Menopauza:</label>
-        <div class="radio inline-grouped fields ">
-
-          <div class="field">
-            <input type="radio" formControlName="menopause" [value]="Menopause.Pre">
-            <label for="pre">pre</label><br>
-          </div>
-
-          <div class="field">
-            <input type="radio" formControlName="menopause" [value]="Menopause.Post">
-            <label for="post">post</label><br>
-          </div>
-
-          <div class="field">
-            <input type="radio" formControlName="menopause" [value]="Menopause.Peri">
-            <label for="peri">peri</label><br>
-          </div>
-        </div>
-      </div>
     </div>
 
 
-    <div class="required inline-grouped fields">
-      <div class="eight wide field">
+    <div class="ui required inline-grouped fields">
+      <div class="ui eight wide field" [ngClass]="{error : addressHasErrors}">
         <label>Adresa boravka</label>
         <input type="text" formControlName="address">
+        <div class="ui negative message" *ngIf="addressHasErrors">
+          <ul>
+              <li *ngFor="let msg of addressErrors">
+                  {{msg}}
+              </li>
+          </ul>
+        </div>
       </div>
-      <div class="eight wide field">
+      
+      <div class="ui eight wide field" [ngClass]="{error : cityHasErrors}">
         <label>Grad</label>
         <input type="text" formControlName="city">
+        <div class="ui negative message" *ngIf="cityHasErrors">
+          <ul>
+              <li *ngFor="let msg of cityErrors">
+                  {{msg}}
+              </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="required inline-grouped fields">
-      <div class="eight wide field">
+
+
+    <div class="ui required inline-grouped fields">
+      <div class="ui eight wide field" [ngClass]="{error : contactHasErrors}">
         <label>Kontakt telefon</label>
         <input type="text" formControlName="contact">
+        <div class="ui negative message" *ngIf="contactHasErrors">
+          <ul>
+              <li *ngFor="let msg of contactErrors">
+                  {{msg}}
+              </li>
+          </ul>
+        </div>
       </div>
-      <div class="eight wide field">
+
+      <div class="ui eight wide field" [ngClass]="{error : emailHasErrors}">
         <label>Email</label>
         <input type="email" formControlName="email">
+        <div class="ui negative message" *ngIf="emailHasErrors">
+          <ul>
+              <li *ngFor="let msg of emailErrors">
+                  {{msg}}
+              </li>
+          </ul>
+        </div>
       </div>
     </div>
-    <div class="ui required fluid field">
+
+
+    <div class="ui required fluid field" [ngClass]="{error : tumorDateDiagnosisHasErrors}">
       <label>Datum dijagnostikovanja tumora</label>
       <input type="date" formControlName="tumorDateDiagnosis">
+      <div class="ui negative message" *ngIf="tumorDateDiagnosisHasErrors">
+        <ul>
+            <li *ngFor="let msg of tumorDateDiagnosisErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
     </div>
-    <div class="ui required fluid field">
+
+
+    <div class="ui required fluid field" [ngClass]="{error : familyAnamnesisHasErrors}">
       <label>Porodicna anamneza</label>
       <textarea formControlName="familyAnamnesis"></textarea>
+      <div class="ui negative message" *ngIf="familyAnamnesisHasErrors">
+        <ul>
+            <li *ngFor="let msg of familyAnamnesisErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
     </div>
-    <button class="ui fluid button" type="submit">Sacuvaj</button>
-  </form>
 
+
+    <button class="ui fluid button" type="submit">Sacuvaj</button>
+    
+  </form>
 
 </div>
