@@ -3,7 +3,19 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const tumorSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    //
+    index: {
+        type: mongoose.Schema.Types.String,
+        unique: true,
+        require: true,
+    },
+    name: {
+        type: mongoose.Schema.Types.String,
+        require: true,
+    },
+    biopsyIndex: {
+        type: mongoose.Schema.Types.String,
+        require: true,
+    },
     gradus: {
         type: mongoose.Schema.Types.String,
         require: true,

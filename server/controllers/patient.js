@@ -61,6 +61,12 @@ const addNewPatient = async (req, res, next) => {
         await counterService.checkCounter();
         const historyIndex = await counterService.getHistoryIndex();
 
+        if(historyIndex == undefined){
+            const error = new Error('Counter error!');
+            error.status = 400;
+            throw error;
+        }
+
         const date = new Date();
         const index = historyIndex + '/' + date.getFullYear();
 

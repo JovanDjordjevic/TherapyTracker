@@ -12,26 +12,29 @@ const getAllTumorsForPatient = async (patientId, page=1, limit=20) => {
     return await Tumor.paginate({patient: patientId}, {page, limit})
 };
 
-const addNewTumor = async (patientId, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
-    pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype) => {
+const addNewTumor = async (patientId, biopsyIndex, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
+    pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype, name, index) => {
 
     //indeksi provera
     const newTumor = new Tumor();
     const tumorId = new mongoose.Types.ObjectId();
-    newTumor._id = tumorId
-    newTumor.gradus = gradus,
-    newTumor.erScore = erScore,
-    newTumor.erScorePercent = erScorePercent,
-    newTumor.erStatus = erStatus,
-    newTumor.pgrScore = pgrScore,
-    newTumor.pgrScorePercent = pgrScorePercent,
-    newTumor.pgrStatus = pgrStatus,
-    newTumor.her2INC = her2INC,
-    newTumor.her2INCPercent = her2INCPercent,
-    newTumor.her2_FISH_SICH = her2_FISH_SICH,
-    newTumor.her2Status = her2Status,
-    newTumor.ki67 = ki67
-    newTumor.molecularSubtype = molecularSubtype
+    newTumor._id = tumorId;
+    newTumor.gradus = gradus;
+    newTumor.erScore = erScore;
+    newTumor.erScorePercent = erScorePercent;
+    newTumor.erStatus = erStatus;
+    newTumor.pgrScore = pgrScore;
+    newTumor.pgrScorePercent = pgrScorePercent;
+    newTumor.pgrStatus = pgrStatus;
+    newTumor.her2INC = her2INC;
+    newTumor.her2INCPercent = her2INCPercent;
+    newTumor.her2_FISH_SICH = her2_FISH_SICH;
+    newTumor.her2Status = her2Status;
+    newTumor.ki67 = ki67;
+    newTumor.molecularSubtype = molecularSubtype;
+    newTumor.biopsyIndex = biopsyIndex;
+    newTumor.name = name;
+    newTumor.index = index;
 
     await newTumor.save();
 
@@ -40,8 +43,8 @@ const addNewTumor = async (patientId, gradus, erScore, erScorePercent, erStatus,
     return newTumor;
 };
 
-const updateTumorInfo = async (id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
-    pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype) => {
+const updateTumorInfo = async (id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, name,
+    pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype, biopsyIndex) => {
 
         const updatedTumor = await Tumor.findOneAndUpdate(
             { _id: id },
@@ -59,7 +62,9 @@ const updateTumorInfo = async (id, gradus, erScore, erScorePercent, erStatus, pg
                     her2_FISH_SICH: her2_FISH_SICH,
                     her2Status: her2Status,
                     ki67: ki67,
-                    molecularSubtype: molecularSubtype,                   
+                    molecularSubtype: molecularSubtype,
+                    biopsyIndex: biopsyIndex,
+                    name: name    
                 },
             },
             { new: true }

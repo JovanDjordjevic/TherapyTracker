@@ -26,8 +26,16 @@ const getBiopsyIndex = async () => {
     return index;
 }
 
+const getTumorIndex = async () => {
+    const counter = await Counter.findOneAndUpdate({}, {$inc: {tumorIndexCounter: 1}}).exec();
+    const index = counter.tumorIndexCounter;
+
+    return index;
+}
+
 module.exports = {
     checkCounter,
     getHistoryIndex,
-    getBiopsyIndex
+    getBiopsyIndex,
+    getTumorIndex
 }

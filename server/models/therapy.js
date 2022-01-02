@@ -35,6 +35,10 @@ const therapySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.String,
         require: true, 
     },
+    date: {
+        type: mongoose.Schema.Types.Date,
+        require: true,
+    },
     comment: {
         type: mongoose.Schema.Types.String,
         require: true, 

@@ -51,9 +51,9 @@ export class Patient {
   // deo koji se odnosi na karton i ne popunjava se eksplicitno vec u zahtevu
   public date: Date = new Date();
   public index: Number = 0;
-  public _biopsiyIds: string[] = [];
+  public _biopsyIds: string[] = [];
   public _tumorIds: string[] = [];
-  public _therapiyIds: string[] = [];
+  public _therapyIds: string[] = [];
 
   // deo koji se odnosi na klicnicko stanje i popunjava se eksplicitno tek nakon otvaanja kartona i slanja patch zahteva
   // treba da se prikaze na ekranu tek kada je isClinicalStateSet = true, tj posle patch zahteva

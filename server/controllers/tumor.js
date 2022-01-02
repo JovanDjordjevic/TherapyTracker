@@ -29,14 +29,14 @@ const getAllTumorsForPatient = async (req, res, next) => {
 const addNewTumorForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
     //console.log(patientId, req.body.tumor);
-    const {gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
-           her2INC, her2INCPercent, her2_FISH_SICH, her2Status,
+    const {gradus, biopsyIndex, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
+           her2INC, her2INCPercent, her2_FISH_SICH, her2Status, name,
            ki67, molecularSubtype} = req.body.tumor;
     // console.log('...');
     
     try {
-        if (gradus == undefined || erScore == undefined || erScorePercent == undefined || erStatus == undefined || 
-            pgrScore == undefined || pgrScorePercent == undefined || pgrStatus == undefined || 
+        if (gradus == undefined || biopsyIndex == undefined || erScore == undefined || erScorePercent == undefined || erStatus == undefined || 
+            pgrScore == undefined || pgrScorePercent == undefined || pgrStatus == undefined || name == undefined ||
             her2INC == undefined || her2INCPercent == undefined || her2_FISH_SICH == undefined || her2Status == undefined ||
             ki67 == undefined || molecularSubtype == undefined
         ) {
@@ -45,8 +45,17 @@ const addNewTumorForPatient = async (req, res, next) => {
             throw error;
         }
 
-        const newTumor = await tumorService.addNewTumor( patientId,
-            gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype
+        await counterService.checkCounter();
+        const index = await counterService.getHistoryIndex();
+
+        if(index == undefined){
+            const error = new Error('Counter error!');
+            error.status = 400;
+            throw error;
+        }
+
+        const newTumor = await tumorService.addNewTumor( patientId, biopsyIndex, gradus, erScore, erScorePercent, erStatus, pgrScore,
+            pgrScorePercent, pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype, name, index
         );
         res.status(201).json(newTumor);
     } catch (error) {
@@ -57,14 +66,14 @@ const addNewTumorForPatient = async (req, res, next) => {
 const updateTumorInfo = async (req, res, next) => {
     //console.log(req.body.tumor);
     const {_id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
-        her2INC, her2INCPercent, her2_FISH_SICH, her2Status,
+        her2INC, her2INCPercent, her2_FISH_SICH, her2Status, biopsyIndex, name,
         ki67, molecularSubtype} = req.body.tumor;
     
     try{
-        if (_id == undefined || gradus == undefined || erScore == undefined || erScorePercent == undefined ||
+        if (_id == undefined || gradus == undefined || erScore == undefined || erScorePercent == undefined || name == undefined ||
             erStatus == undefined || pgrScore == undefined || pgrScorePercent == undefined || pgrStatus == undefined || 
             her2INC == undefined || her2INCPercent == undefined || her2_FISH_SICH == undefined || her2Status == undefined ||
-            ki67 == undefined || molecularSubtype == undefined
+            ki67 == undefined || molecularSubtype == undefined || biopsyIndex == undefined
         ) {
             const error = new Error('Check input data!');
             error.status = 400;
@@ -72,9 +81,9 @@ const updateTumorInfo = async (req, res, next) => {
         }
 
         const updatedTumor = await tumorService.updateTumorInfo(
-            _id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
+            _id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, name,
             pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status,
-            ki67, molecularSubtype
+            ki67, molecularSubtype, biopsyIndex
         );
         res.status(201).json(updatedTumor);
     } catch (error) {
