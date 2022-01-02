@@ -12,7 +12,8 @@ const getAllTherapiesForPatient = async (patientId, page=1, limit=20) => {
     return await Therapy.paginate({patient: patientId}, {page, limit});
 };
 
-const addNewTherapy = async (patientId, therapyType, date, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment) => {
+const addNewTherapy = async (patientId, therapyType, date, numCycles, usingNeoadjuvant,
+    numTaxol, numTxtr, herceptinTherapy, comment, isTherapyResponseSet, therapyResponse) => {
 
     const newTherapy = new Therapy();
     const therapyId = new mongoose.Types.ObjectId();
@@ -26,6 +27,8 @@ const addNewTherapy = async (patientId, therapyType, date, numCycles, usingNeoad
     newTherapy.comment = comment;
     newTherapy.patient = patientId;
     newTherapy.date = date;
+    newTherapy.isTherapyResponseSet = isTherapyResponseSet;
+    newTherapy.therapyResponse = therapyResponse;
 
     await newTherapy.save();
 

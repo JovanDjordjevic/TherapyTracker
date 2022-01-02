@@ -29,7 +29,8 @@ const getAllTherapiesForPatient = async (req, res, next) => {
 const addNewTherapyForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
     //console.log(patientId, req.body.therapy);
-    const {therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment, date} = req.body.therapy;
+    const {therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment,
+        date, isTherapyResponseSet, therapyResponse} = req.body.therapy;
     // console.log('...');
     
     try {
@@ -41,8 +42,17 @@ const addNewTherapyForPatient = async (req, res, next) => {
             throw error;
         }
 
-        const newTherapy = await therapyService.addNewTherapy( patientId, therapyType, date,
-            numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment
+        console.log(isTherapyResponseSet);
+        console.log(therapyResponse);
+
+        if(isTherapyResponseSet && (therapyResponse == undefined || therapyResponse === "")){
+            const error = new Error('Check therapyResponse!');
+            error.status = 400;
+            throw error;
+        }
+
+        const newTherapy = await therapyService.addNewTherapy( patientId, therapyType, date, numCycles,
+            usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment, isTherapyResponseSet, therapyResponse
         );
         res.status(201).json(newTherapy);
     } catch (error) {
@@ -55,11 +65,17 @@ const updateTherapyInfo = async (req, res, next) => {
     const {_id, isTherapyResponseSet, therapyResponse, therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, date, comment} = req.body.therapy;
     
     try{
-        if (_id == undefined || isTherapyResponseSet == undefined || therapyResponse == undefined || therapyType == undefined||
+        if (_id == undefined || therapyType == undefined||
             numCycles == undefined || usingNeoadjuvant == undefined ||numTaxol == undefined || date == undefined ||
             numTxtr == undefined || herceptinTherapy == undefined || comment == undefined 
         ) {
             const error = new Error('Check input data!');
+            error.status = 400;
+            throw error;
+        }
+
+        if(isTherapyResponseSet && (therapyResponse == undefined || therapyResponse === "")){
+            const error = new Error('Check therapyResponse!');
             error.status = 400;
             throw error;
         }
