@@ -13,7 +13,7 @@ const getAllTumorsForPatient = async (patientId, page=1, limit=20) => {
 };
 
 const addNewTumor = async (patientId, biopsyIndex, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
-    pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype, name, index) => {
+    pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype, name, date) => {
 
     //indeksi provera
     const newTumor = new Tumor();
@@ -34,7 +34,7 @@ const addNewTumor = async (patientId, biopsyIndex, gradus, erScore, erScorePerce
     newTumor.molecularSubtype = molecularSubtype;
     newTumor.biopsyIndex = biopsyIndex;
     newTumor.name = name;
-    newTumor.index = index;
+    newTumor.date = date;
 
     await newTumor.save();
 
@@ -43,7 +43,7 @@ const addNewTumor = async (patientId, biopsyIndex, gradus, erScore, erScorePerce
     return newTumor;
 };
 
-const updateTumorInfo = async (id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, name,
+const updateTumorInfo = async (id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, name, date,
     pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype, biopsyIndex) => {
 
         const updatedTumor = await Tumor.findOneAndUpdate(
@@ -64,7 +64,8 @@ const updateTumorInfo = async (id, gradus, erScore, erScorePercent, erStatus, pg
                     ki67: ki67,
                     molecularSubtype: molecularSubtype,
                     biopsyIndex: biopsyIndex,
-                    name: name    
+                    name: name,
+                    date: date  
                 },
             },
             { new: true }

@@ -10,11 +10,6 @@ const counterShema = new mongoose.Schema({
         type: mongoose.Schema.Types.Number,
         require: true,
         default: 1000
-    },
-    tumorIndexCounter: {
-        type: mongoose.Schema.Types.Number,
-        require: true,
-        default: 1000000
     }
 });
 
