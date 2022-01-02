@@ -2,10 +2,7 @@
   <div class="ui two column very relaxed grid">
     <div class="column">
       <app-therapy-form *ngIf="showTherapyForm"></app-therapy-form>
-      <app-patient-info *ngIf="showPatientInfo"></app-patient-info>
-    </div>
-    <div class="column">
-      <table class="ui mini definition table">
+      <table *ngIf="showPatientInfo" class="ui mini definition table">
         <tbody>
           <tr>
             <td class="six wide column">Broj ciklusa</td>
@@ -33,6 +30,9 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="column">
+      <app-treatment-list></app-treatment-list>
       <div class="buttons">
         <button class="ui button" (click)="onShowBiopsyForm()">{{showPatientInfo ? 'Unesi podatke o terapiji' : 'Prikazi
           informacije o pacijentu'}}</button>

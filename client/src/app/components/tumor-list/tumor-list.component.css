@@ -1,0 +1,47 @@
+tbody {
+  display: block;
+  height: 92%;
+  overflow-y: scroll;
+}
+
+.ui.table {
+  height: 250px;
+  overflow: hidden;
+  padding: 0px;
+}
+
+thead,
+tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+thead {
+  padding-right: 5px;
+  background-color: rgb(226, 226, 226);
+}
+
+thead tr th {
+  background-color: rgb(226, 226, 226);
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--javat);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--java);
+}
+
+tr:hover {
+  background-color: var(--swans-down);
+}

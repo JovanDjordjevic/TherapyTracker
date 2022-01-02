@@ -2,10 +2,8 @@
   <div class="ui two column very relaxed grid">
     <div class="column">
       <app-tumor-form *ngIf="showTumorForm"></app-tumor-form>
-      <app-patient-info *ngIf="showPatientInfo"></app-patient-info>
-    </div>
-    <div class="column">
-      <table class="ui mini definition table">
+      <!-- <app-patient-info *ngIf="showPatientInfo"></app-patient-info> -->
+      <table *ngIf="showPatientInfo" class="ui mini definition table">
         <tbody>
           <tr>
             <td class="six wide column">Gradus</td>
@@ -39,11 +37,13 @@
             <td>Molekularni tip</td>
             <td></td>
           </tr>
-
         </tbody>
       </table>
+    </div>
+    <div class="column">
+      <app-tumor-list></app-tumor-list>
       <button class="ui button" (click)="onShowTumorForm()">{{showPatientInfo ? 'Unesi podatke o tumoru' : 'Prikazi
-        informacije o pacijentu'}}</button>
+        informacije o tumoru'}}</button>
     </div>
   </div>
   <div class="ui vertical divider">
