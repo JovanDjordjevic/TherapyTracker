@@ -1,4 +1,41 @@
 <form class="ui form" [formGroup]="tumorForm" (ngSubmit)="onTumorFormSubmit()">
+
+    <div class="ui required fluid field" [ngClass]="{error: dateHasErrors}">
+        <label>Datum</label>
+        <input type="date" formControlName="date" />
+    </div>
+    <div class="ui negative message" *ngIf="dateHasErrors">
+        <ul>
+            <li *ngFor="let msg of dateErrors">
+                {{msg}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="ui required fluid field" [ngClass]="{error: tumorNameHasErrors}">
+        <label>Naziv tumora</label>
+        <input type="text" formControlName="tumorName" />
+        <div class="ui negative message" *ngIf="tumorNameHasErrors">
+          <ul>
+              <li *ngFor="let msg of tumorNameErrors">
+                  {{msg}}
+              </li>
+          </ul>
+        </div>
+    </div>
+
+    <div class="ui required fluid field" [ngClass]="{error: biopsyIndexHasErrors}">
+        <label>Broj biopsije koja se odnosi na ovaj tumor</label>
+        <input type="text" formControlName="biopsyIndex" />
+      </div>
+      <div class="ui negative message" *ngIf="biopsyIndexHasErrors">
+        <ul>
+            <li *ngFor="let msg of biopsyIndexErrors">
+                {{msg}}
+            </li>
+        </ul>
+      </div>
+
     <div class="ui required fluid field">
         <label>Gradus</label>
         <select formControlName="gradus" class="ui fluid search selection dropdown" [ngClass]="{error: gradusHasErrors}" (change)="gradusSelected()">

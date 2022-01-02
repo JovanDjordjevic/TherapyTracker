@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Tumor, Gradus, Her2Status, HER2_FISH_SICH } from 'src/app/models/tumor.model';
 import { MustBeNumber } from 'src/app/validators/common.validator';
-import { Ki67Validator } from 'src/app/validators/tumor.validator';
+import { BiopsyNumberInTumorForm, Ki67Validator } from 'src/app/validators/tumor.validator';
 import { Subscription } from 'rxjs';
 import { TumorService } from 'src/app/services/tumor.service';
 import { Patient } from 'src/app/models/patient.model';
@@ -26,6 +26,10 @@ export class TumorFormComponent implements OnInit {
   patient: Patient;
   sub: Subscription = new Subscription();
 
+  
+  dateHasErrors : boolean = false;
+  tumorNameHasErrors : boolean = false;
+  biopsyIndexHasErrors : boolean = false;
   gradusHasErrors : boolean = false;
   erScoreHasErrors : boolean = false;
   erScorePercentHasErrors : boolean = false;
@@ -38,6 +42,9 @@ export class TumorFormComponent implements OnInit {
   ki67HasErrors : boolean = false;
   molecularSubtypeHasErrors : boolean = false;
 
+  dateErrors : string[] = [];
+  tumorNameErrors : string[] = [];
+  biopsyIndexErrors : string[] = [];
   gradusErrors : string[] = [];
   erScoreErrors : string[] = [];
   erScorePercentErrors : string[] = [];
@@ -54,6 +61,9 @@ export class TumorFormComponent implements OnInit {
     this.patient = this.patientService.getCurrentPatient();
     
     this.tumorForm = this.formBuilder.group({
+      date : ['', [Validators.required]],
+      tumorName : ['', [Validators.required]],
+      biopsyIndex : ['', [Validators.required, BiopsyNumberInTumorForm]],
       gradus : ['', [Validators.required]],
       erScore : ['', [Validators.required, MustBeNumber]],
       erScorePercent : ['', [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -81,6 +91,9 @@ export class TumorFormComponent implements OnInit {
   onTumorFormSubmit() {
     if (this.tumorForm.invalid) {
       //window.alert('Neka polja nemaju validnu vrednost!');
+      this.updateDateErrors();
+      this.updateTumorNameErrors();
+      this.updateBiopsyIndexErrors();
       this.updateGradusErrors();
       this.updateErScoreErrors();
       this.updateErScorePercentErrors();
@@ -111,7 +124,7 @@ export class TumorFormComponent implements OnInit {
     //console.log(this.tumorForm);
     const data = this.tumorForm.value;
 
-    const newTumor = new Tumor(data.gradus, data.erScore, data.erScorePercent, data.erStatus, data.pgrScore, data.pgrScorePercent, 
+    const newTumor = new Tumor(data.date, data.tumorName, data.biopsyIndex, data.gradus, data.erScore, data.erScorePercent, data.erStatus, data.pgrScore, data.pgrScorePercent, 
       data.pgrStatus, data.her2INC, data.her2INCPercent, data.her2_FISH_SICH, data.her2Status, data.ki67, data.molecularSubtype
     );
 
@@ -121,6 +134,52 @@ export class TumorFormComponent implements OnInit {
                                   console.log('added tumor for ', this.patient._id, ' : ', addedTumor);
                                 });
   }
+
+  updateDateErrors(){
+    this.dateErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('date')?.errors;
+    if (errors === null || errors === undefined) {
+      this.dateHasErrors = false;
+    }
+    else {
+      this.dateHasErrors = true;
+      if(errors['required']){
+        this.dateErrors.push("Datum mora imati vrednost");
+      }
+    }
+  }
+
+  updateTumorNameErrors(){
+    this.tumorNameErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('tumorName')?.errors;
+    if (errors === null || errors === undefined) {
+      this.tumorNameHasErrors = false;
+    }
+    else {
+      this.tumorNameHasErrors = true;
+      if(errors['required']){
+        this.tumorNameErrors.push("Naziv tumora mora imati vrednost");
+      }
+    }
+  }
+
+  updateBiopsyIndexErrors(){
+    this.biopsyIndexErrors = [];
+    const errors : ValidationErrors | undefined | null = this.tumorForm.get('biopsyIndex')?.errors;
+    if (errors === null || errors === undefined) {
+      this.biopsyIndexHasErrors = false;
+    }
+    else {
+      this.biopsyIndexHasErrors = true;
+      if(errors['required']){
+        this.biopsyIndexErrors.push("Naziv tumora mora imati vrednost");
+      }
+      if(errors['biopsyIndex']){
+        this.biopsyIndexErrors.push(errors['biopsyIndex'].message);
+      }
+    }
+  }
+
 
   updateGradusErrors(){
     this.gradusErrors = [];

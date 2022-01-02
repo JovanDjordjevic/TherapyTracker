@@ -24,6 +24,9 @@ export class Tumor {
     // NOTE: Pgr status: 0 ako je vrednost Pgr skora izražena u procentima strogo manja od 1, inače 1 (ako je gradus nepoznato vrednost treba da bude 0)
     // ovu vrednost računati i prikazivati na osnovu korisničkog unosa npr. u nekom polju koje je disejblovano
     constructor(
+        public date : Date,
+        public name : string,
+        public biopsyIndex : string,
         public gradus : Gradus, 
         public erScore : number, 
         public erScorePercent : number,
