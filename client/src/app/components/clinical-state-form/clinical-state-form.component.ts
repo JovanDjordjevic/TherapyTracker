@@ -55,6 +55,8 @@ export class ClinicalStateFormComponent implements OnInit {
     this.patient.nStage = data.nStage;
     this.patient.mStage = data.mStage;
     this.patient.clinicalStage = data.clinicalStage;
+    this.patient.tnmStage =
+      'T' + data.tStage + 'N' + data.nStage + 'M' + data.mStage;
 
     this.sub = this.patientService
       .updatePatientInfo(this.patient)
