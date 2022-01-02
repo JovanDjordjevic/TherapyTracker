@@ -22,7 +22,7 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   sub : Subscription = new Subscription();
 
-  @Output() onDisplayPatientForm = new EventEmitter<boolean>();
+  @Output() onPatientFormFilled = new EventEmitter<void>();
 
   jmbgHasErrors : boolean = false;
   nameHasErrors : boolean = false;
@@ -133,7 +133,7 @@ export class PatientFormComponent implements OnInit, OnDestroy {
     // mozda je logican korak da se ovde taj ubaceni pacijent postavi za trenutnog pacijenta
     // i da se za otvori nejgov karton
 
-    this.onDisplayPatientForm.emit(false);
+    this.onPatientFormFilled.emit();
   }
   
   updateJMBGErrors() {

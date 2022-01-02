@@ -1,18 +1,31 @@
 <div class="ui vertical inverted visible sidebar menu psuh">
-  <a class="item" (click)="sendRequest()">  <!-- for testing requests-->
+  <a class="item" (click)="displayHomeClicked()">  
     <i class="home icon"></i>
-    Home
+    Pocetna strana
   </a>
-  <a class="item">
+
+  <a class="item" (click)="displayPatientsClicked()">
     <i class="block layout icon"></i>
-    Patients
+    Pacijenti
   </a>
-  <a class="item">
+
+  <a class="item" (click)="displayBiopsiesClicked()">
     <i class="block layout icon"></i>
-    Biopsy
+    Biopsije
   </a>
-  <a class="item">
+
+  <a class="item" (click)="displayTumorsClicked()">
     <i class="block layout icon"></i>
-    Treatments
+    Tumori
+  </a>
+
+  <a class="item" (click)="displayTherapiesClicked()">
+    <i class="block layout icon"></i>
+    Terapije
+  </a>
+  
+  <a class="item" (click)="sendRequest()">  <!-- bice izbaceno u krajnjoj verziji-->
+    <i class="block layout icon"></i>
+    Test a request
   </a>
 </div>

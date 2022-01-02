@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/biopsy.model';
 import { Gender, Patient } from 'src/app/models/patient.model';
-import { SideBar } from 'src/app/models/sidebar.model';
 import { Therapy } from 'src/app/models/therapy.model';
 import { Gradus, Her2Status, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
@@ -14,10 +13,43 @@ import { TumorService } from 'src/app/services/tumor.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
+
 export class SidebarComponent implements OnInit {
+
+  @Output() onDisplayHome = new EventEmitter<void>();
+  @Output() onDisplayPatients = new EventEmitter<void>();
+  @Output() onDisplayBiopsies = new EventEmitter<void>();
+  @Output() onDisplayTumors = new EventEmitter<void>();
+  @Output() onDisplayTherapies = new EventEmitter<void>();
+
   constructor(private ps : PatientService, private bs : BiopsyService, private ts : TumorService, private ths : TherapyService) {}
 
   ngOnInit(): void {}
+
+  displayHomeClicked(){
+    //console.log("click");
+    this.onDisplayHome.emit();
+  }
+
+  displayPatientsClicked(){
+    //console.log("click");
+    this.onDisplayPatients.emit();
+  }
+
+  displayBiopsiesClicked(){
+    //console.log("click");
+    this.onDisplayBiopsies.emit();
+  }
+
+  displayTumorsClicked(){
+    //console.log("click");
+    this.onDisplayTumors.emit();
+  }
+
+  displayTherapiesClicked(){
+    //console.log("click");
+    this.onDisplayTherapies.emit();
+  }
 
   // for testing requests
   sendRequest(){
