@@ -35,6 +35,7 @@ const addNewTumor = async (patientId, biopsyIndex, gradus, erScore, erScorePerce
     newTumor.biopsyIndex = biopsyIndex;
     newTumor.name = name;
     newTumor.date = date;
+    newTumor.patient = patientId;
 
     await newTumor.save();
 

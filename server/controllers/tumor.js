@@ -19,7 +19,7 @@ const getAllTumorsForPatient = async (req, res, next) => {
     //console.log(patientId);
 
     try {
-        const tumors = await tumorService.getAllTumorsForPatient(patientId, page,);
+        const tumors = await tumorService.getAllTumorsForPatient(patientId, page, limit);
         res.status(200).json(tumors);
     } catch (error) {
         next(error);
