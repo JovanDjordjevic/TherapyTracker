@@ -1,7 +1,11 @@
 <form class="ui form" [formGroup]="therapyForm" (ngSubmit)="onTherapyFormSubmit()">
+    <div class="ui fluid field">
+        <label>Datum</label>
+        <input type="date" formControlName="date" />
+    </div>
     <div class="ui fluid field" [ngClass]="{error: numCyclesHasErrors}">
         <label>Broj ciklusa</label>
-        <input type="text" formControlName="numCycles"/>
+        <input type="text" formControlName="numCycles" />
     </div>
     <div class="ui negative message" *ngIf="numCyclesHasErrors">
         <ul>
@@ -13,10 +17,11 @@
 
     <div class="ui fluid field">
         <label>Tip terapije</label>
-        <select formControlName="therapyType" class="ui fluid search selection dropdown" [ngClass]="{error: therapyTypeHasErrors}">
-          <option value="TherapyTypeEnum.AC">{{ TherapyTypeEnum.AC }}</option>
-          <option value="TherapyTypeEnum.FAC">{{ TherapyTypeEnum.FAC }}</option>
-          <option value="TherapyTypeEnum.EC">{{ TherapyTypeEnum.EC }}</option>
+        <select formControlName="therapyType" class="ui fluid search selection dropdown"
+            [ngClass]="{error: therapyTypeHasErrors}">
+            <option [value]="TherapyTypeEnum.AC">{{ TherapyTypeEnum.AC }}</option>
+            <option [value]="TherapyTypeEnum.FAC">{{ TherapyTypeEnum.FAC }}</option>
+            <option [value]="TherapyTypeEnum.EC">{{ TherapyTypeEnum.EC }}</option>
         </select>
     </div>
     <div class="ui negative message" *ngIf="therapyTypeHasErrors">
@@ -65,13 +70,13 @@
 
     <div class="ui two column grid" [ngClass]="{error: herceptinTherapyHasErrors}">
         <div class="ui fluid column">
-            <input type="checkbox" (change)="onHerceptinCheckboxChange()"/>
+            <input type="checkbox" (change)="onHerceptinCheckboxChange()" />
             <label>Terapija herceptinom</label>
         </div>
 
         <div class="ui field column" [ngClass]="{disabled : herceptinDisabled}">
             <label>Broj ciklusa terapije herceptinom</label>
-            <input type="text" formControlName="herceptinTherapy"/>
+            <input type="text" formControlName="herceptinTherapy" />
         </div>
     </div>
     <div class="ui negative message" *ngIf="herceptinTherapyHasErrors">
@@ -88,21 +93,22 @@
     </div>
 
     <br>
-    
-    <div *ngIf="placeholder">  <!-- TODO: izmeniti palceholder-->
+
+    <div *ngIf="placeholder">
+        <!-- TODO: izmeniti palceholder-->
         <hr>
 
         <div class="ui fluid field">
             <label>Terapijski odgovor</label>
             <select formControlName="therapyResponse" class="ui fluid search selection dropdown">
-              <option value="TherapyResponseEnum.CR">{{ TherapyResponseEnum.CR }}</option>
-              <option value="TherapyResponseEnum.DCIS">{{ TherapyResponseEnum.DCIS }}</option>
-              <option value="TherapyResponseEnum.MCG">{{ TherapyResponseEnum.MCG }}</option>
-              <option value="TherapyResponseEnum.pPR ">{{ TherapyResponseEnum.pPR }}</option>
-              <option value="TherapyResponseEnum.NoChange">{{ TherapyResponseEnum.NoChange }}</option>
+                <option value="TherapyResponseEnum.CR">{{ TherapyResponseEnum.CR }}</option>
+                <option value="TherapyResponseEnum.DCIS">{{ TherapyResponseEnum.DCIS }}</option>
+                <option value="TherapyResponseEnum.MCG">{{ TherapyResponseEnum.MCG }}</option>
+                <option value="TherapyResponseEnum.pPR ">{{ TherapyResponseEnum.pPR }}</option>
+                <option value="TherapyResponseEnum.NoChange">{{ TherapyResponseEnum.NoChange }}</option>
             </select>
         </div>
     </div>
 
     <button class="ui fluid button" type="submit">Sacuvaj podatke</button>
-  </form>
+</form>

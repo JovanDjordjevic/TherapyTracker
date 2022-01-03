@@ -32,7 +32,7 @@
       </table>
     </div>
     <div class="column">
-      <app-treatment-list></app-treatment-list>
+      <app-treatment-list [therapies]="therapies"></app-treatment-list>
       <div class="buttons">
         <button class="ui button" (click)="onShowBiopsyForm()">{{showPatientInfo ? 'Unesi podatke o terapiji' : 'Prikazi
           informacije o pacijentu'}}</button>

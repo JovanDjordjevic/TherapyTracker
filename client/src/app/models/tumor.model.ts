@@ -24,23 +24,23 @@ export class Tumor {
     // NOTE: Pgr status: 0 ako je vrednost Pgr skora izražena u procentima strogo manja od 1, inače 1 (ako je gradus nepoznato vrednost treba da bude 0)
     // ovu vrednost računati i prikazivati na osnovu korisničkog unosa npr. u nekom polju koje je disejblovano
     constructor(
-        public date : Date,
-        public name : string,
-        public biopsyIndex : string,
-        public gradus : Gradus, 
-        public erScore : number, 
-        public erScorePercent : number,
-        public erStatus : number, 
-        public pgrScore : number,
-        public pgrScorePercent : number,
-        public pgrStatus : number,
-        public her2INC : number,
-        public her2INCPercent : number,
-        public her2_FISH_SICH : HER2_FISH_SICH,     // ne razumem zahtev u dokumentu, koja funkcija (?)
-        public her2Status : Her2Status,             // ne razumem zahtev u dokumentu, koja funkcija (?)
-        public ki67 : string,               // jer kaze vrednost u procentima ili nepoznato
-        public molecularSubtype : number,
-    ) {}
+        public date: Date,
+        public name: string,
+        public biopsyIndex: string,
+        public gradus: Gradus,
+        public erScore: number,
+        public erScorePercent: number,
+        public erStatus: number,
+        public pgrScore: number,
+        public pgrScorePercent: number,
+        public pgrStatus: number,
+        public her2INC: number,
+        public her2INCPercent: number,
+        public her2_FISH_SICH: HER2_FISH_SICH,     // ne razumem zahtev u dokumentu, koja funkcija (?)
+        public her2Status: Her2Status,             // ne razumem zahtev u dokumentu, koja funkcija (?)
+        public ki67: string,               // jer kaze vrednost u procentima ili nepoznato
+        public molecularSubtype: number,
+    ) { }
 }
 
 export interface TumorPagination {
@@ -54,4 +54,4 @@ export interface TumorPagination {
     hasNextPage: boolean,
     prevPage: number | null,
     nextPage: number | null,
-  };
+};

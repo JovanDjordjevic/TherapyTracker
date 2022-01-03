@@ -4,6 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { PatientService } from 'src/app/services/patient-service.service';
+import { Tumor } from 'src/app/models/tumor.model';
+import { Therapy } from 'src/app/models/therapy.model';
+import { TumorService } from 'src/app/services/tumor.service';
+import { TherapyService } from 'src/app/services/therapy.service';
 
 declare const $: any;
 
@@ -12,22 +16,32 @@ declare const $: any;
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.css'],
 })
-export class TabsComponent implements OnInit, OnDestroy{
+export class TabsComponent implements OnInit, OnDestroy {
   //@Input() patient: Patient;
-  currentPatient : Patient;
+  currentPatient: Patient;
 
   biopsies: Biopsy[] = []
-  sub : Subscription = new Subscription;
+  tumors: Tumor[] = []
+  therapies: Therapy[] = []
+  sub: Subscription = new Subscription;
 
-  constructor(private patietnService : PatientService, private biopsyService: BiopsyService) {
+  constructor(private patietnService: PatientService, private biopsyService: BiopsyService, private tumorService: TumorService, private therapyService: TherapyService) {
 
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );   
     this.currentPatient = patietnService.getCurrentPatient();
 
     //console.log(this.patient._id);  // error
-    this.sub =  this.biopsyService.getAllBiopsiesForPatient(this.currentPatient._id, 1).subscribe( (biopsies : Biopsy[]) => {
+    this.sub = this.biopsyService.getAllBiopsiesForPatient(this.currentPatient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
-      //console.log("all biopsies for patient: ", this.biopsies);
+      console.log("all biopsies for patient: ", this.biopsies);
+    });
+    this.sub = this.tumorService.getAllTumorsForPatient(this.currentPatient._id, 1).subscribe((tumors: Tumor[]) => {
+      this.tumors = tumors;
+      console.log("all tumors for patient: ", this.tumors);
+    });
+    this.sub = this.therapyService.getAllTherapiesForPatient(this.currentPatient._id, 1).subscribe((therapies: Therapy[]) => {
+      this.therapies = therapies;
+      console.log("all therapies for patient: ", this.therapies);
     });
   }
 
@@ -36,6 +50,6 @@ export class TabsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-      this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

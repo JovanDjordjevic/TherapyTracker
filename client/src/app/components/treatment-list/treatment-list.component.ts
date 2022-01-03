@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Therapy } from 'src/app/models/therapy.model';
+import { formattedDate } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-treatment-list',
@@ -8,7 +9,8 @@ import { Therapy } from 'src/app/models/therapy.model';
 })
 export class TreatmentListComponent implements OnInit {
   @Input() therapies: Therapy[] = [];
-  constructor() {}
+  formattedDate = formattedDate;
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

@@ -17,35 +17,35 @@ export class TumorService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllTumors(page : number = 1, limit: number = 20) : Observable<Tumor[]>{
+  public getAllTumors(page: number = 1, limit: number = 20): Observable<Tumor[]> {
     const params: HttpParams = new HttpParams().append('page', page).append('limit', limit);
-    const obs: Observable<Tumor[]> = this.http.get<TumorPagination>(this.urls.getAllTumors, {params})
-                                              .pipe( map( (pagination : TumorPagination) => {return pagination.docs}) );
+    const obs: Observable<Tumor[]> = this.http.get<TumorPagination>(this.urls.getAllTumors, { params })
+      .pipe(map((pagination: TumorPagination) => { return pagination.docs }));
     //obs.subscribe((data)=>console.log(data));
     return obs;
   }
-  
-  public getAllTumorsForPatient(patientId : string, page : number = 1, limit: number = 20) : Observable<Tumor[]>{
+
+  public getAllTumorsForPatient(patientId: string, page: number = 1, limit: number = 20): Observable<Tumor[]> {
     const params: HttpParams = new HttpParams().append('_id', patientId).append('page', page).append('limit', limit);
-    const obs: Observable<Tumor[]> = this.http.get<TumorPagination>(this.urls.getAllTumorsForPatient, {params: params})
-                                              .pipe( map( (pagination : TumorPagination) => {return pagination.docs}) );
+    const obs: Observable<Tumor[]> = this.http.get<TumorPagination>(this.urls.getAllTumorsForPatient, { params: params })
+      .pipe(map((pagination: TumorPagination) => { return pagination.docs }));
+    //obs.subscribe((data) => console.log(data));
+    return obs;
+  }
+
+  public addNewTumorForPatient(patientId: string, tumor: Tumor): Observable<Tumor> {
+    const obs: Observable<Tumor> = this.http.post<Tumor>(this.urls.addNewTumorForPatient, { patientId, tumor });
+    //obs.subscribe((data) => console.log(data));
+    return obs;
+  }
+
+  public updateTumorInfo(tumor: Tumor): Observable<Tumor> {
+    const obs: Observable<Tumor> = this.http.put<Tumor>(this.urls.updateTumorInfo, { tumor });
     //obs.subscribe((data)=>console.log(data));
     return obs;
   }
 
-  public addNewTumorForPatient(patientId : string, tumor : Tumor) : Observable<Tumor>{
-    const obs: Observable<Tumor> = this.http.post<Tumor>(this.urls.addNewTumorForPatient, {patientId, tumor});
-    //obs.subscribe((data)=>console.log(data));
-    return obs;
-  }
-
-  public updateTumorInfo(tumor : Tumor) : Observable<Tumor>{
-    const obs: Observable<Tumor> = this.http.put<Tumor>(this.urls.updateTumorInfo, {tumor});
-    //obs.subscribe((data)=>console.log(data));
-    return obs;
-  }
-
-  public deleteTumorForPatient(patientId : string, tumorId : string) : Observable<Tumor>{
+  public deleteTumorForPatient(patientId: string, tumorId: string): Observable<Tumor> {
     const obs: Observable<Tumor> = this.http.delete<Tumor>(this.urls.deleteTumorForPatient + '/' + patientId + '/' + tumorId);
     //obs.subscribe((data)=>console.log(data));
     return obs;
