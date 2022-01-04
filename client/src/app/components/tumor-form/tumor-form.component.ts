@@ -128,7 +128,7 @@ export class TumorFormComponent implements OnInit {
       data.pgrStatus, data.her2INC, data.her2INCPercent, data.her2_FISH_SICH, data.her2Status, data.ki67, data.molecularSubtype
     );
 
-    //console.log(this.patient._id);
+    console.log(newTumor);
     this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
       .subscribe((addedTumor: Tumor) => {
         console.log('added tumor for ', this.patient._id, ' : ', addedTumor);

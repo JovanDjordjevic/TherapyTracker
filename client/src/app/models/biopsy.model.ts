@@ -30,7 +30,7 @@ export class Biopsy {
     // multifocalityLeft i multifocalityRight isto string jer hoce da bude broj ili 'ne' (?)
     constructor(
         public date: Date,
-        public biopsySide: BiopsySide,
+        public side: BiopsySide,
         public biopsyTypeLeft: BiopsyType,
         public numLeft: string,
         public histotypeLeft: BiopsyHistotype,

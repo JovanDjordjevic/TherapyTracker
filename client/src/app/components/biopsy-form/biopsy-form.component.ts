@@ -25,36 +25,36 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
   //@Input() patient: Patient;
   patient: Patient;
 
-  sub : Subscription = new Subscription();
-  dateHasErrors : boolean = false;
-  sideHasErrors : boolean = false;
-  biopsyTypeLeftHasErrors : boolean = false;
-  numLeftHasErrors : boolean = false;
-  histotypeLeftHasErrors : boolean = false;
-  multifocalityLeftHasErrors : boolean = false;
-  biopsyTypeRightHasErrors : boolean = false;
-  numRightHasErrors : boolean = false;
-  histotypeRightHasErrors : boolean = false;
-  multifocalityRightHasErrors : boolean = false;
+  sub: Subscription = new Subscription();
+  dateHasErrors: boolean = false;
+  sideHasErrors: boolean = false;
+  biopsyTypeLeftHasErrors: boolean = false;
+  numLeftHasErrors: boolean = false;
+  histotypeLeftHasErrors: boolean = false;
+  multifocalityLeftHasErrors: boolean = false;
+  biopsyTypeRightHasErrors: boolean = false;
+  numRightHasErrors: boolean = false;
+  histotypeRightHasErrors: boolean = false;
+  multifocalityRightHasErrors: boolean = false;
 
-  dateErrors : string[] = [];
-  sideErrors : string[] = [];
-  biopsyTypeLeftErrors : string[] = [];
-  numLeftErrors : string[] = [];
-  histotypeLeftErrors : string[] = [];
-  multifocalityLeftErrors : string[] = [];
-  biopsyTypeRightErrors : string[] = [];
-  numRightErrors : string[] = [];
-  histotypeRightErrors : string[] = [];
-  multifocalityRightErrors : string[] = [];
+  dateErrors: string[] = [];
+  sideErrors: string[] = [];
+  biopsyTypeLeftErrors: string[] = [];
+  numLeftErrors: string[] = [];
+  histotypeLeftErrors: string[] = [];
+  multifocalityLeftErrors: string[] = [];
+  biopsyTypeRightErrors: string[] = [];
+  numRightErrors: string[] = [];
+  histotypeRightErrors: string[] = [];
+  multifocalityRightErrors: string[] = [];
 
-  constructor(private formBuilder: FormBuilder, private patientService : PatientService, private biopsyService: BiopsyService) {
+  constructor(private formBuilder: FormBuilder, private patientService: PatientService, private biopsyService: BiopsyService) {
     this.leftFormDisabled = false;
     this.rightFormDisabled = true;
-    
+
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  ); 
     this.patient = this.patientService.getCurrentPatient();
-  
+
     this.biopsyForm = this.formBuilder.group({
       date: ['', [Validators.required]],
       side: ['', [Validators.required]],
@@ -78,7 +78,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   onBiopsyFormSubmit() {
@@ -93,13 +93,13 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
 
     // validatori iz ovog fajla
     this.updateLeftAndRightErrors();
-    
-    
-    if(this.dateHasErrors == true || this.sideHasErrors == true || 
+
+
+    if (this.dateHasErrors == true || this.sideHasErrors == true ||
       this.biopsyTypeLeftHasErrors == true || this.numLeftHasErrors == true || this.histotypeLeftHasErrors == true || this.multifocalityLeftHasErrors == true ||
       this.biopsyTypeRightHasErrors == true || this.numRightHasErrors == true || this.histotypeRightHasErrors == true || this.multifocalityRightHasErrors == true) {
-        window.alert('Neka polja nemaju validnu vrednost!');
-        return;
+      window.alert('Neka polja nemaju validnu vrednost!');
+      return;
     }
 
     this.dateHasErrors = false;
@@ -118,46 +118,46 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
 
     const data = this.biopsyForm.value;
 
-    const newBiopsy = new Biopsy( data.date, data.side, data.biopsyTypeLeft, data.numLeft, data.histotypeLeft, data.multifocalityLeft,
+    const newBiopsy = new Biopsy(data.date, data.side, data.biopsyTypeLeft, data.numLeft, data.histotypeLeft, data.multifocalityLeft,
       data.biopsyTypeRight, data.numRight, data.histotypeRight, data.multifocalityRight, data.comment
     );
 
-    //console.log(this.patient._id);
+    console.log(newBiopsy);
     this.sub = this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
-                                 .subscribe((addedBiopsy : Biopsy) => {
-                                   console.log("added biopsy for ", this.patient._id, " : ", addedBiopsy);
-                                 });
+      .subscribe((addedBiopsy: Biopsy) => {
+        console.log("added biopsy for ", this.patient._id, " : ", addedBiopsy);
+      });
   }
 
-  updateDateErrors(){
+  updateDateErrors() {
     this.dateErrors = [];
-    const errors : ValidationErrors | undefined | null = this.biopsyForm.get('date')?.errors;
+    const errors: ValidationErrors | undefined | null = this.biopsyForm.get('date')?.errors;
     if (errors === null || errors === undefined) {
       this.dateHasErrors = false;
     }
     else {
       this.dateHasErrors = true;
-      if(errors['required']) {
+      if (errors['required']) {
         this.dateErrors.push("Polje za datum mora imati vrednost");
       }
     }
   }
 
-  updateSideErrors(){
+  updateSideErrors() {
     this.sideErrors = [];
-    const errors : ValidationErrors | undefined | null = this.biopsyForm.get('side')?.errors;
+    const errors: ValidationErrors | undefined | null = this.biopsyForm.get('side')?.errors;
     if (errors === null || errors === undefined) {
       this.sideHasErrors = false;
     }
     else {
       this.sideHasErrors = true;
-      if(errors['required']) {
+      if (errors['required']) {
         this.sideErrors.push("Strana biopsije mora biti odabrana");
       }
     }
   }
 
-  updateLeftAndRightErrors(){
+  updateLeftAndRightErrors() {
     const selectedSide = this.biopsyForm.get('side')?.value;
     switch (selectedSide) {
       case BiopsySide.Left:
@@ -176,7 +176,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
         this.updateBiopsyTypeLeftErrors();
         this.updateNumLeftErrors();
         this.updateHistotypeLeftErrors();
-        this.updateMultifocalityLeftErrors();8
+        this.updateMultifocalityLeftErrors(); 8
         this.updateBiopsyTypeRightErrors();
         this.updateNumRightErrors();
         this.updateHistotypeRightErrors();
@@ -190,9 +190,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     return;
   }
 
-  updateBiopsyTypeLeftErrors(){
+  updateBiopsyTypeLeftErrors() {
     this.biopsyTypeLeftErrors = [];
-    const value : string = this.biopsyForm.get('biopsyTypeLeft')?.value;
+    const value: string = this.biopsyForm.get('biopsyTypeLeft')?.value;
     if (value === '') {
       this.biopsyTypeLeftHasErrors = true;
       this.biopsyTypeLeftErrors.push("Tip biopsije sa leve strane mora biti odabran");
@@ -202,9 +202,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateNumLeftErrors(){
+  updateNumLeftErrors() {
     this.numLeftErrors = [];
-    const value : string = this.biopsyForm.get('numLeft')?.value;
+    const value: string = this.biopsyForm.get('numLeft')?.value;
     if (this.checkIfBiopsyNumberIsValid(value)) {
       this.numLeftHasErrors = false;
     }
@@ -214,9 +214,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateHistotypeLeftErrors(){
+  updateHistotypeLeftErrors() {
     this.histotypeLeftErrors = [];
-    const value : string = this.biopsyForm.get('histotypeLeft')?.value;
+    const value: string = this.biopsyForm.get('histotypeLeft')?.value;
     if (value === '') {
       this.histotypeLeftHasErrors = true;
       this.histotypeLeftErrors.push("Histotip biopsije sa leve strane mora biti odabran");
@@ -226,9 +226,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateMultifocalityLeftErrors(){
+  updateMultifocalityLeftErrors() {
     this.multifocalityLeftErrors = [];
-    const value : string = this.biopsyForm.get('multifocalityLeft')?.value;
+    const value: string = this.biopsyForm.get('multifocalityLeft')?.value;
     if (this.checkIfMultifocalityIsValid(value)) {
       this.multifocalityLeftHasErrors = false;
     }
@@ -238,9 +238,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateBiopsyTypeRightErrors(){
+  updateBiopsyTypeRightErrors() {
     this.biopsyTypeRightErrors = [];
-    const value : string = this.biopsyForm.get('biopsyTypeRight')?.value;
+    const value: string = this.biopsyForm.get('biopsyTypeRight')?.value;
     if (value === '') {
       this.biopsyTypeRightHasErrors = true;
       this.biopsyTypeRightErrors.push("Tip biopsije sa desne strane mora biti odabran");
@@ -250,9 +250,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateNumRightErrors(){
+  updateNumRightErrors() {
     this.numRightErrors = [];
-    const value : string = this.biopsyForm.get('numRight')?.value;
+    const value: string = this.biopsyForm.get('numRight')?.value;
     if (this.checkIfBiopsyNumberIsValid(value)) {
       this.numRightHasErrors = false;
     }
@@ -262,9 +262,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateHistotypeRightErrors(){
+  updateHistotypeRightErrors() {
     this.histotypeRightErrors = [];
-    const value : string = this.biopsyForm.get('histotypeRight')?.value;
+    const value: string = this.biopsyForm.get('histotypeRight')?.value;
     if (value === '') {
       this.histotypeRightHasErrors = true;
       this.histotypeRightErrors.push("Histotip biopsije sa desne strane mora biti odabran");
@@ -274,9 +274,9 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateMultifocalityRightErrors(){
+  updateMultifocalityRightErrors() {
     this.multifocalityRightErrors = [];
-    const value : string = this.biopsyForm.get('multifocalityRight')?.value;
+    const value: string = this.biopsyForm.get('multifocalityRight')?.value;
     if (this.checkIfMultifocalityIsValid(value)) {
       this.multifocalityRightHasErrors = false;
     }
@@ -286,14 +286,14 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkIfBiopsyNumberIsValid(data : string) : boolean{
+  checkIfBiopsyNumberIsValid(data: string): boolean {
     if (!data.match(new RegExp("^[0-9]+/[0-9]+$"))) {
       return false;
     }
     return true;
-  } 
+  }
 
-  checkIfMultifocalityIsValid(data: string) : boolean {
+  checkIfMultifocalityIsValid(data: string): boolean {
     if (!data.match(new RegExp("^ne|[0-9]+"))) {
       return false;
     }
@@ -304,7 +304,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     this.leftFormDisabled = false;
     this.rightFormDisabled = true;
     // moraju da se ociste vrednsoti formulara i errori kada neka strana nije vise potrebna
-    this.biopsyForm.patchValue({biopsyTypeRight: '', numRight: '', histotypeRight : '', multifocalityRight : ''});
+    this.biopsyForm.patchValue({ biopsyTypeRight: '', numRight: '', histotypeRight: '', multifocalityRight: '' });
     this.biopsyTypeRightHasErrors = false;
     this.biopsyTypeRightErrors = [];
     this.numRightHasErrors = false;
@@ -319,7 +319,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     this.rightFormDisabled = false;
     this.leftFormDisabled = true;
     // moraju da se ociste vrednsoti formulara i errori kada neka strana nije vise potrebna
-    this.biopsyForm.patchValue({biopsyTypeLeft: '', numLeft: '', histotypeLeft : '', multifocalityLeft : ''});
+    this.biopsyForm.patchValue({ biopsyTypeLeft: '', numLeft: '', histotypeLeft: '', multifocalityLeft: '' });
     this.biopsyTypeLeftHasErrors = false;
     this.biopsyTypeLeftErrors = [];
     this.numLeftHasErrors = false;
