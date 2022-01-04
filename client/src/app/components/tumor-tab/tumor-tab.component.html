@@ -41,7 +41,7 @@
       </table>
     </div>
     <div class="column">
-      <app-tumor-list></app-tumor-list>
+      <app-tumor-list [tumors]="tumors"></app-tumor-list>
       <button class="ui button" (click)="onShowTumorForm()">{{showPatientInfo ? 'Unesi podatke o tumoru' : 'Prikazi
         informacije o tumoru'}}</button>
     </div>

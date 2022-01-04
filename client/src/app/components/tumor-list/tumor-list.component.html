@@ -1,16 +1,16 @@
 <table class="ui selectable sortable celled table">
   <thead>
     <tr>
+      <th>Datum</th>
       <th>Broj biopsije</th>
-      <th>Kod</th>
       <th>Ime</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let tumor of tumors">
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{tumor.date}}</td>
+      <td>{{tumor.biopsyIndex}}</td>
+      <td>{{tumor.name}}</td>
     </tr>
   </tbody>
 </table>
