@@ -24,7 +24,7 @@ const tumorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Number,
         require: true,
     },
-    erPercentageScore: {
+    erScorePercent: {
         type: mongoose.Schema.Types.Number,
         require: true,
     },
@@ -33,11 +33,11 @@ const tumorSchema = new mongoose.Schema({
         require: true,
         enum: [0, 1]
     },
-    egrScore: {
+    pgrScore: {
         type: mongoose.Schema.Types.Number,
         require: true,
     },
-    pgrPercentageScore: {
+    pgrScorePercent: {
         type: mongoose.Schema.Types.Number,
         require: true,
     },
@@ -50,7 +50,7 @@ const tumorSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Number,
         require: true,
     },
-    her2INCPercentage: {
+    her2INCPercent: {
         type: mongoose.Schema.Types.Number,
         require: true,
     },
