@@ -24,6 +24,7 @@ import { TumorListComponent } from './components/tumor-list/tumor-list.component
 import { TabsComponent } from './components/tabs/tabs.component';
 import { BiopsyListComponent } from './components/biopsy-list/biopsy-list.component';
 import { ClinicalStateFormComponent } from './components/clinical-state-form/clinical-state-form.component';
+import { ChartsComponent } from './components/charts/charts.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ClinicalStateFormComponent } from './components/clinical-state-form/cli
     BiopsyListComponent,
     ClinicalStateFormComponent,
     TumorListComponent,
-    TreatmentListComponent
+    TreatmentListComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -58,4 +60,4 @@ import { ClinicalStateFormComponent } from './components/clinical-state-form/cli
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

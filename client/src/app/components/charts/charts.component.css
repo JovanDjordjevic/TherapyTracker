@@ -1,0 +1,75 @@
+.numbers {
+  margin: 0;
+  padding: 0;
+  width: 50px;
+  height: 100%;
+  float: left;
+  margin-top: 40px;
+  margin-left: 20px;
+  font-size: 9px;
+}
+
+.numbers li {
+  list-style: none;
+  height: 30px;
+  position: relative;
+  border-top-right-radius: 145px;
+}
+
+.bars {
+  color: rgb(145, 141, 141);
+  font-size: 9px;
+  font-weight: 600;
+  margin: 0;
+  margin-top: 70px;
+  padding: 0;
+  display: inline-block;
+  width: 150px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.bars li {
+  display: table-cell;
+  width: 100px;
+  height: 300px;
+  position: relative;
+}
+
+.bars span {
+  width: 70%;
+  position: absolute;
+  bottom: -30px;
+  text-align: center;
+}
+
+.bars .bar {
+  display: block;
+  background: white;
+  width: 20px;
+  height: 50px;
+  position: absolute;
+  top: 50px;
+  margin-left: -20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.bars .bar:before {
+  color: rgb(179, 179, 179);
+  content: attr(data-percentage);
+  position: relative;
+  bottom: 20px;
+}
+
+#bar2,
+#bar4 {
+  height: 70px;
+  top: 30px;
+  background: rgb(179, 229, 170);
+}
+
+#bar3 {
+  height: 120px;
+  top: -20px;
+}

@@ -32,3 +32,27 @@
   color: var(--black);
   letter-spacing: 0.5px; */
 }
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-bottom: 400px;
+}
+
+.my-button {
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  outline: none;
+  border-color: #96979775;
+  color: #969797;
+  cursor: pointer;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.bar {
+  height: 200px;
+  max-width: 300px;
+  margin: 0 auto;
+}

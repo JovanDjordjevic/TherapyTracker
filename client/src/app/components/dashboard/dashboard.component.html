@@ -1,6 +1,7 @@
 <div class="dashboard">
   <div class="header">
-    <button class="ui button" *ngIf="displayAllPatientsList" (click)="addNewPatientClicked()">Dodaj novog pacijenta</button>
+    <button class="ui button" *ngIf="displayAllPatientsList" (click)="addNewPatientClicked()">Dodaj novog
+      pacijenta</button>
   </div>
 
   <div class="colored-header">
@@ -10,26 +11,30 @@
   <div class="content">
 
     <!-- TODO: stilizovati-->
-    <div #home *ngIf="displayHome">
-      Trenutno postoje infomacije o {{patients.length}} pacijenata
-      <button (click)="showAllPatientsClicked()">Prikazi sve pacijente u bazi</button> 
+    <div #home class="buttons" *ngIf="displayHome">
+      <div class="container">
+        <button class="my-button" (click)="showAllPatientsClicked()">Prikazi sve pacijente u bazi</button>
+        <!-- Trenutno postoje infomacije o {{patients.length}} pacijenata -->
+      </div>
       <br>
-
-      Trenutno postoje infomacije o {{biopsies.length}} biopsija
-      <button (click)="showAllBiopsiessClicked()">Prikazi sve izvrsene biopsije</button>
+      <div class="container">
+        <!-- Trenutno postoje infomacije o {{biopsies.length}} biopsija -->
+        <button class="my-button" (click)="showAllBiopsiessClicked()">Prikazi sve izvrsene biopsije</button>
+      </div>
       <br>
-
-      Trenutno postoje infomacije o {{tumors.length}} tumora
-      <button (click)="showAllTumorsClicked()">Prikazi sve otkrivene tumore</button>
+      <div class="container">
+        <!-- Trenutno postoje infomacije o {{tumors.length}} tumora -->
+        <button class="my-button" (click)="showAllTumorsClicked()">Prikazi sve otkrivene tumore</button>
+      </div>
       <br>
-
-      Trenutno postoje infomacije o {{treatments.length}} terapija
-      <button (click)="showAllTreatmentsClicked()">Prikazi sve prepisane terapije</button>
+      <div class="container">
+        <!-- Trenutno postoje infomacije o {{treatments.length}} terapija -->
+        <button class="my-button" (click)="showAllTreatmentsClicked()">Prikazi sve prepisane terapije</button>
+      </div>
       <br>
     </div>
-
-    
-    <app-patient-list *ngIf="displayAllPatientsList" [patients]="patients" (selectPatient)="onPatientSelected()"> </app-patient-list>
+    <app-patient-list *ngIf="displayAllPatientsList" [patients]="patients" (selectPatient)="onPatientSelected()">
+    </app-patient-list>
     <app-patient-form *ngIf="displayPatientForm" (onPatientFormFilled)="onPatientFormFilled()"> </app-patient-form>
     <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
     <app-tabs *ngIf="displayPatientHistory"> </app-tabs>
