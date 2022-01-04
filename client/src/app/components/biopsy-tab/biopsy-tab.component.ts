@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Patient, Gender, Menopause } from 'src/app/models/patient.model';
+import { Patient } from 'src/app/models/patient.model';
 import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/biopsy.model';
-import { Observable } from 'rxjs';
 import { PatientService } from 'src/app/services/patient-service.service';
 
 @Component({

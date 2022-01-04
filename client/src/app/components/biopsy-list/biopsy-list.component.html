@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <tr (click)="openBiopsy(biopsy)" *ngFor="let biopsy of biopsies">
-      <td>{{formattedDate(biopsy.date)}}</td>
+      <td>{{formatDate(biopsy.date)}}</td>
       <td>{{biopsy.biopsyTypeLeft}} / {{biopsy.biopsyTypeRight}}</td>
       <td>{{biopsy.numLeft}} / {{biopsy.numRight}}</td>
     </tr>

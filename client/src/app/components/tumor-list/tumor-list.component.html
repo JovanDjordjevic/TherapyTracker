@@ -7,8 +7,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let tumor of tumors">
-      <td>{{tumor.date}}</td>
+    <tr (click)="openTumor(tumor)" *ngFor="let tumor of tumors">
+      <td>{{formatDate(tumor.date)}}</td>
       <td>{{tumor.biopsyIndex}}</td>
       <td>{{tumor.name}}</td>
     </tr>

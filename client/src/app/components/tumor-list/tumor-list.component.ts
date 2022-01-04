@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Tumor } from 'src/app/models/tumor.model';
+import { formattedDate } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-tumor-list',
@@ -8,7 +9,14 @@ import { Tumor } from 'src/app/models/tumor.model';
 })
 export class TumorListComponent implements OnInit {
   @Input() tumors: Tumor[] = [];
-  constructor() {}
+  @Output() selectTumor = new EventEmitter<Tumor>();
+  formatDate = formattedDate;
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  openTumor(tumor: Tumor) {
+    this.selectTumor.emit(tumor);
+  }
+
+  ngOnInit(): void { }
 }
