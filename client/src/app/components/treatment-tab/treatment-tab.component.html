@@ -6,33 +6,33 @@
         <tbody>
           <tr>
             <td class="six wide column">Broj ciklusa</td>
-            <td></td>
+            <td>{{therapy.numCycles}}</td>
           </tr>
           <tr>
             <td>Tip terapije</td>
-            <td></td>
+            <td>{{therapy.therapyType}}</td>
           </tr>
           <tr>
             <td>Taxol</td>
-            <td></td>
+            <td>{{therapy.numTaxol}}</td>
           </tr>
           <tr>
             <td>TXTR</td>
-            <td></td>
+            <td>{{therapy.numTxtr}}</td>
           </tr>
           <tr>
             <td>Terapija herceptinom</td>
-            <td></td>
+            <td>{{therapy.herceptinTherapy}}</td>
           </tr>
           <tr>
             <td>Komentar</td>
-            <td></td>
+            <td>{{therapy.comment}}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="column">
-      <app-treatment-list [therapies]="therapies"></app-treatment-list>
+      <app-treatment-list [therapies]="therapies" (selectTherapy)="onTherapySelected($event)"></app-treatment-list>
       <div class="buttons">
         <button class="ui button" (click)="onShowBiopsyForm()">{{showPatientInfo ? 'Unesi podatke o terapiji' : 'Prikazi
           informacije o pacijentu'}}</button>

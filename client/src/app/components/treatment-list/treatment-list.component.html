@@ -7,8 +7,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let therapy of therapies">
-      <td>{{formattedDate(therapy.date)}}</td>
+    <tr (click)="openTherapy(therapy)" *ngFor="let therapy of therapies">
+      <td>{{formatDate(therapy.date)}}</td>
       <td>{{therapy.numCycles}}</td>
       <td>{{therapy.therapyType}}</td>
     </tr>

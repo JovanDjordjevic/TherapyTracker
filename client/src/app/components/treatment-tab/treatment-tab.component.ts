@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Therapy } from 'src/app/models/therapy.model';
+import { Therapy, TherapyType } from 'src/app/models/therapy.model';
 
 @Component({
   selector: 'app-treatment-tab',
@@ -11,13 +11,21 @@ export class TreatmentTabComponent implements OnInit {
   showPatientInfo: boolean = true;
 
   @Input() therapies: Therapy[] = [];
+  therapy: Therapy;
 
   onShowBiopsyForm() {
     this.showTherapyForm = !this.showTherapyForm;
     this.showPatientInfo = !this.showPatientInfo;
   }
 
-  constructor() { }
+  constructor() {
+    this.therapy = new Therapy(new Date, 0, TherapyType.AC, false, 0, 0, "test", "test");
+  }
+
+  onTherapySelected(value: any) {
+    this.therapy = value;
+    this.showTherapyForm = false;
+  }
 
   ngOnInit(): void { }
 }
