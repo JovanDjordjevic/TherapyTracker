@@ -8,14 +8,14 @@ import { Therapy, TherapyType } from 'src/app/models/therapy.model';
 })
 export class TreatmentTabComponent implements OnInit {
   showTherapyForm: boolean = false;
-  showPatientInfo: boolean = true;
+  showTherapyInfo: boolean = false;
 
   @Input() therapies: Therapy[] = [];
   therapy: Therapy;
 
   onShowBiopsyForm() {
     this.showTherapyForm = !this.showTherapyForm;
-    this.showPatientInfo = !this.showPatientInfo;
+    this.showTherapyInfo = false;
   }
 
   constructor() {
@@ -25,6 +25,7 @@ export class TreatmentTabComponent implements OnInit {
   onTherapySelected(value: any) {
     this.therapy = value;
     this.showTherapyForm = false;
+    this.showTherapyInfo = true;
   }
 
   ngOnInit(): void { }

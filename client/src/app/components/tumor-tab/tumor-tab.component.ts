@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Gradus, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
+import { TumorFormComponent } from '../tumor-form/tumor-form.component';
 
 @Component({
   selector: 'app-tumor-tab',
@@ -8,18 +9,18 @@ import { Gradus, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 })
 export class TumorTabComponent implements OnInit {
   showTumorForm: boolean = false;
-  showPatientInfo: boolean = true;
+  showTumorInfo: boolean = false;
+  switch_expression = "patientInfo";
   @Input() tumors: Tumor[] = [];
   tumor: Tumor;
 
   onShowTumorForm() {
-    this.showTumorForm = !this.showTumorForm;
-    this.showPatientInfo = !this.showPatientInfo;
+    this.switch_expression = "tumorForm";
   }
 
   onTumorSelected(value: any) {
     this.tumor = value;
-    this.showTumorForm = false;
+    this.switch_expression = "tumorInfo";
   }
 
   constructor() {

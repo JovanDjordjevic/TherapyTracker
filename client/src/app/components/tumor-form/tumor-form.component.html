@@ -1,4 +1,4 @@
-<form class="ui form" [formGroup]="tumorForm" (ngSubmit)="onTumorFormSubmit()">
+<form class="ui mini form" [formGroup]="tumorForm" (ngSubmit)="onTumorFormSubmit()">
 
     <div class="ui required fluid field" [ngClass]="{error: dateHasErrors}">
         <label>Datum</label>
@@ -16,33 +16,34 @@
         <label>Naziv tumora</label>
         <input type="text" formControlName="tumorName" />
         <div class="ui negative message" *ngIf="tumorNameHasErrors">
-          <ul>
-              <li *ngFor="let msg of tumorNameErrors">
-                  {{msg}}
-              </li>
-          </ul>
+            <ul>
+                <li *ngFor="let msg of tumorNameErrors">
+                    {{msg}}
+                </li>
+            </ul>
         </div>
     </div>
 
     <div class="ui required fluid field" [ngClass]="{error: biopsyIndexHasErrors}">
         <label>Broj biopsije koja se odnosi na ovaj tumor</label>
         <input type="text" formControlName="biopsyIndex" />
-      </div>
-      <div class="ui negative message" *ngIf="biopsyIndexHasErrors">
+    </div>
+    <div class="ui negative message" *ngIf="biopsyIndexHasErrors">
         <ul>
             <li *ngFor="let msg of biopsyIndexErrors">
                 {{msg}}
             </li>
         </ul>
-      </div>
+    </div>
 
     <div class="ui required fluid field">
         <label>Gradus</label>
-        <select formControlName="gradus" class="ui fluid search selection dropdown" [ngClass]="{error: gradusHasErrors}" (change)="gradusSelected()">
-          <option [value]="GradusEnum.Type1">{{ GradusEnum.Type1 }}</option>
-          <option [value]="GradusEnum.Type2">{{ GradusEnum.Type2 }}</option>
-          <option [value]="GradusEnum.Type3">{{ GradusEnum.Type3 }}</option>
-          <option [value]="GradusEnum.Unknown">{{ GradusEnum.Unknown }}</option>
+        <select formControlName="gradus" class="ui fluid search selection dropdown" [ngClass]="{error: gradusHasErrors}"
+            (change)="gradusSelected()">
+            <option [value]="GradusEnum.Type1">{{ GradusEnum.Type1 }}</option>
+            <option [value]="GradusEnum.Type2">{{ GradusEnum.Type2 }}</option>
+            <option [value]="GradusEnum.Type3">{{ GradusEnum.Type3 }}</option>
+            <option [value]="GradusEnum.Unknown">{{ GradusEnum.Unknown }}</option>
         </select>
     </div>
     <div class="ui negative message" *ngIf="gradusHasErrors">
@@ -52,12 +53,12 @@
             </li>
         </ul>
     </div>
-      
+
     <div class="ui three column grid">
         <div class="ui field column" [ngClass]="{error: erScoreHasErrors}">
             <div class="ui required">
                 <label>Er skor</label>
-                <input type="text" formControlName="erScore"/>
+                <input type="text" formControlName="erScore" />
             </div>
             <div class="ui negative message" *ngIf="erScoreHasErrors">
                 <ul>
@@ -71,7 +72,7 @@
         <div class="ui field column" [ngClass]="{error: erScorePercentHasErrors}">
             <div class="ui required">
                 <label>Er skor %</label>
-                <input type="text" formControlName="erScorePercent" (change)="erPercentEntered()"/>
+                <input type="text" formControlName="erScorePercent" (change)="erPercentEntered()" />
             </div>
             <div class="ui negative message" *ngIf="erScorePercentHasErrors">
                 <ul>
@@ -84,7 +85,7 @@
 
         <div class="ui field column disabled">
             <label>Er status</label>
-            <input type="text" formControlName="erStatus"/>
+            <input type="text" formControlName="erStatus" />
         </div>
     </div>
 
@@ -92,7 +93,7 @@
         <div class="ui field column" [ngClass]="{error: pgrScoreHasErrors}">
             <div class="ui required field column">
                 <label>Pgr skor</label>
-                <input type="text" formControlName="pgrScore"/>
+                <input type="text" formControlName="pgrScore" />
             </div>
             <div class="ui negative message" *ngIf="pgrScoreHasErrors">
                 <ul>
@@ -102,11 +103,11 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="ui field column" [ngClass]="{error: pgrScorePercentHasErrors}">
             <div class="ui required field column">
                 <label>Pgr skor %</label>
-                <input type="text" formControlName="pgrScorePercent" (change)="pgrPercentEntered()"/>
+                <input type="text" formControlName="pgrScorePercent" (change)="pgrPercentEntered()" />
             </div>
             <div class="ui negative message" *ngIf="pgrScorePercentHasErrors">
                 <ul>
@@ -119,7 +120,7 @@
 
         <div class="ui field column disabled">
             <label>Pgr status</label>
-            <input type="text" formControlName="pgrStatus"/>
+            <input type="text" formControlName="pgrStatus" />
         </div>
     </div>
 
@@ -127,7 +128,7 @@
         <div class="ui field column" [ngClass]="{error: her2INCHasErrors}">
             <div class="ui required field column">
                 <label>Her2 INC</label>
-                <input type="text" formControlName="her2INC"/>
+                <input type="text" formControlName="her2INC" />
             </div>
             <div class="ui negative message" *ngIf="her2INCHasErrors">
                 <ul>
@@ -137,11 +138,11 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="ui field column" [ngClass]="{error: her2INCPercentHasErrors}">
             <div class="ui required field column">
                 <label>Her2 INC %</label>
-                <input type="text" formControlName="her2INCPercent"/>
+                <input type="text" formControlName="her2INCPercent" />
             </div>
             <div class="ui negative message" *ngIf="her2INCPercentHasErrors">
                 <ul>
@@ -151,11 +152,12 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="ui field column">
             <div class="ui required field column">
                 <label>Her2 FISH-SICH</label>
-                <select formControlName="her2_FISH_SICH" class="ui fluid search selection dropdown" [ngClass]="{error: her2_FISH_SICHHasErrors}">
+                <select formControlName="her2_FISH_SICH" class="ui fluid search selection dropdown"
+                    [ngClass]="{error: her2_FISH_SICHHasErrors}">
                     <option [value]="HER2_FISH_SICH_Enum.Positive">{{ HER2_FISH_SICH_Enum.Positive }}</option>
                     <option [value]="HER2_FISH_SICH_Enum.Negative">{{ HER2_FISH_SICH_Enum.Negative }}</option>
                     <option [value]="HER2_FISH_SICH_Enum.Unusable">{{ HER2_FISH_SICH_Enum.Unusable }}</option>
@@ -173,7 +175,8 @@
         <div class="ui field column">
             <div class="ui required field column">
                 <label>Her2 status</label>
-                <select formControlName="her2Status" class="ui fluid search selection dropdown" [ngClass]="{error: her2StatusHasErrors}">
+                <select formControlName="her2Status" class="ui fluid search selection dropdown"
+                    [ngClass]="{error: her2StatusHasErrors}">
                     <option [value]="Her2StatusEnum.Zero">{{ Her2StatusEnum.Zero }}</option>
                     <option [value]="Her2StatusEnum.One">{{ Her2StatusEnum.One }}</option>
                 </select>
@@ -191,13 +194,13 @@
 
     <div class="ui two column grid" [ngClass]="{error: ki67HasErrors}">
         <div class="ui fluid column">
-            <input type="checkbox" (change)="onKi67CheckboxChange()"/>
+            <input type="checkbox" (change)="onKi67CheckboxChange()" />
             <label>Ki67 poznat</label>
         </div>
 
         <div class="ui field column" [ngClass]="{disabled : ki67Disabled}">
             <label>Ki67</label>
-            <input type="text" formControlName="ki67"/>
+            <input type="text" formControlName="ki67" />
         </div>
     </div>
     <div class="ui negative message" *ngIf="ki67HasErrors">
@@ -210,7 +213,7 @@
 
     <div class="ui required fluid field" [ngClass]="{error : molecularSubtypeHasErrors}">
         <label>Molekularni subtip</label>
-        <input type="text" formControlName="molecularSubtype"/>
+        <input type="text" formControlName="molecularSubtype" />
     </div>
     <div class="ui negative message" *ngIf="molecularSubtypeHasErrors">
         <ul>
@@ -219,6 +222,6 @@
             </li>
         </ul>
     </div>
-    
+
     <button class="ui fluid button" type="submit">Sacuvaj podatke</button>
-  </form>
+</form>
