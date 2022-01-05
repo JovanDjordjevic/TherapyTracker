@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const Patient = require('../models/patient');
+const Biopsy = require('../models/biopsy')
+const Tumor = require('../models/tumor')
+const Therapy = require('../models/therapy')
+
 
 const getAllPatients = async () => {
     const patients = await Patient.find({}).exec();
@@ -74,6 +78,11 @@ const addNewPatient = async (
 };
 
 const deletePatient = async (id) => {
+
+    await Tumor.deleteMany({patient: id}).exec();
+    await Biopsy.deleteMany({patient: id}).exec();
+    await Therapy.deleteMany({patient: id}).exec();
+
     await Patient.deleteOne({ _id: id }).exec();
 };
 

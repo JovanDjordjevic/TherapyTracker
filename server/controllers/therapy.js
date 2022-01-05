@@ -42,9 +42,6 @@ const addNewTherapyForPatient = async (req, res, next) => {
             throw error;
         }
 
-        console.log(isTherapyResponseSet);
-        console.log(therapyResponse);
-
         if(isTherapyResponseSet && (therapyResponse == undefined || therapyResponse === "")){
             const error = new Error('Check therapyResponse!');
             error.status = 400;
