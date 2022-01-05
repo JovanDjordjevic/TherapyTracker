@@ -48,7 +48,7 @@ import { ChartsComponent } from './components/charts/charts.component';
     ClinicalStateFormComponent,
     TumorListComponent,
     TreatmentListComponent,
-    ChartsComponent
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { filter, Subscription } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
 import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 import { Therapy } from 'src/app/models/therapy.model';
@@ -35,25 +36,36 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @Output() onDisplayAllTreatmentsList = new EventEmitter<void>();
   @Input() displayAllTreatmentsList : boolean = false;
 
-  patients: Patient[] = [];
+  searchForm : FormGroup;
+
+  //patients: Patient[] = [];
+  allPatients : Patient[] = [];
+  filteredPatients : Patient[] = [];
   biopsies : Biopsy[] = [];
   tumors : Tumor[] = [];
   treatments : Therapy[] = [];
 
   patient: Patient;
   patientsSub: Subscription = new Subscription();
+  patientSearchSub : Subscription = new Subscription();
   biopsiesSub: Subscription = new Subscription();
   tumorsSub: Subscription = new Subscription();
   treatmentsSub: Subscription = new Subscription();
 
 
-  constructor(private patientsService: PatientService, private biopsyService : BiopsyService, 
+  constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService : BiopsyService, 
               private tumorService : TumorService, private therapyService : TherapyService) {
+
+    this.searchForm = this.formBuilder.group({
+      searchParam: ['', []],
+    });
+
     this.patientsSub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
-        this.patients = patients;
-        this.patientsService.setCurrentPatient(this.patients[0]);
-        //console.log("dashboard constructor, getAllPatients zahtev: ", this.patients);    // radi dobro
-      });
+      this.allPatients = patients;
+      this.filteredPatients = patients;
+      this.patientsService.setCurrentPatient(this.allPatients[0]);
+      //console.log("dashboard constructor, getAllPatients zahtev: ", this.patients);    // radi dobro
+    });
 
     this.patient = this.patientsService.getCurrentPatient();
 
@@ -89,6 +101,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.onDisplayPatientForm.emit();
   }
 
+  onSearchSubmit() {
+    this.filteredPatients = [];
+    const searchParam = this.searchForm.get('searchParam')?.value.toLowerCase().trim();
+    //console.log("param ", searchParam)
+
+    if(searchParam === '') {
+      //console.log('empty search param');
+      this.filteredPatients = this.allPatients;
+    }
+    else {
+      this.patientsSub = this.patientsService.searchForPatients(searchParam, 1).subscribe((patients: Patient[]) => {
+        this.filteredPatients = patients;
+        //console.log("search request results: ", this.filteredPatients);    // radi dobro
+      });
+    }
+  }
+
   onPatientSelected() {
     //console.log("onPatientSelected")
     this.onDisplayPatientHistory.emit();
@@ -113,6 +142,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.patientsSub.unsubscribe();
+    this.patientSearchSub.unsubscribe();
     this.biopsiesSub.unsubscribe();
     this.tumorsSub.unsubscribe();
     this.treatmentsSub.unsubscribe();

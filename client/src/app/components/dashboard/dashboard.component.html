@@ -1,8 +1,5 @@
 <div class="dashboard">
-  <div class="header">
-    <button class="ui button" *ngIf="displayAllPatientsList" (click)="addNewPatientClicked()">Dodaj novog
-      pacijenta</button>
-  </div>
+  
 
   <div class="colored-header">
     <h1>Dashboard</h1>
@@ -33,8 +30,20 @@
       </div>
       <br>
     </div>
-    <app-patient-list *ngIf="displayAllPatientsList" [patients]="patients" (selectPatient)="onPatientSelected()">
-    </app-patient-list>
+
+    <div class="header">
+      <button class="ui button" *ngIf="displayAllPatientsList" (click)="addNewPatientClicked()">
+        Dodaj novog pacijenta
+      </button>
+    </div>
+
+    <!-- TODO: stilizovati-->
+    <form class = "ui" *ngIf="displayAllPatientsList" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+      <input  type='text' formControlName="searchParam">
+      <button class="ui fluid button" type="submit">Trazi</button>
+    </form>
+    
+    <app-patient-list *ngIf="displayAllPatientsList" [patients]="filteredPatients" (selectPatient)="onPatientSelected()"> </app-patient-list>
     <app-patient-form *ngIf="displayPatientForm" (onPatientFormFilled)="onPatientFormFilled()"> </app-patient-form>
     <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
     <app-tabs *ngIf="displayPatientHistory"> </app-tabs>

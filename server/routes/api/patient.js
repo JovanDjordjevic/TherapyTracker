@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/', patientController.getAllPatients);
 router.get('/findByName', patientController.getPatientByName);
+router.get('/searchForPatients', patientController.searchForPatients);
 
 router.post('/', patientController.addNewPatient);
 

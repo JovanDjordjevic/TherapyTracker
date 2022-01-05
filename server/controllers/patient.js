@@ -42,6 +42,25 @@ const getPatientByName = async (req, res, next) => {
     }
 };
 
+const searchForPatients = async (req, res, next) => {
+    const { searchParam, page, limit } = req.query;
+    //console.log("searchParam ", searchParam, "page ", page, "limit", limit);
+
+    if (searchParam == undefined) {
+        const error = new Error('Search parameter must be valid!');
+        error.status = 400;
+        throw error;
+    }
+
+    try {
+        const foundPatients = await patientsService.searchForPatients(searchParam, page, limit);
+        console.log(foundPatients)
+        res.status(200).json(foundPatients);
+    } catch (error) {
+        next(error);
+    }
+};
+
 // TODO: izmeniti tako da se otvori novi karton za novog pacijenta i onda da se vrati taj karton
 const addNewPatient = async (req, res, next) => {
     //console.log(req.body.patient);
@@ -136,6 +155,7 @@ const deletePatient = async (req, res, next) => {
 module.exports = {
     getAllPatients,
     getPatientByName,
+    searchForPatients,
     addNewPatient,
     updatePatientInfo,
     deletePatient,

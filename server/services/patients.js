@@ -30,6 +30,22 @@ const getPatientsByFullName = async (firstName, lastName) => {
     return patients;
 };
 
+// TODO: naci nacin da se nad ovim izvrsi pagination
+const searchForPatients = async (searchParam, page, limit) => {
+    const regex = RegExp(searchParam, 'i');
+    //const foundPatients = await Patient.find({$or: [{name: regex}, {surname: regex}, {jmbg: regex}] });
+    const foundPatients = await Patient.find({
+        "$expr": {
+          "$regexMatch": {
+            "input": { "$concat": ["$name", " ", "$surname", " ", "$jmbg"] },
+            "regex": regex
+          }
+        }
+      });
+    //console.log("found ", foundPatients);
+    return foundPatients;
+};
+
 const addNewPatient = async (
     date, index, jmbg, name, parentName, surname, yearOfBirth, gender, menopause,
     address, city, contact, email, tumorDateDiagnosis, familyAnamnesis
@@ -134,6 +150,7 @@ module.exports = {
     getPatientsByFirstName,
     getPatientsByLastName,
     getPatientsByFullName,
+    searchForPatients,
     addNewPatient,
     deletePatient,
     updatePatientInfo,
