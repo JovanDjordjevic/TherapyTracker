@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Patient } from 'src/app/models/patient.model';
 import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/biopsy.model';
 import { PatientService } from 'src/app/services/patient-service.service';
+import { BiopsyService } from 'src/app/services/biopsy-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-biopsy-tab',
@@ -17,6 +19,7 @@ export class BiopsyTabComponent implements OnInit {
   patient: Patient;
   biopsy: Biopsy;
   @Input() biopsies: Biopsy[] = [];
+  sub: Subscription = new Subscription;
 
   onShowBiopsyForm() {
     this.showBiopsyForm = !this.showBiopsyForm;
@@ -29,7 +32,14 @@ export class BiopsyTabComponent implements OnInit {
     this.showBiopsyInfo = true;
   }
 
-  constructor(private patientService: PatientService) {
+  onNewBiopsyAdded(message: string) {
+    this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
+      this.biopsies = biopsies;
+      console.log("all biopsies for patient: ", this.biopsies);
+    });
+  }
+
+  constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
     this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
     this.patient = this.patientService.getCurrentPatient();
   }

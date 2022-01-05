@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Biopsy, BiopsyType, BiopsySide, BiopsyHistotype, } from 'src/app/models/biopsy.model';
@@ -24,6 +24,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
 
   //@Input() patient: Patient;
   patient: Patient;
+  @Output() newBiopsyAdded = new EventEmitter<string>();
 
   sub: Subscription = new Subscription();
   dateHasErrors: boolean = false;
@@ -126,6 +127,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     this.sub = this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
       .subscribe((addedBiopsy: Biopsy) => {
         console.log("added biopsy for ", this.patient._id, " : ", addedBiopsy);
+        this.newBiopsyAdded.emit("dodata nova biopsija, refresuj listu")
       });
   }
 

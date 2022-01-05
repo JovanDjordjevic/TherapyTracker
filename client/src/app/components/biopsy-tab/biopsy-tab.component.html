@@ -3,7 +3,7 @@
     <div class="column">
       <!-- <app-biopsy-form *ngIf="showBiopsyForm" [patient]="patient"></app-biopsy-form>
       <app-patient-info *ngIf="showPatientInfo" [patient]="patient"></app-patient-info> -->
-      <app-biopsy-form *ngIf="showBiopsyForm"> </app-biopsy-form>
+      <app-biopsy-form *ngIf="showBiopsyForm" (newBiopsyAdded)="onNewBiopsyAdded($event)"> </app-biopsy-form>
       <app-patient-info *ngIf="!showBiopsyForm && !showBiopsyInfo"> </app-patient-info>
       <table *ngIf="showBiopsyInfo" class="ui mini fixed definition table">
         <tbody>

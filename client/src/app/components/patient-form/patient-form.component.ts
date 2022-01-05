@@ -20,37 +20,38 @@ export class PatientFormComponent implements OnInit, OnDestroy {
   Gender = Gender;
   Menopause = Menopause;
 
-  sub : Subscription = new Subscription();
+  sub: Subscription = new Subscription();
 
   @Output() onPatientFormFilled = new EventEmitter<void>();
+  @Output() newPatientAdded = new EventEmitter<void>();
 
-  jmbgHasErrors : boolean = false;
-  nameHasErrors : boolean = false;
-  parentNameHasErrors : boolean = false;
-  surnameHasErrors : boolean = false;
-  yearOfBirthHasErrors : boolean = false;
-  genderHasErrors : boolean = false;
-  menopauseHasErrors : boolean = false;
-  addressHasErrors : boolean = false;
-  cityHasErrors : boolean = false;
-  contactHasErrors : boolean = false;
-  emailHasErrors : boolean = false;
-  tumorDateDiagnosisHasErrors : boolean = false;
-  familyAnamnesisHasErrors : boolean = false;
+  jmbgHasErrors: boolean = false;
+  nameHasErrors: boolean = false;
+  parentNameHasErrors: boolean = false;
+  surnameHasErrors: boolean = false;
+  yearOfBirthHasErrors: boolean = false;
+  genderHasErrors: boolean = false;
+  menopauseHasErrors: boolean = false;
+  addressHasErrors: boolean = false;
+  cityHasErrors: boolean = false;
+  contactHasErrors: boolean = false;
+  emailHasErrors: boolean = false;
+  tumorDateDiagnosisHasErrors: boolean = false;
+  familyAnamnesisHasErrors: boolean = false;
 
-  jmbgErrors : string[] = [];
-  nameErrors : string[] = [];
-  parentNameErrors : string[] = [];
-  surnameErrors : string[] = [];
-  yearOfBirthErrors : string[] = [];
-  genderErrors : string[] = [];
-  menopauseErrors : string[] = [];
-  addressErrors : string[] = [];
-  cityErrors : string[] = [];
-  contactErrors : string[] = [];
-  emailErrors : string[] = [];
-  tumorDateDiagnosisErrors : string[] = [];
-  familyAnamnesisErrors : string[] = [];
+  jmbgErrors: string[] = [];
+  nameErrors: string[] = [];
+  parentNameErrors: string[] = [];
+  surnameErrors: string[] = [];
+  yearOfBirthErrors: string[] = [];
+  genderErrors: string[] = [];
+  menopauseErrors: string[] = [];
+  addressErrors: string[] = [];
+  cityErrors: string[] = [];
+  contactErrors: string[] = [];
+  emailErrors: string[] = [];
+  tumorDateDiagnosisErrors: string[] = [];
+  familyAnamnesisErrors: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private patientService: PatientService) {
     this.patientForm = this.formBuilder.group({
@@ -70,10 +71,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    $('.ui.checkbox').checkbox();
+    $('.ui.radio.checkbox').checkbox();
+  }
 
   ngOnDestroy(): void {
-      this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   onPatientFormSubmit() {
@@ -127,27 +131,26 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
     // NOTE/FIXME: kada se napise this.sub = ..ovo ispod... ovaj zahtev se ne izvrsi. Tj izvrsi se ali ne bude ubacen u bazu,
     // ako se samo ostavi .subscribe() kao sto je ovde, radi sve lepo, nisam nasao razlog
-    this.patientService.insertPatientInDB(newPatient).subscribe((insertedPatient : Patient) => {
+    this.patientService.insertPatientInDB(newPatient).subscribe((insertedPatient: Patient) => {
       console.log("Inserted patient: ", insertedPatient);
+      this.newPatientAdded.emit();
     });
     // mozda je logican korak da se ovde taj ubaceni pacijent postavi za trenutnog pacijenta
     // i da se za otvori nejgov karton
-
-    this.onPatientFormFilled.emit();
   }
-  
+
   updateJMBGErrors() {
     this.jmbgErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('jmbg')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('jmbg')?.errors;
     if (errors === null || errors === undefined) {
       this.jmbgHasErrors = false;
     }
     else {
       this.jmbgHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.jmbgErrors.push("JMBG mora imati vrednost");
       }
-      if(errors['jmbg']){
+      if (errors['jmbg']) {
         this.jmbgErrors.push(errors['jmbg'].message);
       }
     }
@@ -155,13 +158,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateNameErrors() {
     this.nameErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('name')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('name')?.errors;
     if (errors === null || errors === undefined) {
       this.nameHasErrors = false;
     }
     else {
       this.nameHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.nameErrors.push("Ime mora imati vrednost");
       }
     }
@@ -169,13 +172,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateParentNameErrors() {
     this.parentNameErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('parentName')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('parentName')?.errors;
     if (errors === null || errors === undefined) {
       this.parentNameHasErrors = false;
     }
     else {
       this.parentNameHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.parentNameErrors.push("Ime roditelja mora imati vrednost");
       }
     }
@@ -183,13 +186,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateSurnameErrors() {
     this.surnameErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('surname')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('surname')?.errors;
     if (errors === null || errors === undefined) {
       this.surnameHasErrors = false;
     }
     else {
       this.surnameHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.surnameErrors.push("Prezime mora imati vrednost");
       }
     }
@@ -197,33 +200,33 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateYearOfBirthErrors() {
     this.yearOfBirthErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('yearOfBirth')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('yearOfBirth')?.errors;
     if (errors === null || errors === undefined) {
       this.yearOfBirthHasErrors = false;
     }
     else {
       this.yearOfBirthHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.yearOfBirthErrors.push("Godina rodjenja mora imati vrednost");
       }
     }
   }
 
-  updateGenderErrors(){
+  updateGenderErrors() {
     this.genderErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('gender')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('gender')?.errors;
     if (errors === null || errors === undefined) {
       this.genderHasErrors = false;
     }
     else {
       this.genderHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.genderErrors.push("Pol mora imati vrednost");
       }
     }
   }
 
-  updateMenopauseErrors(){
+  updateMenopauseErrors() {
     this.menopauseErrors = [];
     const menopauseValue = this.patientForm.get('menopause')?.value;
     // female
@@ -250,13 +253,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateAddressErrors() {
     this.addressErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('address')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('address')?.errors;
     if (errors === null || errors === undefined) {
       this.addressHasErrors = false;
     }
     else {
       this.addressHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.addressErrors.push("Adresa mora imati vrednost");
       }
     }
@@ -264,13 +267,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateCityErrors() {
     this.cityErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('city')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('city')?.errors;
     if (errors === null || errors === undefined) {
       this.cityHasErrors = false;
     }
     else {
       this.cityHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.cityErrors.push("Grad mora imati vrednost");
       }
     }
@@ -278,13 +281,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateContactErrors() {
     this.contactErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('contact')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('contact')?.errors;
     if (errors === null || errors === undefined) {
       this.contactHasErrors = false;
     }
     else {
       this.contactHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.contactErrors.push("Kontakt telefon mora biti unet");
       }
     }
@@ -292,16 +295,16 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateEmailErrors() {
     this.emailErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('email')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('email')?.errors;
     if (errors === null || errors === undefined) {
       this.emailHasErrors = false;
     }
     else {
       this.emailHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.emailErrors.push("Imejl adresa mora biti uneta");
       }
-      if(errors['email']){
+      if (errors['email']) {
         this.emailErrors.push("Imejl adresa mora biti u validnom formatu");
       }
     }
@@ -309,13 +312,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateTumorDateDiagnosisErrors() {
     this.tumorDateDiagnosisErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('tumorDateDiagnosis')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('tumorDateDiagnosis')?.errors;
     if (errors === null || errors === undefined) {
       this.tumorDateDiagnosisHasErrors = false;
     }
     else {
       this.tumorDateDiagnosisHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.tumorDateDiagnosisErrors.push("Datum dijagnostikovanja tumora mora biti unet");
       }
     }
@@ -323,13 +326,13 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   updateFamilyAnamnesisErrors() {
     this.familyAnamnesisErrors = [];
-    const errors : ValidationErrors | undefined | null = this.patientForm.get('familyAnamnesis')?.errors;
+    const errors: ValidationErrors | undefined | null = this.patientForm.get('familyAnamnesis')?.errors;
     if (errors === null || errors === undefined) {
       this.familyAnamnesisHasErrors = false;
     }
     else {
       this.familyAnamnesisHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.familyAnamnesisErrors.push("Porodicna anamnzeza mora biti uneta");
       }
     }
@@ -338,14 +341,14 @@ export class PatientFormComponent implements OnInit, OnDestroy {
 
   onFemaleChecked() {
     this.shouldDisplayMenopauseForm = true;
-    this.patientForm.patchValue({'menopause' : Menopause.None});
+    this.patientForm.patchValue({ 'menopause': Menopause.None });
     this.menopauseErrors = [];
     this.menopauseHasErrors = false;
   }
 
   onMaleChecked() {
     this.shouldDisplayMenopauseForm = false;
-    this.patientForm.patchValue({'menopause' : Menopause.None});
+    this.patientForm.patchValue({ 'menopause': Menopause.None });
     this.menopauseErrors = [];
     this.menopauseHasErrors = false;
   }

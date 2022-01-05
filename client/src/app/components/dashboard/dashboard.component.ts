@@ -16,45 +16,54 @@ import { TumorService } from 'src/app/services/tumor.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  @Input() displayHome : boolean = false;
+  @Input() displayHome: boolean = false;
 
-  @Output() onDisplayAllPatientsList = new EventEmitter<void>();   
+  @Output() onDisplayAllPatientsList = new EventEmitter<void>();
   @Input() displayAllPatientsList: boolean = false;
-  
+
   @Output() onDisplayPatientForm = new EventEmitter<void>();
   @Input() displayPatientForm: boolean = false;
 
   @Output() onDisplayPatientHistory = new EventEmitter<void>();
   @Input() displayPatientHistory: boolean = false;
 
-  @Output() onDisplayAllBiopsiesList = new EventEmitter<void>();   
-  @Input() diplayAllBiopsiesList : boolean = false;
-  
-  @Output() onDisplayAllTumorsList = new EventEmitter<void>();
-  @Input() displayAllTumorsList : boolean = false;
-  
-  @Output() onDisplayAllTreatmentsList = new EventEmitter<void>();
-  @Input() displayAllTreatmentsList : boolean = false;
+  @Output() onDisplayAllBiopsiesList = new EventEmitter<void>();
+  @Input() diplayAllBiopsiesList: boolean = false;
 
-  searchForm : FormGroup;
+  @Output() onDisplayAllTumorsList = new EventEmitter<void>();
+  @Input() displayAllTumorsList: boolean = false;
+
+  @Output() onDisplayAllTreatmentsList = new EventEmitter<void>();
+  @Input() displayAllTreatmentsList: boolean = false;
+
+  searchForm: FormGroup;
 
   //patients: Patient[] = [];
-  allPatients : Patient[] = [];
-  filteredPatients : Patient[] = [];
-  biopsies : Biopsy[] = [];
-  tumors : Tumor[] = [];
-  treatments : Therapy[] = [];
+  allPatients: Patient[] = [];
+  filteredPatients: Patient[] = [];
+  biopsies: Biopsy[] = [];
+  tumors: Tumor[] = [];
+  treatments: Therapy[] = [];
 
   patient: Patient;
   patientsSub: Subscription = new Subscription();
-  patientSearchSub : Subscription = new Subscription();
+  patientSearchSub: Subscription = new Subscription();
   biopsiesSub: Subscription = new Subscription();
   tumorsSub: Subscription = new Subscription();
   treatmentsSub: Subscription = new Subscription();
 
+  getAllPatients() {
+    this.patientsSub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
+      this.allPatients = patients;
+      this.filteredPatients = patients;
+      this.patientsService.setCurrentPatient(this.allPatients[0]);
+      console.log("dashboard constructor, getAllPatients zahtev: ", this.allPatients);    // radi dobro
+    });
+    this.onDisplayAllPatientsList.emit();
+  }
 
-  constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService : BiopsyService, 
-              private tumorService : TumorService, private therapyService : TherapyService) {
+  constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService: BiopsyService,
+    private tumorService: TumorService, private therapyService: TherapyService) {
 
     this.searchForm = this.formBuilder.group({
       searchParam: ['', []],
@@ -75,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
 
     this.tumorsSub = this.tumorService.getAllTumors(1).subscribe((tumors: Tumor[]) => {
-      this.tumors = tumors ;
+      this.tumors = tumors;
       //console.log("dashboard constructor, getAllTumors zahtev: ", this.tumors);    // radi dobro
     });
 
@@ -83,15 +92,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.treatments = therapies;
       //console.log("dashboard constructor, getAllTherapies zahtev: ", this.treatments);    // radi dobro
     });
-  
+
   }
 
   onPatientFormFilled() {
     //console.log("onPatientFormFilled");
     this.onDisplayAllPatientsList.emit();
   }
-  
-  showAllPatientsClicked(){
+
+  showAllPatientsClicked() {
     //console.log("showAllPatientsClicked")
     this.onDisplayAllPatientsList.emit();
   }
@@ -106,7 +115,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     const searchParam = this.searchForm.get('searchParam')?.value.toLowerCase().trim();
     //console.log("param ", searchParam)
 
-    if(searchParam === '') {
+    if (searchParam === '') {
       //console.log('empty search param');
       this.filteredPatients = this.allPatients;
     }
@@ -123,22 +132,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.onDisplayPatientHistory.emit();
   }
 
-  showAllBiopsiessClicked(){
+  showAllBiopsiessClicked() {
     //console.log("showAllBiopsiessClicked")
     this.onDisplayAllBiopsiesList.emit();
   }
 
-  showAllTumorsClicked(){
+  showAllTumorsClicked() {
     //console.log("showAllTumorsClicked")
     this.onDisplayAllTumorsList.emit();
   }
 
-  showAllTreatmentsClicked(){
+  showAllTreatmentsClicked() {
     //console.log("showAllTreatmentsClicked")
     this.onDisplayAllTreatmentsList.emit();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.patientsSub.unsubscribe();
