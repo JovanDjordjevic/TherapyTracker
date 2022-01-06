@@ -1,16 +1,2 @@
-<div class="app-container">
-  <div class="form-container">
-    <app-sidebar (onDisplayHome)="onDisplayHome()" (onDisplayPatients)="onDisplayPatients()" (onDisplayBiopsies)="onDisplayBiopsies()"
-                 (onDisplayTumors)="onDisplayTumors()" (onDisplayTherapies)="onDisplayTherapies()">
-    </app-sidebar>
-
-    <app-dashboard [displayHome]="displayHome"
-                   (onDisplayAllPatientsList)="onDisplayPatients()" [displayAllPatientsList]="displayAllPatientsList"
-                   (onDisplayPatientForm)="onDisplayPatientForm()" [displayPatientForm]="displayPatientForm"  
-                   (onDisplayPatientHistory)="onDisplayPatientHistory()" [displayPatientHistory]="displayPatientHistory"
-                   (onDisplayAllBiopsiesList)="onDisplayBiopsies()" [diplayAllBiopsiesList]="displayAllBiopsiesList"
-                   (onDisplayAllTumorsList)="onDisplayTumors()" [displayAllTumorsList]="displayAllTumorsList" 
-                   (onDisplayAllTreatmentsList)="onDisplayTherapies()" [displayAllTreatmentsList]="displayAllTreatmentsList" >
-    </app-dashboard>
-  </div>
-</div>
+<app-sidebar></app-sidebar>
+<app-dashboard></app-dashboard>

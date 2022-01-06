@@ -1,10 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/biopsy.model';
-import { Gender, Patient } from 'src/app/models/patient.model';
-import { Therapy } from 'src/app/models/therapy.model';
-import { Gradus, Her2Status, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
-import { PatientService } from 'src/app/services/patient-service.service';
+import { CommonService } from 'src/app/services/common.service';
 import { TherapyService } from 'src/app/services/therapy.service';
 import { TumorService } from 'src/app/services/tumor.service';
 
@@ -16,43 +12,19 @@ import { TumorService } from 'src/app/services/tumor.service';
 
 export class SidebarComponent implements OnInit {
 
-  @Output() onDisplayHome = new EventEmitter<void>();
-  @Output() onDisplayPatients = new EventEmitter<void>();
-  @Output() onDisplayBiopsies = new EventEmitter<void>();
-  @Output() onDisplayTumors = new EventEmitter<void>();
-  @Output() onDisplayTherapies = new EventEmitter<void>();
-
-  constructor(private ps : PatientService, private bs : BiopsyService, private ts : TumorService, private ths : TherapyService) {}
-
-  ngOnInit(): void {}
-
-  displayHomeClicked(){
-    //console.log("click");
-    this.onDisplayHome.emit();
+  onClick(e: any) {
+    this.id = e.target.id;
+    this.commonService.sideBarItemClicked.emit(this.id);
   }
 
-  displayPatientsClicked(){
-    //console.log("click");
-    this.onDisplayPatients.emit();
-  }
+  id: string = "main";
 
-  displayBiopsiesClicked(){
-    //console.log("click");
-    this.onDisplayBiopsies.emit();
-  }
+  constructor(private commonService: CommonService, private bs: BiopsyService, private ts: TumorService, private ths: TherapyService) { }
 
-  displayTumorsClicked(){
-    //console.log("click");
-    this.onDisplayTumors.emit();
-  }
-
-  displayTherapiesClicked(){
-    //console.log("click");
-    this.onDisplayTherapies.emit();
-  }
+  ngOnInit(): void { }
 
   // for testing requests
-  sendRequest(){
+  sendRequest() {
     // this.ps.getAllPatients(2);      //works
     // this.ps.getPatientByName("Jana", "Janic");      //works
     // const p = new Patient("1214966701524", "Ana", "Marija", "Anic", 1966, Gender.Female, 0, "Neka Ulica 55", "Beograd", "0112746172", "ana_anic@gmail.com", new Date(), "nesto nesto nesto nesto");

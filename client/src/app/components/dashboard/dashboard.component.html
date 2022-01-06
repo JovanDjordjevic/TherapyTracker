@@ -1,58 +1,40 @@
 <div class="dashboard">
-
-
   <div class="colored-header">
     <h1>Dashboard</h1>
   </div>
-
-  <div class="content">
-
+  <div class="content" [ngSwitch]="switch_expression">
     <!-- TODO: stilizovati-->
-    <div #home class="buttons" *ngIf="displayHome">
-      <div class="container">
-        <button class="my-button" (click)="showAllPatientsClicked()">Prikazi sve pacijente u bazi</button>
-        <!-- Trenutno postoje infomacije o {{patients.length}} pacijenata -->
-      </div>
-      <br>
-      <div class="container">
-        <!-- Trenutno postoje infomacije o {{biopsies.length}} biopsija -->
-        <button class="my-button" (click)="showAllBiopsiessClicked()">Prikazi sve izvrsene biopsije</button>
-      </div>
-      <br>
-      <div class="container">
-        <!-- Trenutno postoje infomacije o {{tumors.length}} tumora -->
-        <button class="my-button" (click)="showAllTumorsClicked()">Prikazi sve otkrivene tumore</button>
-      </div>
-      <br>
-      <div class="container">
-        <!-- Trenutno postoje infomacije o {{treatments.length}} terapija -->
-        <button class="my-button" (click)="showAllTreatmentsClicked()">Prikazi sve prepisane terapije</button>
-      </div>
-      <br>
+    <div #home class="buttons" *ngSwitchCase="'main'">
+      <button class="my-button" (click)="switch_expression = 'patients'">Prikazi sve pacijente u bazi</button>
+      <button class="my-button" (click)="switch_expression = 'biopsies'">Prikazi sve izvrsene biopsije</button>
+      <button class="my-button" (click)="switch_expression = 'tumors'">Prikazi sve otkrivene tumore</button>
+      <button class="my-button" (click)="switch_expression = 'therapies'">Prikazi sve prepisane terapije</button>
     </div>
 
-    <div class="header">
-      <button class="ui button" *ngIf="displayAllPatientsList" (click)="addNewPatientClicked()">
-        Dodaj novog pacijenta
-      </button>
+    <div *ngSwitchCase="'patients'">
+      <div class="header">
+        <button class="ui button" (click)="switch_expression = 'patientForm'">
+          Dodaj novog pacijenta
+        </button>
+      </div>
+
+      <!-- TODO: stilizovati-->
+      <form class="ui" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+        <input type='text' formControlName="searchParam">
+        <button class="ui fluid button" type="submit">Trazi</button>
+      </form>
+
+      <app-patient-list [patients]="filteredPatients" (selectPatient)="onPatientSelected()"> </app-patient-list>
     </div>
 
-    <!-- TODO: stilizovati-->
-    <form class="ui" *ngIf="displayAllPatientsList" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
-      <input type='text' formControlName="searchParam">
-      <button class="ui fluid button" type="submit">Trazi</button>
-    </form>
-
-    <app-patient-list *ngIf="displayAllPatientsList" [patients]="filteredPatients"
-      (selectPatient)="onPatientSelected()"> </app-patient-list>
-    <app-patient-form *ngIf="displayPatientForm" (newPatientAdded)="getAllPatients()"> </app-patient-form>
+    <app-patient-form *ngSwitchCase="'patientForm'" (newPatientAdded)="getAllPatients()"> </app-patient-form>
     <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
-    <app-tabs *ngIf="displayPatientHistory"> </app-tabs>
+    <app-tabs *ngSwitchCase="'tabs'"> </app-tabs>
 
-    <app-biopsy-list *ngIf="diplayAllBiopsiesList" [biopsies]="biopsies"></app-biopsy-list>
+    <app-biopsy-list *ngSwitchCase="'biopsies'" [biopsies]="biopsies"></app-biopsy-list>
 
-    <app-tumor-list *ngIf="displayAllTumorsList" [tumors]="tumors"></app-tumor-list>
+    <app-tumor-list *ngSwitchCase="'tumors'" [tumors]="tumors"></app-tumor-list>
 
-    <app-treatment-list *ngIf="displayAllTreatmentsList" [therapies]="treatments"></app-treatment-list>
+    <app-treatment-list *ngSwitchCase="'therapies'" [therapies]="treatments"></app-treatment-list>
   </div>
 </div>

@@ -6,6 +6,7 @@ import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 import { Therapy } from 'src/app/models/therapy.model';
 import { Tumor } from 'src/app/models/tumor.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
+import { CommonService } from 'src/app/services/common.service';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { TherapyService } from 'src/app/services/therapy.service';
 import { TumorService } from 'src/app/services/tumor.service';
@@ -16,25 +17,6 @@ import { TumorService } from 'src/app/services/tumor.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  @Input() displayHome: boolean = false;
-
-  @Output() onDisplayAllPatientsList = new EventEmitter<void>();
-  @Input() displayAllPatientsList: boolean = false;
-
-  @Output() onDisplayPatientForm = new EventEmitter<void>();
-  @Input() displayPatientForm: boolean = false;
-
-  @Output() onDisplayPatientHistory = new EventEmitter<void>();
-  @Input() displayPatientHistory: boolean = false;
-
-  @Output() onDisplayAllBiopsiesList = new EventEmitter<void>();
-  @Input() diplayAllBiopsiesList: boolean = false;
-
-  @Output() onDisplayAllTumorsList = new EventEmitter<void>();
-  @Input() displayAllTumorsList: boolean = false;
-
-  @Output() onDisplayAllTreatmentsList = new EventEmitter<void>();
-  @Input() displayAllTreatmentsList: boolean = false;
 
   searchForm: FormGroup;
 
@@ -44,6 +26,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   biopsies: Biopsy[] = [];
   tumors: Tumor[] = [];
   treatments: Therapy[] = [];
+  switch_expression: string = 'main';
 
   patient: Patient;
   patientsSub: Subscription = new Subscription();
@@ -59,25 +42,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.patientsService.setCurrentPatient(this.allPatients[0]);
       console.log("dashboard constructor, getAllPatients zahtev: ", this.allPatients);    // radi dobro
     });
-    this.onDisplayAllPatientsList.emit();
+    //this.onDisplayAllPatientsList.emit();
+    this.switch_expression = 'patients'
   }
 
-  constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService: BiopsyService,
-    private tumorService: TumorService, private therapyService: TherapyService) {
-
-    this.searchForm = this.formBuilder.group({
-      searchParam: ['', []],
-    });
-
-    this.patientsSub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
-      this.allPatients = patients;
-      this.filteredPatients = patients;
-      this.patientsService.setCurrentPatient(this.allPatients[0]);
-      //console.log("dashboard constructor, getAllPatients zahtev: ", this.patients);    // radi dobro
-    });
-
-    this.patient = this.patientsService.getCurrentPatient();
-
+  getAllDataForPatient() {
     this.biopsiesSub = this.biopsyService.getAllBiopsies(1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
       //console.log("dashboard constructor, getAllBiopsies zahtev: ", this.biopsies);    // radi dobro
@@ -92,22 +61,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.treatments = therapies;
       //console.log("dashboard constructor, getAllTherapies zahtev: ", this.treatments);    // radi dobro
     });
-
   }
 
-  onPatientFormFilled() {
-    //console.log("onPatientFormFilled");
-    this.onDisplayAllPatientsList.emit();
-  }
+  constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService: BiopsyService,
+    private tumorService: TumorService, private therapyService: TherapyService, private commonService: CommonService) {
 
-  showAllPatientsClicked() {
-    //console.log("showAllPatientsClicked")
-    this.onDisplayAllPatientsList.emit();
-  }
+    this.searchForm = this.formBuilder.group({
+      searchParam: ['', []],
+    });
 
-  addNewPatientClicked() {
-    //console.log("addNewPatientClicked")
-    this.onDisplayPatientForm.emit();
+    this.patientsSub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
+      this.allPatients = patients;
+      this.filteredPatients = patients;
+      this.patientsService.setCurrentPatient(this.allPatients[0]);
+      //console.log("dashboard constructor, getAllPatients zahtev: ", this.patients);    // radi dobro
+    });
+
+    this.patient = this.patientsService.getCurrentPatient();
+    this.getAllDataForPatient();
+
+    this.commonService.sideBarItemClicked.subscribe((data: any) => {
+      this.switch_expression = data;
+      this.getAllDataForPatient();
+    })
   }
 
   onSearchSubmit() {
@@ -128,23 +104,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onPatientSelected() {
-    //console.log("onPatientSelected")
-    this.onDisplayPatientHistory.emit();
-  }
-
-  showAllBiopsiessClicked() {
-    //console.log("showAllBiopsiessClicked")
-    this.onDisplayAllBiopsiesList.emit();
-  }
-
-  showAllTumorsClicked() {
-    //console.log("showAllTumorsClicked")
-    this.onDisplayAllTumorsList.emit();
-  }
-
-  showAllTreatmentsClicked() {
-    //console.log("showAllTreatmentsClicked")
-    this.onDisplayAllTreatmentsList.emit();
+    this.switch_expression = 'tabs';
   }
 
   ngOnInit(): void { }

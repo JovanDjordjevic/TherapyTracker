@@ -1,30 +1,31 @@
 <div class="ui vertical inverted visible sidebar menu psuh">
-  <a class="item" (click)="displayHomeClicked()">  
+  <a class="item" id="main" (click)="onClick($event)">
     <i class="home icon"></i>
     Pocetna strana
   </a>
 
-  <a class="item" (click)="displayPatientsClicked()">
+  <a class="item" id="patients" (click)="onClick($event)">
     <i class="block layout icon"></i>
     Pacijenti
   </a>
 
-  <a class="item" (click)="displayBiopsiesClicked()">
+  <a class="item" id="biopsies" (click)="onClick($event)">
     <i class="block layout icon"></i>
     Biopsije
   </a>
 
-  <a class="item" (click)="displayTumorsClicked()">
+  <a class="item" id="tumors" (click)="onClick($event)">
     <i class="block layout icon"></i>
     Tumori
   </a>
 
-  <a class="item" (click)="displayTherapiesClicked()">
+  <a class="item" id="therapies" (click)="onClick($event)">
     <i class="block layout icon"></i>
     Terapije
   </a>
-  
-  <a class="item" (click)="sendRequest()">  <!-- bice izbaceno u krajnjoj verziji-->
+
+  <a class="item" (click)="sendRequest()">
+    <!-- bice izbaceno u krajnjoj verziji-->
     <i class="block layout icon"></i>
     Test a request
   </a>
