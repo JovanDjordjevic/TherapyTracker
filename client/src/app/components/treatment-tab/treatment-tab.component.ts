@@ -24,7 +24,7 @@ export class TreatmentTabComponent implements OnInit {
     this.showTherapyInfo = false;
   }
 
-  onNewTherapyAdded(message: string) {
+  onNewTherapyAdded() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
       console.log("all therapies for patient: ", this.therapies);
@@ -40,6 +40,18 @@ export class TreatmentTabComponent implements OnInit {
     this.therapy = value;
     this.showTherapyForm = false;
     this.showTherapyInfo = true;
+  }
+
+  confirmDeletion() {
+    if(confirm("Da li ste sigurni da zelite da izbrisete terapiju?")) {
+      this.sub = this.therapyService.deleteTherapyForPatient(this.patient._id, this.therapy._id).subscribe( () => {
+        this.onNewTherapyAdded();
+      });
+      //console.log('yes')
+    }
+    else {
+      //console.log('no')
+    }
   }
 
   ngOnInit(): void { }

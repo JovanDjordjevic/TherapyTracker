@@ -1,7 +1,7 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column">
-      <app-therapy-form *ngIf="showTherapyForm" (newTherapyAdded)="onNewTherapyAdded($event)"></app-therapy-form>
+      <app-therapy-form *ngIf="showTherapyForm" (newTherapyAdded)="onNewTherapyAdded()"></app-therapy-form>
       <app-patient-info *ngIf="!showTherapyForm && !showTherapyInfo"></app-patient-info>
       <table *ngIf="showTherapyInfo" class="ui mini definition table">
         <tbody>
@@ -31,7 +31,10 @@
           </tr>
         </tbody>
       </table>
+
+      <button *ngIf="showTherapyInfo" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Terapiju</button>
     </div>
+
     <div class="column">
       <app-treatment-list [therapies]="therapies" (selectTherapy)="onTherapySelected($event)"></app-treatment-list>
       <div class="buttons">

@@ -35,15 +35,40 @@ export class DashboardComponent implements OnInit, OnDestroy {
   tumorsSub: Subscription = new Subscription();
   treatmentsSub: Subscription = new Subscription();
 
+  constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService: BiopsyService,
+    private tumorService: TumorService, private therapyService: TherapyService, private commonService: CommonService) {
+
+    this.searchForm = this.formBuilder.group({
+      searchParam: ['', []],
+    });
+
+    this.getAllPatients();
+
+    this.patient = this.patientsService.getCurrentPatient();
+
+    this.getAllDataForPatient();
+
+    this.commonService.sideBarItemClicked.subscribe((data: any) => {
+      this.switch_expression = data;
+      this.getAllPatients();
+      this.getAllDataForPatient();
+    })
+  }
+
+  onNewPatientAdded(){
+    this.getAllPatients();
+    this.switch_expression = 'patients';
+  }
+
   getAllPatients() {
     this.patientsSub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
       this.allPatients = patients;
       this.filteredPatients = patients;
       this.patientsService.setCurrentPatient(this.allPatients[0]);
-      console.log("dashboard constructor, getAllPatients zahtev: ", this.allPatients);    // radi dobro
+      //console.log("dashboard constructor, getAllPatients zahtev: ", this.allPatients);    // radi dobro
     });
     //this.onDisplayAllPatientsList.emit();
-    this.switch_expression = 'patients'
+    //this.switch_expression = 'patients'
   }
 
   getAllDataForPatient() {
@@ -61,29 +86,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.treatments = therapies;
       //console.log("dashboard constructor, getAllTherapies zahtev: ", this.treatments);    // radi dobro
     });
-  }
-
-  constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService: BiopsyService,
-    private tumorService: TumorService, private therapyService: TherapyService, private commonService: CommonService) {
-
-    this.searchForm = this.formBuilder.group({
-      searchParam: ['', []],
-    });
-
-    this.patientsSub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
-      this.allPatients = patients;
-      this.filteredPatients = patients;
-      this.patientsService.setCurrentPatient(this.allPatients[0]);
-      //console.log("dashboard constructor, getAllPatients zahtev: ", this.patients);    // radi dobro
-    });
-
-    this.patient = this.patientsService.getCurrentPatient();
-    this.getAllDataForPatient();
-
-    this.commonService.sideBarItemClicked.subscribe((data: any) => {
-      this.switch_expression = data;
-      this.getAllDataForPatient();
-    })
   }
 
   onSearchSubmit() {

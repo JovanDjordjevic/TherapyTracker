@@ -29,7 +29,7 @@ export class TumorTabComponent implements OnInit {
     this.switch_expression = "tumorInfo";
   }
 
-  onNewTumorAdded(message: string) {
+  onNewTumorAdded() {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
       console.log("all tumors for patient: ", this.tumors);
@@ -39,6 +39,18 @@ export class TumorTabComponent implements OnInit {
   constructor(private tumorService: TumorService, private patientService: PatientService) {
     this.patient = this.patientService.getCurrentPatient();
     this.tumor = new Tumor(new Date(), "", "", Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, 0, "", 0);
+  }
+
+  confirmDeletion() {
+    if(confirm("Da li ste sigurni da zelite da izbrisete tumor?")) {
+      this.sub = this.tumorService.deleteTumorForPatient(this.patient._id, this.tumor._id).subscribe( () => {
+        this.onNewTumorAdded();
+      });
+      //console.log('yes')
+    }
+    else {
+      //console.log('no')
+    }
   }
 
   ngOnInit(): void { }

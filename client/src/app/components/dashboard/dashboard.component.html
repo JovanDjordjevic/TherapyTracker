@@ -27,7 +27,7 @@
       <app-patient-list [patients]="filteredPatients" (selectPatient)="onPatientSelected()"> </app-patient-list>
     </div>
 
-    <app-patient-form *ngSwitchCase="'patientForm'" (newPatientAdded)="getAllPatients()"> </app-patient-form>
+    <app-patient-form *ngSwitchCase="'patientForm'" (newPatientAdded)="onNewPatientAdded()"> </app-patient-form>
     <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
     <app-tabs *ngSwitchCase="'tabs'"> </app-tabs>
 

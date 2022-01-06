@@ -59,15 +59,12 @@ const updateTherapyInfo = async (id, isTherapyResponseSet, therapyResponse, ther
             { new: true }
         ).exec();
     
-        return updatedTherapy;
-
-
+    return updatedTherapy;
 }
 
-const deleteTherapy = async (patientId, tumorId) => {
-    await Tumor.findByIdAndDelete(tumorId).exec();
-
-    await Patient.findByIdAndUpdate(patientId, {$pull: {_therapyIds: tumorId}}).exec();
+const deleteTherapy = async (patientId, therapyId) => {
+    await Therapy.findByIdAndDelete(therapyId).exec();
+    await Patient.findByIdAndUpdate(patientId, {$pull: {_therapyIds: therapyId}}).exec();
 };
 
 async function paginateThroughTherapies(page = 1, limit = 20) {

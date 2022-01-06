@@ -18,7 +18,9 @@ export class BiopsyTabComponent implements OnInit {
   //@Input() patient: Patient;
   patient: Patient;
   biopsy: Biopsy;
+
   @Input() biopsies: Biopsy[] = [];
+
   sub: Subscription = new Subscription;
 
   onShowBiopsyForm() {
@@ -32,7 +34,7 @@ export class BiopsyTabComponent implements OnInit {
     this.showBiopsyInfo = true;
   }
 
-  onNewBiopsyAdded(message: string) {
+  onNewBiopsyAdded() {
     this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
       console.log("all biopsies for patient: ", this.biopsies);
@@ -42,6 +44,18 @@ export class BiopsyTabComponent implements OnInit {
   constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
     this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
     this.patient = this.patientService.getCurrentPatient();
+  }
+
+  confirmDeletion() {
+    if(confirm("Da li ste sigurni da zelite da izbrisete biopsiju?")) {
+      this.sub = this.biopsyService.deleteBiopsyForPatient(this.patient._id, this.biopsy._id).subscribe( () => {
+        this.onNewBiopsyAdded();
+      });
+      //console.log('yes')
+    }
+    else {
+      //console.log('no')
+    }
   }
 
   ngOnInit(): void { }

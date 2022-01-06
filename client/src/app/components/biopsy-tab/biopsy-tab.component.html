@@ -3,7 +3,7 @@
     <div class="column">
       <!-- <app-biopsy-form *ngIf="showBiopsyForm" [patient]="patient"></app-biopsy-form>
       <app-patient-info *ngIf="showPatientInfo" [patient]="patient"></app-patient-info> -->
-      <app-biopsy-form *ngIf="showBiopsyForm" (newBiopsyAdded)="onNewBiopsyAdded($event)"> </app-biopsy-form>
+      <app-biopsy-form *ngIf="showBiopsyForm" (newBiopsyAdded)="onNewBiopsyAdded()"> </app-biopsy-form>
       <app-patient-info *ngIf="!showBiopsyForm && !showBiopsyInfo"> </app-patient-info>
       <table *ngIf="showBiopsyInfo" class="ui mini fixed definition table">
         <tbody>
@@ -24,7 +24,7 @@
             <td>{{biopsy.histotypeLeft}}</td>
           </tr>
           <tr>
-            <td>Multifokalnost/td>
+            <td>Multifokalnost</td>
             <td>{{biopsy.multifocalityLeft}}</td>
           </tr>
           <tr>
@@ -33,7 +33,10 @@
           </tr>
         </tbody>
       </table>
+      
+      <button *ngIf="showBiopsyInfo" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Biopsiju</button>
     </div>
+
     <div class="column">
       <app-biopsy-list class="list" [biopsies]="biopsies" (selectBiopsy)="onBiopsySelected($event)">
       </app-biopsy-list>
