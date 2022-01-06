@@ -11,18 +11,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./biopsy-tab.component.css'],
 })
 export class BiopsyTabComponent implements OnInit {
-  showBiopsyForm: boolean = false;
-  showPatientInfo: boolean = true;
-  showBiopsyInfo: boolean = false;
-
-  //@Input() patient: Patient;
+  @Input() biopsies: Biopsy[] = [];
+  BiopsySideEnum = BiopsySide;
+  sub: Subscription = new Subscription;
   switch_expression = "patientInfo";
   patient: Patient;
   biopsy: Biopsy;
-
-  @Input() biopsies: Biopsy[] = [];
-
-  sub: Subscription = new Subscription;
 
   constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
     this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
