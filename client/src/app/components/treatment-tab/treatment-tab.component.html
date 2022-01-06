@@ -1,7 +1,7 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column">
-      <app-therapy-form *ngIf="showTherapyForm"></app-therapy-form>
+      <app-therapy-form *ngIf="showTherapyForm" (newTherapyAdded)="onNewTherapyAdded($event)"></app-therapy-form>
       <app-patient-info *ngIf="!showTherapyForm && !showTherapyInfo"></app-patient-info>
       <table *ngIf="showTherapyInfo" class="ui mini definition table">
         <tbody>

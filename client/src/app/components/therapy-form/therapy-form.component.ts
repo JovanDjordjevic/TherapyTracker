@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -29,6 +29,7 @@ export class TherapyFormComponent implements OnInit {
   TherapyTypeEnum = TherapyType;
   TherapyResponseEnum = TherapyResponse;
   sub: Subscription = new Subscription();
+  @Output() newTherapyAdded = new EventEmitter<string>();
   patient: Patient;
 
   // nigde nije naglaseno koliko moze da bude kolicine kog leka, recimo 500
@@ -124,6 +125,7 @@ export class TherapyFormComponent implements OnInit {
       .addNewTherapyForPatient(this.patient._id, newTherapy)
       .subscribe((addedTherapy: Therapy) => {
         console.log('added therapy for ', this.patient._id, ' : ', addedTherapy);
+        this.newTherapyAdded.emit("dodat nova terapija, refresuj listu")
       });
   }
 

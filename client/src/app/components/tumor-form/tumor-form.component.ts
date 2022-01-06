@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Tumor, Gradus, Her2Status, HER2_FISH_SICH } from 'src/app/models/tumor.model';
 import { MustBeNumber } from 'src/app/validators/common.validator';
@@ -25,6 +25,7 @@ export class TumorFormComponent implements OnInit {
 
   patient: Patient;
   sub: Subscription = new Subscription();
+  @Output() newTumorAdded = new EventEmitter<string>();
 
 
   dateHasErrors: boolean = false;
@@ -132,6 +133,7 @@ export class TumorFormComponent implements OnInit {
     this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
       .subscribe((addedTumor: Tumor) => {
         console.log('added tumor for ', this.patient._id, ' : ', addedTumor);
+        this.newTumorAdded.emit("dodat nov tumor, refresuj listu")
       });
   }
 
