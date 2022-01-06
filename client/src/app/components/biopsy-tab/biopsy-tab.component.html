@@ -1,11 +1,11 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
-    <div class="column">
+    <div class="column" [ngSwitch]="switch_expression">
       <!-- <app-biopsy-form *ngIf="showBiopsyForm" [patient]="patient"></app-biopsy-form>
       <app-patient-info *ngIf="showPatientInfo" [patient]="patient"></app-patient-info> -->
-      <app-biopsy-form *ngIf="showBiopsyForm" (newBiopsyAdded)="onNewBiopsyAdded()"> </app-biopsy-form>
-      <app-patient-info *ngIf="!showBiopsyForm && !showBiopsyInfo"> </app-patient-info>
-      <table *ngIf="showBiopsyInfo" class="ui mini fixed definition table">
+      <app-biopsy-form *ngSwitchCase="'biopsyForm'" (newBiopsyAdded)="onNewBiopsyAdded()"> </app-biopsy-form>
+      <app-patient-info *ngSwitchCase="'patientInfo'"> </app-patient-info>
+      <table *ngSwitchCase="'biopsyInfo'" class="ui mini fixed definition table">
         <tbody>
           <tr>
             <td class="six wide column">Strana</td>
@@ -33,17 +33,22 @@
           </tr>
         </tbody>
       </table>
-      
-      <button *ngIf="showBiopsyInfo" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Biopsiju</button>
+
+      <button *ngSwitchCase="'biopsyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
+        Biopsiju</button>
     </div>
 
     <div class="column">
       <app-biopsy-list class="list" [biopsies]="biopsies" (selectBiopsy)="onBiopsySelected($event)">
       </app-biopsy-list>
-      <div class="buttons">
-        <button class="ui button" (click)="onShowBiopsyForm()">{{!showBiopsyForm ? 'Unesi podatke o
-          biopsiji' : 'Prikazi
-          informacije o pacijentu'}}</button>
+      <div class="buttons" [ngSwitch]="switch_expression">
+        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'biopsyForm'">Unesi
+          podatke
+          o biopsiji</button>
+        <button class="ui button" *ngSwitchCase="'biopsyInfo'">Izmeni podatke o biopsiji</button>
+        <button class="ui button"
+          *ngSwitchCase="switch_expression === 'biopsyInfo' || switch_expression === 'biopsyForm' ? switch_expression : ''"
+          (click)="switch_expression = 'patientInfo'">Nazad na pacijenta</button>
       </div>
     </div>
   </div>

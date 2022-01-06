@@ -16,6 +16,7 @@ export class BiopsyTabComponent implements OnInit {
   showBiopsyInfo: boolean = false;
 
   //@Input() patient: Patient;
+  switch_expression = "patientInfo";
   patient: Patient;
   biopsy: Biopsy;
 
@@ -23,15 +24,14 @@ export class BiopsyTabComponent implements OnInit {
 
   sub: Subscription = new Subscription;
 
-  onShowBiopsyForm() {
-    this.showBiopsyForm = !this.showBiopsyForm;
-    this.showBiopsyInfo = false;
+  constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
+    this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
+    this.patient = this.patientService.getCurrentPatient();
   }
 
   onBiopsySelected(value: any) {
     this.biopsy = value;
-    this.showBiopsyForm = false;
-    this.showBiopsyInfo = true;
+    this.switch_expression = 'biopsyInfo';
   }
 
   onNewBiopsyAdded() {
@@ -41,14 +41,9 @@ export class BiopsyTabComponent implements OnInit {
     });
   }
 
-  constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
-    this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
-    this.patient = this.patientService.getCurrentPatient();
-  }
-
   confirmDeletion() {
-    if(confirm("Da li ste sigurni da zelite da izbrisete biopsiju?")) {
-      this.sub = this.biopsyService.deleteBiopsyForPatient(this.patient._id, this.biopsy._id).subscribe( () => {
+    if (confirm("Da li ste sigurni da zelite da izbrisete biopsiju?")) {
+      this.sub = this.biopsyService.deleteBiopsyForPatient(this.patient._id, this.biopsy._id).subscribe(() => {
         this.onNewBiopsyAdded();
       });
       //console.log('yes')
