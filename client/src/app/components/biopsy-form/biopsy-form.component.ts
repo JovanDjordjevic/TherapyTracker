@@ -119,8 +119,8 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
 
     const data = this.biopsyForm.value;
 
-    const newBiopsy = new Biopsy(data.date, data.side, data.biopsyTypeLeft, data.numLeft, data.histotypeLeft, data.multifocalityLeft,
-      data.biopsyTypeRight, data.numRight, data.histotypeRight, data.multifocalityRight, data.comment
+    const newBiopsy = new Biopsy(data.date, data.side, data.biopsyTypeLeft, '', data.histotypeLeft, data.multifocalityLeft,
+      data.biopsyTypeRight, '', data.histotypeRight, data.multifocalityRight, data.comment
     );
 
     console.log(newBiopsy);
@@ -164,23 +164,23 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     switch (selectedSide) {
       case BiopsySide.Left:
         this.updateBiopsyTypeLeftErrors();
-        this.updateNumLeftErrors();
+        //this.updateNumLeftErrors();
         this.updateHistotypeLeftErrors();
         this.updateMultifocalityLeftErrors();
         break;
       case BiopsySide.Right:
         this.updateBiopsyTypeRightErrors();
-        this.updateNumRightErrors();
+        //this.updateNumRightErrors();
         this.updateHistotypeRightErrors();
         this.updateMultifocalityRightErrors();
         break;
       case BiopsySide.Both:
         this.updateBiopsyTypeLeftErrors();
-        this.updateNumLeftErrors();
+        //this.updateNumLeftErrors();
         this.updateHistotypeLeftErrors();
         this.updateMultifocalityLeftErrors(); 8
         this.updateBiopsyTypeRightErrors();
-        this.updateNumRightErrors();
+        //this.updateNumRightErrors();
         this.updateHistotypeRightErrors();
         this.updateMultifocalityRightErrors();
         break;

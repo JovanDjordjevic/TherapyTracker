@@ -5,9 +5,9 @@
   </div>
   <div class="ui negative message" *ngIf="dateHasErrors">
     <ul>
-        <li *ngFor="let msg of dateErrors">
-            {{msg}}
-        </li>
+      <li *ngFor="let msg of dateErrors">
+        {{msg}}
+      </li>
     </ul>
   </div>
 
@@ -39,9 +39,9 @@
   </div>
   <div class="ui negative message" *ngIf="sideHasErrors">
     <ul>
-        <li *ngFor="let msg of sideErrors">
-            {{msg}}
-        </li>
+      <li *ngFor="let msg of sideErrors">
+        {{msg}}
+      </li>
     </ul>
   </div>
 
@@ -76,21 +76,21 @@
       </div>
       <div class="ui negative message" *ngIf="biopsyTypeLeftHasErrors">
         <ul>
-            <li *ngFor="let msg of biopsyTypeLeftErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of biopsyTypeLeftErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
 
       <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled, error: numLeftHasErrors}">
-        <label>Broj</label>
-        <input type="text" formControlName="numLeft" />
+        <!--         <label>Broj</label>
+        <input type="text" formControlName="numLeft" /> -->
       </div>
       <div class="ui negative message" *ngIf="numLeftHasErrors">
         <ul>
-            <li *ngFor="let msg of numLeftErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of numLeftErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
 
@@ -111,9 +111,9 @@
       </div>
       <div class="ui negative message" *ngIf="histotypeLeftHasErrors">
         <ul>
-            <li *ngFor="let msg of histotypeLeftErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of histotypeLeftErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
 
@@ -123,17 +123,18 @@
       </div>
       <div class="ui negative message" *ngIf="multifocalityLeftHasErrors">
         <ul>
-            <li *ngFor="let msg of multifocalityLeftErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of multifocalityLeftErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
     </div>
-    
+
     <!-- desni -->
     <div class="ui field column" [ngClass]="{disabled: this.rightFormDisabled}">
       <label>Tip</label>
-      <div class="required inline-grouped fields" [ngClass]="{required: !this.rightFormDisabled, error: biopsyTypeRightHasErrors}">
+      <div class="required inline-grouped fields"
+        [ngClass]="{required: !this.rightFormDisabled, error: biopsyTypeRightHasErrors}">
         <div class="field">
           <div class="ui radio checkbox">
             <input type="radio" class="hidden" [value]="BiopsyTypeEnum.AxillaBiopsy"
@@ -159,21 +160,21 @@
       </div>
       <div class="ui negative message" *ngIf="biopsyTypeRightHasErrors">
         <ul>
-            <li *ngFor="let msg of biopsyTypeRightErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of biopsyTypeRightErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
 
       <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled, error: numRightHasErrors}">
-        <label>Broj</label>
-        <input type="text" formControlName="numRight" />
+        <!--         <label>Broj</label>
+        <input type="text" formControlName="numRight" /> -->
       </div>
       <div class="ui negative message" *ngIf="numRightHasErrors">
         <ul>
-            <li *ngFor="let msg of numRightErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of numRightErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
 
@@ -194,9 +195,9 @@
       </div>
       <div class="ui negative message" *ngIf="histotypeRightHasErrors">
         <ul>
-            <li *ngFor="let msg of histotypeRightErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of histotypeRightErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
 
@@ -206,9 +207,9 @@
       </div>
       <div class="ui negative message" *ngIf="multifocalityRightHasErrors">
         <ul>
-            <li *ngFor="let msg of multifocalityRightErrors">
-                {{msg}}
-            </li>
+          <li *ngFor="let msg of multifocalityRightErrors">
+            {{msg}}
+          </li>
         </ul>
       </div>
     </div>
