@@ -46,9 +46,9 @@
     </tr>
     <tr>
       <td>Porodicna anamneza</td>
-      <td id="anamneza" class="">
-        {{patient.familyAnamnesis}}
-        <button>Ucitaj jos...</button>
+      <td class="anamneza">
+        {{showFullText ? patient.familyAnamnesis : shortenText(patient.familyAnamnesis)}}
+        <button *ngIf="!showFullText" (click)="showFullText = true">Ucitaj jos...</button>
     </tr>
   </tbody>
 </table>

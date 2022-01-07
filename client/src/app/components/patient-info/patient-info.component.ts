@@ -14,12 +14,17 @@ declare const $: any;
 export class PatientInfoComponent implements OnInit, OnDestroy {
   //@Input() patient: Patient;
   patient: Patient;
+  showFullText: boolean = false;
 
-  sub : Subscription = new Subscription();
+  sub: Subscription = new Subscription();
 
-  constructor(private patientService : PatientService, private commonService : CommonService) {
+  constructor(private patientService: PatientService, private commonService: CommonService) {
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  ); 
     this.patient = this.patientService.getCurrentPatient();
+  }
+
+  shortenText(text: string) {
+    return text.substring(0, 50) + "...";
   }
 
   ngOnInit() {
@@ -27,12 +32,12 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.sub.unsubscribe();
+    this.sub.unsubscribe();
   }
 
   confirmDeletion() {
-    if(confirm("Da li ste sigurni da zelite da izbrisete pacijenta?")) {
-      this.sub = this.patientService.deletePatientFromDB(this.patient._id).subscribe( () => {
+    if (confirm("Da li ste sigurni da zelite da izbrisete pacijenta?")) {
+      this.sub = this.patientService.deletePatientFromDB(this.patient._id).subscribe(() => {
         this.commonService.sideBarItemClicked.emit('patients');
       });
     }
