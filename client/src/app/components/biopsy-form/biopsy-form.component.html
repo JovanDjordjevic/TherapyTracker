@@ -82,18 +82,6 @@
         </ul>
       </div>
 
-      <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled, error: numLeftHasErrors}">
-        <!--         <label>Broj</label>
-        <input type="text" formControlName="numLeft" /> -->
-      </div>
-      <div class="ui negative message" *ngIf="numLeftHasErrors">
-        <ul>
-          <li *ngFor="let msg of numLeftErrors">
-            {{msg}}
-          </li>
-        </ul>
-      </div>
-
       <div class="ui fluid field" [ngClass]="{required: !this.leftFormDisabled, error: histotypeLeftHasErrors}">
         <label>Histotip</label>
         <select formControlName="histotypeLeft" class="ui fluid search selection dropdown">
@@ -161,18 +149,6 @@
       <div class="ui negative message" *ngIf="biopsyTypeRightHasErrors">
         <ul>
           <li *ngFor="let msg of biopsyTypeRightErrors">
-            {{msg}}
-          </li>
-        </ul>
-      </div>
-
-      <div class="ui fluid field" [ngClass]="{required: !this.rightFormDisabled, error: numRightHasErrors}">
-        <!--         <label>Broj</label>
-        <input type="text" formControlName="numRight" /> -->
-      </div>
-      <div class="ui negative message" *ngIf="numRightHasErrors">
-        <ul>
-          <li *ngFor="let msg of numRightErrors">
             {{msg}}
           </li>
         </ul>
