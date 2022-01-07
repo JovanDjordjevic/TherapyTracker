@@ -5,24 +5,45 @@
   <div class="content" [ngSwitch]="switch_expression">
     <!-- TODO: stilizovati-->
     <div #home class="buttons" *ngSwitchCase="'main'">
-      <button class="my-button" (click)="switch_expression = 'patients'">Prikazi sve pacijente u bazi</button>
-      <button class="my-button" (click)="switch_expression = 'biopsies'">Prikazi sve izvrsene biopsije</button>
-      <button class="my-button" (click)="switch_expression = 'tumors'">Prikazi sve otkrivene tumore</button>
-      <button class="my-button" (click)="switch_expression = 'therapies'">Prikazi sve prepisane terapije</button>
+      <div>
+        <button class="my-button" (click)="switch_expression = 'patients'"><i class="fas fa-hospital-user fa-8x"></i>
+          <h3>Pacijenti</h3>
+        </button>
+        <button class="my-button" (click)="switch_expression = 'biopsies'"><i class="fas fa-microscope fa-8x"></i>
+          <h3>Biopsije</h3>
+        </button>
+      </div>
+      <div>
+        <button class="my-button" (click)="switch_expression = 'tumors'"><i class="fas fa-ribbon fa-8x"></i>
+          <h3>Tumori</h3>
+        </button>
+        <button class="my-button" (click)="switch_expression = 'therapies'"><i class="fas fa-tablets fa-8x"></i>
+          <h3>Terapije</h3>
+        </button>
+      </div>
     </div>
 
     <div *ngSwitchCase="'patients'">
-      <div class="header">
-        <button class="ui button" (click)="switch_expression = 'patientForm'">
-          Dodaj novog pacijenta
-        </button>
+      <!--New patient button and patient search bar-->
+      <div class="ui grid header">
+        <div class="three wide column">
+          <button class="ui fluid button" (click)="switch_expression = 'patientForm'">
+            Dodaj novog pacijenta
+          </button>
+        </div>
+        <div class="thirteen wide column">
+          <form class="ui fluid form" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
+            <div class="inline fields">
+              <div class="fourteen wide field">
+                <input type='text' formControlName="searchParam">
+              </div>
+              <div class="two wide field">
+                <button class="ui fluid button" type="submit">Trazi</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-
-      <!-- TODO: stilizovati-->
-      <form class="ui" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
-        <input type='text' formControlName="searchParam">
-        <button class="ui fluid button" type="submit">Trazi</button>
-      </form>
 
       <app-patient-list [patients]="filteredPatients" (selectPatient)="onPatientSelected()"> </app-patient-list>
     </div>
