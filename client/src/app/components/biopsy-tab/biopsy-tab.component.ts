@@ -17,6 +17,7 @@ export class BiopsyTabComponent implements OnInit {
   switch_expression = "patientInfo";
   patient: Patient;
   biopsy: Biopsy;
+  counter: number = 2;
 
   constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
     this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
@@ -34,6 +35,13 @@ export class BiopsyTabComponent implements OnInit {
       console.log("all biopsies for patient: ", this.biopsies);
     });
   }
+
+  onLoadMoreBiopsies(value: string) {
+    this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, this.counter).subscribe((biopsies: Biopsy[]) => {
+      this.biopsies = [...this.biopsies, ...biopsies];
+      this.counter++;
+    })
+  };
 
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete biopsiju?")) {

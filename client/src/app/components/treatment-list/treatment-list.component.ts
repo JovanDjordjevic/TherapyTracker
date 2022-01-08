@@ -10,11 +10,17 @@ import { formattedDate } from 'src/app/utils/utils';
 export class TreatmentListComponent implements OnInit {
   @Input() therapies: Therapy[] = [];
   @Output() selectTherapy = new EventEmitter<Therapy>();
+  @Output() loadMoreTherapies = new EventEmitter<string>();
+
   formatDate = formattedDate;
   constructor() { }
 
   openTherapy(therapy: Therapy) {
     this.selectTherapy.emit(therapy);
+  }
+
+  onScrollDown(ev: any) {
+    this.loadMoreTherapies.emit("load more therapies emitted")
   }
 
   ngOnInit(): void { }

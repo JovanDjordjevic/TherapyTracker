@@ -7,7 +7,7 @@
       <th>E-mail</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="search-results-container" infinite-scroll [scrollWindow]="false" (scrolled)="onScrollDown($event)">
     <app-patient (click)="openHistory(patient)" *ngFor="let patient of patients" [patient]="patient"> </app-patient>
   </tbody>
 </table>

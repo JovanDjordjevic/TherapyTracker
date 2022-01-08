@@ -38,14 +38,9 @@ export class PatientService {
 
   // NOTE TO SELF: request ce da prodje lepo tek kada se u nekoj komponenti subscribuje na observable objekat
 
-  public getAllPatients(page: number = 1, limit: number = 20) : Observable<Patient[]> {
+  public getAllPatients(page: number = 1, limit: number = 20): Observable<Patient[]> {
     const params: HttpParams = new HttpParams().append('page', page).append('limit', limit);
-    const obs: Observable<Patient[]> = this.http.get<PatientPagination>(this.urls.getAllPatients, { params })
-                                                .pipe(
-                                                  map((pagination: PatientPagination) => {
-                                                    return pagination.docs;
-                                                  })
-                                                );
+    const obs: Observable<Patient[]> = this.http.get<PatientPagination>(this.urls.getAllPatients, { params }).pipe(map((pagination: PatientPagination) => { return pagination.docs; }));
     //obs.subscribe((data)=>{console.log(data)});      // for testing
     return obs;
   }

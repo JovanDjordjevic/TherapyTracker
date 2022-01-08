@@ -12,13 +12,12 @@ import { TumorFormComponent } from '../tumor-form/tumor-form.component';
   styleUrls: ['./tumor-tab.component.css'],
 })
 export class TumorTabComponent implements OnInit {
-  showTumorForm: boolean = false;
-  showTumorInfo: boolean = false;
   switch_expression = "patientInfo";
   sub: Subscription = new Subscription;
   @Input() tumors: Tumor[] = [];
   tumor: Tumor;
   patient: Patient;
+  counter: number = 2;
 
   onShowTumorForm() {
     this.switch_expression = "tumorForm";
@@ -36,14 +35,21 @@ export class TumorTabComponent implements OnInit {
     });
   }
 
+  onLoadMoreTumors(value: string) {
+    this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, this.counter).subscribe((tumors: Tumor[]) => {
+      this.tumors = [...this.tumors, ...tumors];
+      this.counter++;
+    })
+  };
+
   constructor(private tumorService: TumorService, private patientService: PatientService) {
     this.patient = this.patientService.getCurrentPatient();
     this.tumor = new Tumor(new Date(), "", "", Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, 0, "", 0);
   }
 
   confirmDeletion() {
-    if(confirm("Da li ste sigurni da zelite da izbrisete tumor?")) {
-      this.sub = this.tumorService.deleteTumorForPatient(this.patient._id, this.tumor._id).subscribe( () => {
+    if (confirm("Da li ste sigurni da zelite da izbrisete tumor?")) {
+      this.sub = this.tumorService.deleteTumorForPatient(this.patient._id, this.tumor._id).subscribe(() => {
         this.onNewTumorAdded();
       });
       //console.log('yes')

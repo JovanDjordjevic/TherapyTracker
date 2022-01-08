@@ -6,7 +6,7 @@
       <th>Broj</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="search-results-container" infinite-scroll [scrollWindow]="false" (scrolled)="onScrollDown($event)">
     <tr (click)="openBiopsy(biopsy)" *ngFor="let biopsy of biopsies">
       <td>{{formatDate(biopsy.date)}}</td>
       <td>{{biopsy.biopsyTypeLeft}} | {{biopsy.biopsyTypeRight}}</td>

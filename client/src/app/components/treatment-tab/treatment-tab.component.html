@@ -37,7 +37,8 @@
     </div>
 
     <div class="column">
-      <app-treatment-list [therapies]="therapies" (selectTherapy)="onTherapySelected($event)"></app-treatment-list>
+      <app-treatment-list [therapies]="therapies" (selectTherapy)="onTherapySelected($event)"
+        (loadMoreTherapies)="onLoadMoreTherapies($event)"></app-treatment-list>
       <div class="buttons" [ngSwitch]="switch_expression">
         <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'therapyForm'">Unesi
           podatke

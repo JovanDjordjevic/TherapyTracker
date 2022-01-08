@@ -44,7 +44,8 @@
     </div>
 
     <div class="column">
-      <app-biopsy-list class="list" [biopsies]="biopsies" (selectBiopsy)="onBiopsySelected($event)">
+      <app-biopsy-list class="list" [biopsies]="biopsies" (selectBiopsy)="onBiopsySelected($event)"
+        (loadMoreBiopsies)="onLoadMoreBiopsies($event)">
       </app-biopsy-list>
       <div class="buttons" [ngSwitch]="switch_expression">
         <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'biopsyForm'">Unesi

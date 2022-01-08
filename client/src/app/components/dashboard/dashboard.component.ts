@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   tumors: Tumor[] = [];
   treatments: Therapy[] = [];
   switch_expression: string = 'main';
+  counter: number = 2;
 
   patient: Patient;
   patientsSub: Subscription = new Subscription();
@@ -49,13 +50,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getAllDataForPatient();
 
     this.commonService.sideBarItemClicked.subscribe((data: any) => {
+      this.counter = 2;
       this.switch_expression = data;
       this.getAllPatients();
       this.getAllDataForPatient();
+      console.log("clicked on patients")
     })
   }
 
-  onNewPatientAdded(){
+  onNewPatientAdded() {
     this.getAllPatients();
     this.switch_expression = 'patients';
   }
@@ -96,6 +99,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (searchParam === '') {
       //console.log('empty search param');
       this.filteredPatients = this.allPatients;
+      this.counter = 2;
     }
     else {
       this.patientsSub = this.patientsService.searchForPatients(searchParam, 1).subscribe((patients: Patient[]) => {
@@ -108,6 +112,35 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onPatientSelected() {
     this.switch_expression = 'tabs';
   }
+
+  onLoadMoreBiopsies(value: string) {
+    console.log(value)
+    this.biopsiesSub = this.biopsyService.getAllBiopsies(this.counter).subscribe((biopsies: Biopsy[]) => {
+      this.biopsies = [...this.biopsies, ...biopsies];
+      this.counter++;
+    })
+  };
+
+  onLoadMorePatients(value: string) {
+    this.patientsSub = this.patientsService.getAllPatients(this.counter).subscribe((patients: Patient[]) => {
+      this.filteredPatients = [...this.filteredPatients, ...patients];
+      this.counter++;
+    })
+  }
+
+  onLoadMoreTumors(value: string) {
+    this.tumorsSub = this.tumorService.getAllTumors(this.counter).subscribe((tumors: Tumor[]) => {
+      this.tumors = [...this.tumors, ...tumors];
+      this.counter++;
+    })
+  }
+
+  onLoadMoreTherapies(value: string) {
+    this.treatmentsSub = this.therapyService.getAllTherapies(this.counter).subscribe((therapies: Therapy[]) => {
+      this.treatments = [...this.treatments, ...therapies];
+      this.counter++;
+    })
+  };
 
   ngOnInit(): void { }
 

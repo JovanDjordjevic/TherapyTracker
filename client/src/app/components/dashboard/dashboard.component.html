@@ -44,18 +44,22 @@
           </form>
         </div>
       </div>
-
-      <app-patient-list [patients]="filteredPatients" (selectPatient)="onPatientSelected()"> </app-patient-list>
+      <!--Patient list-->
+      <app-patient-list [patients]="filteredPatients" (selectPatient)="onPatientSelected()"
+        (loadMorePatients)="onLoadMorePatients($event)"> </app-patient-list>
     </div>
 
     <app-patient-form *ngSwitchCase="'patientForm'" (newPatientAdded)="onNewPatientAdded()"> </app-patient-form>
     <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
     <app-tabs *ngSwitchCase="'tabs'"> </app-tabs>
 
-    <app-biopsy-list *ngSwitchCase="'biopsies'" [biopsies]="biopsies"></app-biopsy-list>
+    <app-biopsy-list (loadMoreBiopsies)="onLoadMoreBiopsies($event)" *ngSwitchCase="'biopsies'" [biopsies]="biopsies">
+    </app-biopsy-list>
 
-    <app-tumor-list *ngSwitchCase="'tumors'" [tumors]="tumors"></app-tumor-list>
+    <app-tumor-list (loadMoreTumors)="onLoadMoreTumors($event)" *ngSwitchCase="'tumors'" [tumors]="tumors">
+    </app-tumor-list>
 
-    <app-treatment-list *ngSwitchCase="'therapies'" [therapies]="treatments"></app-treatment-list>
+    <app-treatment-list (loadMoreTherapies)="onLoadMoreTherapies($event)" *ngSwitchCase="'therapies'"
+      [therapies]="treatments"></app-treatment-list>
   </div>
 </div>

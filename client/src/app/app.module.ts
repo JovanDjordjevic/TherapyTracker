@@ -25,6 +25,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { BiopsyListComponent } from './components/biopsy-list/biopsy-list.component';
 import { ClinicalStateFormComponent } from './components/clinical-state-form/clinical-state-form.component';
 import { ChartsComponent } from './components/charts/charts.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { ChartsComponent } from './components/charts/charts.component';
     ClinicalStateFormComponent,
     TumorListComponent,
     TreatmentListComponent,
-    ChartsComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +57,7 @@ import { ChartsComponent } from './components/charts/charts.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent],

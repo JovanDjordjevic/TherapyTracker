@@ -14,6 +14,7 @@ export class TreatmentTabComponent implements OnInit {
   @Input() therapies: Therapy[] = [];
   sub: Subscription = new Subscription;
   switch_expression = "patientInfo";
+  counter: number = 2;
   therapy: Therapy;
   patient: Patient;
 
@@ -33,6 +34,13 @@ export class TreatmentTabComponent implements OnInit {
     this.therapy = value;
     this.switch_expression = "therapyInfo";
   }
+
+  onLoadMoreTherapies(value: string) {
+    this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, this.counter).subscribe((therapies: Therapy[]) => {
+      this.therapies = [...this.therapies, ...therapies];
+      this.counter++;
+    })
+  };
 
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete terapiju?")) {

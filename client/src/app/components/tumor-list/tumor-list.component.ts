@@ -10,13 +10,22 @@ import { formattedDate } from 'src/app/utils/utils';
 export class TumorListComponent implements OnInit {
   @Input() tumors: Tumor[] = [];
   @Output() selectTumor = new EventEmitter<Tumor>();
-  formatDate = formattedDate;
+  @Output() loadMoreTumors = new EventEmitter<string>();
 
   constructor() { }
+
+  ngOnInit(): void { }
+
+  onScrollDown(ev: any) {
+    this.loadMoreTumors.emit("load more tumors emitted")
+  }
 
   openTumor(tumor: Tumor) {
     this.selectTumor.emit(tumor);
   }
 
-  ngOnInit(): void { }
+  formatDate(date: Date) {
+    return formattedDate(date);
+  };
+
 }

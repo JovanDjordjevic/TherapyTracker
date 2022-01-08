@@ -36,11 +36,13 @@
         </tbody>
       </table>
 
-      <button *ngSwitchCase="'tumorInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Tumor</button>
+      <button *ngSwitchCase="'tumorInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
+        Tumor</button>
     </div>
 
     <div class="column">
-      <app-tumor-list [tumors]="tumors" (selectTumor)="onTumorSelected($event)"></app-tumor-list>
+      <app-tumor-list [tumors]="tumors" (selectTumor)="onTumorSelected($event)"
+        (loadMoreTumors)="onLoadMoreTumors($event)"></app-tumor-list>
       <div class="buttons" [ngSwitch]="switch_expression">
         <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'tumorForm'">Unesi podatke
           o tumoru</button>
