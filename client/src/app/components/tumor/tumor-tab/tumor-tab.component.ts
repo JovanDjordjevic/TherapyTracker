@@ -19,6 +19,8 @@ export class TumorTabComponent implements OnInit {
   patient: Patient;
   counter: number = 2;
 
+  tumorFormUsedForUpdating : boolean = false;
+
   onShowTumorForm() {
     this.switch_expression = "tumorForm";
   }
@@ -58,6 +60,21 @@ export class TumorTabComponent implements OnInit {
     else {
       //console.log('no')
     }
+  }
+
+  onClickUpdateTumorInfo(){
+    //console.log('onClickUpdateTumorInfo')
+    this.tumorFormUsedForUpdating = true;
+    this.switch_expression = "tumorForm";
+  }
+
+  onTumorUpdated(){
+    this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
+      this.tumors = tumors;
+      console.log("all tumors for patient: ", this.tumors);
+    });
+    this.switch_expression = "patientInfo";
+    this.tumorFormUsedForUpdating = false;
   }
 
   ngOnInit(): void { }

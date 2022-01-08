@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Tumor, Gradus, Her2Status, HER2_FISH_SICH } from 'src/app/models/tumor.model';
 import { MustBeNumber } from 'src/app/validators/common.validator';
@@ -16,6 +16,9 @@ declare const $: any;
   styleUrls: ['./tumor-form.component.css'],
 })
 export class TumorFormComponent implements OnInit {
+  @Input() tumor : Tumor;
+  @Input() usedAsUpdateForm : boolean = false;
+
   tumorForm: FormGroup;
   GradusEnum = Gradus;
   HER2_FISH_SICH_Enum = HER2_FISH_SICH;
@@ -25,7 +28,9 @@ export class TumorFormComponent implements OnInit {
 
   patient: Patient;
   sub: Subscription = new Subscription();
+
   @Output() newTumorAdded = new EventEmitter<string>();
+  @Output() tumorUpdated = new EventEmitter<void>();
 
 
   dateHasErrors: boolean = false;
@@ -61,6 +66,9 @@ export class TumorFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private patientService: PatientService, private tumorService: TumorService) {
     this.patient = this.patientService.getCurrentPatient();
 
+    this.tumor = new Tumor(new Date(), "", "", Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, 0, "", 0);
+    //console.log("tumor ctor", this.usedAsUpdateForm, this.tumor)
+
     this.tumorForm = this.formBuilder.group({
       date: ['', [Validators.required]],
       tumorName: ['', [Validators.required]],
@@ -87,6 +95,28 @@ export class TumorFormComponent implements OnInit {
 
   ngOnInit(): void {
     $('.ui.checkbox').checkbox();
+   // console.log("tumor nginit", this.usedAsUpdateForm, this.tumor)
+
+    if (this.usedAsUpdateForm) {
+      this.tumorForm.patchValue({ 
+        date: new Date(this.tumor.date).toISOString().slice(0,10),
+        tumorName: this.tumor.name, 
+        biopsyIndex: this.tumor.biopsyIndex,
+        gradus : this.tumor.gradus,
+        erScore : this.tumor.erScore.toString(),
+        erScorePercent : this.tumor.erScorePercent.toString(),
+        erStatus : this.tumor.erStatus.toString(),
+        pgrScore : this.tumor.pgrScore.toString(),
+        pgrScorePercent : this.tumor.pgrScorePercent.toString(),
+        pgrStatus : this.tumor.pgrStatus.toString(),
+        her2INC : this.tumor.her2INC.toString(),
+        her2INCPercent : this.tumor.her2INCPercent.toString(),
+        her2_FISH_SICH : this.tumor.her2_FISH_SICH,
+        her2Status : this.tumor.her2Status,
+        ki67 : this.tumor.ki67,
+        molecularSubtype : this.tumor.molecularSubtype.toString(),
+      });
+    }
   }
 
   onTumorFormSubmit() {
@@ -130,11 +160,23 @@ export class TumorFormComponent implements OnInit {
     );
 
     console.log(newTumor);
-    this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
+    if(this.usedAsUpdateForm){
+      //update se postojeci
+      newTumor._id = this.tumor._id;
+      this.sub = this.tumorService.updateTumorInfo(newTumor).subscribe((updatedTumor: Tumor) => {
+        console.log('tumor updated', updatedTumor);
+        this.tumorUpdated.emit();
+      });
+    }
+    else {
+      // dodaje se novi
+      this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
       .subscribe((addedTumor: Tumor) => {
         console.log('added tumor for ', this.patient._id, ' : ', addedTumor);
         this.newTumorAdded.emit("dodat nov tumor, refresuj listu")
       });
+    }
+    
   }
 
   updateDateErrors() {
