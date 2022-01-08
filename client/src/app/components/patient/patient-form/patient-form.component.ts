@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ValidationErrors, } from '@angular/
 import { Patient } from 'src/app/models/patient.model';
 import { Gender, Menopause } from 'src/app/models/patient.model';
 import { Output, EventEmitter } from '@angular/core';
-import { PatientService } from '../../services/patient-service.service';
+import { PatientService } from '../../../services/patient-service.service';
 import { JMBGValidator } from 'src/app/validators/patient.validator';
 import { Subscription } from 'rxjs';
 

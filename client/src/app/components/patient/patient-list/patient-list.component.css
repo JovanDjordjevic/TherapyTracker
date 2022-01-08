@@ -36,3 +36,14 @@ thead tr th {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--java);
 }
+
+tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-bottom: 0.1px solid var(--delta);
+}
+
+tr:hover {
+  background-color: var(--swans-down);
+}

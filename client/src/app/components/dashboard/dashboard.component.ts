@@ -47,18 +47,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.patient = this.patientsService.getCurrentPatient();
 
-    this.getAllDataForPatient();
+    this.getAllDataForPatients();
 
     this.commonService.sideBarItemClicked.subscribe((data: any) => {
       this.counter = 2;
       this.switch_expression = data;
       this.getAllPatients();
-      this.getAllDataForPatient();
+      this.getAllDataForPatients();
       console.log("clicked on patients")
     })
   }
 
   onNewPatientAdded() {
+    this.counter = 2;
     this.getAllPatients();
     this.switch_expression = 'patients';
   }
@@ -74,7 +75,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     //this.switch_expression = 'patients'
   }
 
-  getAllDataForPatient() {
+  getAllDataForPatients() {
     this.biopsiesSub = this.biopsyService.getAllBiopsies(1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
       //console.log("dashboard constructor, getAllBiopsies zahtev: ", this.biopsies);    // radi dobro

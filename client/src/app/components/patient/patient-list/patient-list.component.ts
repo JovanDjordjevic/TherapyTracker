@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PatientService } from 'src/app/services/patient-service.service';
-import { Patient } from '../../models/patient.model';
+import { Patient } from '../../../models/patient.model';
 
 declare const $: any;
 
