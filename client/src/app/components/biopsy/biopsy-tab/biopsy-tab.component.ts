@@ -33,6 +33,7 @@ export class BiopsyTabComponent implements OnInit {
     this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
       console.log("all biopsies for patient: ", this.biopsies);
+      this.switch_expression = "patientInfo";
     });
   }
 

@@ -28,6 +28,7 @@ export class TreatmentTabComponent implements OnInit {
       this.therapies = therapies;
       console.log("all therapies for patient: ", this.therapies);
     });
+    this.switch_expression = "patientInfo";
   }
 
   onTherapySelected(value: any) {

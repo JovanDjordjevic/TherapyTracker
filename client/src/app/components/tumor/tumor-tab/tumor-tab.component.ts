@@ -33,6 +33,7 @@ export class TumorTabComponent implements OnInit {
       this.tumors = tumors;
       console.log("all tumors for patient: ", this.tumors);
     });
+    this.switch_expression = "patientInfo";
   }
 
   onLoadMoreTumors(value: string) {
