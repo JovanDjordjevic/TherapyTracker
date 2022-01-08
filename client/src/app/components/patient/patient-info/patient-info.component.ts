@@ -11,12 +11,10 @@ declare const $: any;
   templateUrl: './patient-info.component.html',
   styleUrls: ['./patient-info.component.css'],
 })
-export class PatientInfoComponent implements OnInit, OnDestroy {
+export class PatientInfoComponent implements OnInit {
   //@Input() patient: Patient;
   patient: Patient;
   showFullText: boolean = false;
-
-  sub: Subscription = new Subscription();
 
   constructor(private patientService: PatientService, private commonService: CommonService) {
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  ); 
@@ -29,20 +27,5 @@ export class PatientInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     $('.menu .item').tab();
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
-  confirmDeletion() {
-    if (confirm("Da li ste sigurni da zelite da izbrisete pacijenta?")) {
-      this.sub = this.patientService.deletePatientFromDB(this.patient._id).subscribe(() => {
-        this.commonService.sideBarItemClicked.emit('patients');
-      });
-    }
-    else {
-      //console.log('no')
-    }
   }
 }

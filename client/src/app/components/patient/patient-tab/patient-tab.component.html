@@ -3,8 +3,12 @@
     <div class="column">
       <!-- <app-patient-info [patient]="patient"></app-patient-info> -->
       <app-patient-info *ngIf="showPatientInfo"></app-patient-info>
+      
+      <button class="ui red fluid button" *ngIf="showPatientInfo" type=button (click)="confirmDeletion()">Obrisi Pacijenta</button>
+
       <app-clinical-state-form *ngIf="showClinicalStateForm"></app-clinical-state-form>
     </div>
+    
     <div class="column">
       <table class="ui mini definition table">
         <tbody>
