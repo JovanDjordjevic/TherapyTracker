@@ -17,29 +17,30 @@ declare const $: any;
   styleUrls: ['./tabs.component.css'],
 })
 export class TabsComponent implements OnInit, OnDestroy {
-  //@Input() patient: Patient;
-  currentPatient: Patient;
+  patient: Patient;
 
   biopsies: Biopsy[] = []
   tumors: Tumor[] = []
   therapies: Therapy[] = []
   sub: Subscription = new Subscription;
 
-  constructor(private patietnService: PatientService, private biopsyService: BiopsyService, private tumorService: TumorService, private therapyService: TherapyService) {
+  constructor(private patientService: PatientService, private biopsyService: BiopsyService, private tumorService: TumorService, private therapyService: TherapyService) {
 
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );   
-    this.currentPatient = patietnService.getCurrentPatient();
+    this.patient = this.patientService.getCurrentPatient();
 
     //console.log(this.patient._id);  // error
-    this.sub = this.biopsyService.getAllBiopsiesForPatient(this.currentPatient._id, 1).subscribe((biopsies: Biopsy[]) => {
+    this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
       console.log("all biopsies for patient: ", this.biopsies);
     });
-    this.sub = this.tumorService.getAllTumorsForPatient(this.currentPatient._id, 1).subscribe((tumors: Tumor[]) => {
+
+    this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
       console.log("all tumors for patient: ", this.tumors);
     });
-    this.sub = this.therapyService.getAllTherapiesForPatient(this.currentPatient._id, 1).subscribe((therapies: Therapy[]) => {
+
+    this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
       console.log("all therapies for patient: ", this.therapies);
     });
@@ -51,5 +52,9 @@ export class TabsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  onPatientFormHasBeenUpdated() {
+    this.patient = this.patientService.getCurrentPatient();
   }
 }

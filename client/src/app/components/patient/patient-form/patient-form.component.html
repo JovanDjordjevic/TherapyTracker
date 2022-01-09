@@ -70,12 +70,12 @@
           <label>Pol:</label>
           <div class="ui radio inline-grouped fields ">
             <div class="ui field">
-              <input type="radio" formControlName="gender" [value]="Gender.Male" (change)="onMaleChecked()">
-              <label>{{Gender.Male}}</label><br>
+              <input type="radio" formControlName="gender" [value]="GenderEnum.Male" (change)="onMaleChecked()">
+              <label>{{GenderEnum.Male}}</label><br>
             </div>
             <div class="ui field">
-              <input type="radio" formControlName="gender" [value]="Gender.Female" (change)="onFemaleChecked()">
-              <label>{{Gender.Female}}</label><br>
+              <input type="radio" formControlName="gender" [value]="GenderEnum.Female" (change)="onFemaleChecked()">
+              <label>{{GenderEnum.Female}}</label><br>
             </div>
           </div>
           <div class="ui negative message" *ngIf="genderHasErrors">
@@ -91,17 +91,17 @@
           <label>Menopauza:</label>
           <div class="radio inline-grouped fields">
             <div class="ui field">
-              <input type="radio" formControlName="menopause" [value]="Menopause.Pre">
+              <input type="radio" formControlName="menopause" [value]="MenopauseEnum.Pre">
               <label for="pre">pre</label><br>
             </div>
 
             <div class="ui field">
-              <input type="radio" formControlName="menopause" [value]="Menopause.Post">
+              <input type="radio" formControlName="menopause" [value]="MenopauseEnum.Post">
               <label for="post">post</label><br>
             </div>
 
             <div class="ui field">
-              <input type="radio" formControlName="menopause" [value]="Menopause.Peri">
+              <input type="radio" formControlName="menopause" [value]="MenopauseEnum.Peri">
               <label for="peri">peri</label><br>
             </div>
           </div>
@@ -196,7 +196,7 @@
     </div>
 
 
-    <button class="ui fluid button" type="submit">Sacuvaj</button>
+    <button class="ui fluid teal button" type="submit">Sacuvaj</button>
     
   </form>
 

@@ -16,7 +16,7 @@ export class TumorTabComponent implements OnInit {
   sub: Subscription = new Subscription;
   @Input() tumors: Tumor[] = [];
   tumor: Tumor;
-  patient: Patient;
+  @Input() patient: Patient;
   counter: number = 2;
 
   tumorFormUsedForUpdating : boolean = false;

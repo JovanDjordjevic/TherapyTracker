@@ -5,7 +5,7 @@
                       (newTumorAdded)="onNewTumorAdded()" (tumorUpdated)="onTumorUpdated()">
       </app-tumor-form>
       
-      <app-patient-info *ngSwitchCase="'patientInfo'"></app-patient-info>
+      <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"></app-patient-info>
       
       <table *ngSwitchCase="'tumorInfo'" class="ui mini definition table">
         <tbody>

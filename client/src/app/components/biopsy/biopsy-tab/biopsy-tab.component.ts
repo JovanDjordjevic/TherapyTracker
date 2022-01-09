@@ -15,7 +15,7 @@ export class BiopsyTabComponent implements OnInit {
   BiopsySideEnum = BiopsySide;
   sub: Subscription = new Subscription;
   switch_expression = "patientInfo";
-  patient: Patient;
+  @Input() patient: Patient;
   biopsy: Biopsy;
   counter: number = 2;
 

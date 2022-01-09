@@ -16,7 +16,7 @@ export class TreatmentTabComponent implements OnInit {
   switch_expression = "patientInfo";
   counter: number = 2;
   therapy: Therapy;
-  patient: Patient;
+  @Input() patient: Patient;
 
   therapyFormUsedForUpdating : boolean = false;
 

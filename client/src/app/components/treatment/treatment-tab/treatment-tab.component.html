@@ -5,7 +5,7 @@
                         (newTherapyAdded)="onNewTherapyAdded()" (therapyUpdated)="onTherapyUpdated()">
       </app-therapy-form>
 
-      <app-patient-info *ngSwitchCase="'patientInfo'"></app-patient-info>
+      <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"></app-patient-info>
 
       <table *ngSwitchCase="'therapyInfo'" class="ui mini definition table">
         <tbody>

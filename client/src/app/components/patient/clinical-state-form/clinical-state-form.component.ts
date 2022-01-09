@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ClinicalStage, MStage, NStage, Patient, TStage } from 'src/app/models/patient.model';
@@ -10,6 +10,11 @@ import { PatientService } from 'src/app/services/patient-service.service';
   styleUrls: ['./clinical-state-form.component.css'],
 })
 export class ClinicalStateFormComponent implements OnInit {
+  @Input() patient : Patient;
+  @Input() usedAsUpdateForm : boolean = false;
+
+  @Output() onClinicalStateUpdated = new EventEmitter<void>();
+
   clinicalStateForm: FormGroup;
 
   TStageEnum = TStage;
@@ -18,7 +23,6 @@ export class ClinicalStateFormComponent implements OnInit {
   ClinicalStaegEnum = ClinicalStage;
 
   TStageEnumKeys: string[] = [];
-  patient: Patient;
   
   sub: Subscription = new Subscription();
   
@@ -49,7 +53,17 @@ export class ClinicalStateFormComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.usedAsUpdateForm) {
+      this.clinicalStateForm.patchValue({
+        tStage : this.patient.tStage,
+        nStage : this.patient.nStage,
+        mStage : this.patient.mStage,
+        tnmStage : this.patient.tnmStage,
+        clinicalStage : this.patient.clinicalStage,
+      });
+    }
+  }
 
   onClinicalStateFormSubmit() {
     //console.log("onClinicalStateFormSubmit")
@@ -75,13 +89,13 @@ export class ClinicalStateFormComponent implements OnInit {
     this.patient.tStage = data.tStage;
     this.patient.nStage = data.nStage;
     this.patient.mStage = data.mStage;
-    this.patient.clinicalStage = data.clinicalStage;
     this.patient.tnmStage = 'T' + data.tStage + 'N' + data.nStage + 'M' + data.mStage;
+    this.patient.clinicalStage = data.clinicalStage;
       
-    this.sub = this.patientService.updatePatientInfo(this.patient)
-                                  .subscribe((updatedPatient: Patient) => {
-                                    console.log('updated clinical stage', updatedPatient);
-                                  });
+    this.sub = this.patientService.updatePatientInfo(this.patient).subscribe((updatedPatient: Patient) => {
+      console.log('updated clinical stage', updatedPatient);
+      this.onClinicalStateUpdated.emit();
+    });
   }
 
   updateTStageErrors(){

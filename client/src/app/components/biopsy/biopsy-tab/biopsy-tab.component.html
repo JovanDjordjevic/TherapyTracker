@@ -7,7 +7,7 @@
                        (newBiopsyAdded)="onNewBiopsyAdded()" (biopsyUpdated)="onBiopsyUpdated()"> 
       </app-biopsy-form>
 
-      <app-patient-info *ngSwitchCase="'patientInfo'"> </app-patient-info>
+      <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"> </app-patient-info>
 
       <table *ngSwitchCase="'biopsyInfo'" class="ui mini fixed celled definition table">
         <tbody>

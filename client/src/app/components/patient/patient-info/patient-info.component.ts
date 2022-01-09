@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Patient } from 'src/app/models/patient.model';
 import { CommonService } from 'src/app/services/common.service';
@@ -12,8 +12,8 @@ declare const $: any;
   styleUrls: ['./patient-info.component.css'],
 })
 export class PatientInfoComponent implements OnInit {
-  //@Input() patient: Patient;
-  patient: Patient;
+  @Input() patient: Patient;
+  //patient: Patient;
   showFullText: boolean = false;
 
   constructor(private patientService: PatientService, private commonService: CommonService) {
