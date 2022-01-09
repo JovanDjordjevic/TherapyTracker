@@ -2,24 +2,24 @@ const biopsyService = require('../services/biopsy');
 const counterService = require('../services/counter');
 
 
-const checkInput = (date, side, biopsyTypeLeft, histotypeLeft, multifocalityLeft,
+const checkInput = (date, biopsySide, biopsyTypeLeft, histotypeLeft, multifocalityLeft,
     biopsyTypeRight, histotypeRight, multifocalityRight, comment) => {
-    if(date == undefined || side == undefined || comment == undefined){
+    if(date == undefined || biopsySide == undefined || comment == undefined){
         const error = new Error('Check input data!');
         error.status = 400;
         throw error;
     }
-    if(side === "Leva" && (biopsyTypeLeft == undefined || histotypeLeft == undefined || multifocalityLeft  == undefined)){
+    if(biopsySide === "Leva" && (biopsyTypeLeft == undefined || histotypeLeft == undefined || multifocalityLeft  == undefined)){
         const error = new Error('Check input data for left side!');
         error.status = 400;
         throw error;
     }
-    if(side === "Desna" && (biopsyTypeRight == undefined || histotypeRight == undefined || multifocalityRight  == undefined)){
+    if(biopsySide === "Desna" && (biopsyTypeRight == undefined || histotypeRight == undefined || multifocalityRight  == undefined)){
         const error = new Error('Check input data for right side!');
         error.status = 400;
         throw error;
     }
-    if(side === "Obe" && (biopsyTypeLeft == undefined || histotypeLeft == undefined || multifocalityLeft  == undefined ||
+    if(biopsySide === "Obe" && (biopsyTypeLeft == undefined || histotypeLeft == undefined || multifocalityLeft  == undefined ||
         biopsyTypeRight == undefined || histotypeRight == undefined || multifocalityRight  == undefined)){
 
         const error = new Error('Check input data for both sides!');
@@ -59,7 +59,7 @@ const getAllBiopsiesForPatient = async (req, res, next) => {
 const addNewBiopsyForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
     //console.log(patientId);
-    const {side, biopsyTypeLeft, histotypeLeft, multifocalityLeft,
+    const {biopsySide, biopsyTypeLeft, histotypeLeft, multifocalityLeft,
         biopsyTypeRight, histotypeRight, multifocalityRight, comment} = req.body.biopsy;
     const date = new Date(req.body.biopsy.date);
     // console.log('...');
@@ -67,22 +67,22 @@ const addNewBiopsyForPatient = async (req, res, next) => {
     let numRight = "";
     
     try {
-        checkInput(date, side, biopsyTypeLeft, histotypeLeft, multifocalityLeft,
+        checkInput(date, biopsySide, biopsyTypeLeft, histotypeLeft, multifocalityLeft,
             biopsyTypeRight, histotypeRight, multifocalityRight, comment);
 
         await counterService.checkCounter();
 
-        if(side === "Leva"){
+        if(biopsySide === "Leva"){
 
             const indexLeft = await counterService.getBiopsyIndex();
             numLeft = indexLeft + '/' + date.getFullYear();
 
-        } else if(side === "Desna"){
+        } else if(biopsySide === "Desna"){
 
             const indexRight = await counterService.getBiopsyIndex();
             numRight = indexRight + '/' + date.getFullYear();
 
-        } else if(side === "Obe"){
+        } else if(biopsySide === "Obe"){
 
             const indexLeft = await counterService.getBiopsyIndex();
             const indexRight = await counterService.getBiopsyIndex();
@@ -97,7 +97,7 @@ const addNewBiopsyForPatient = async (req, res, next) => {
         }
 
         const newBiopsy = await biopsyService.addNewBiopsy( patientId,
-            date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
+            date, biopsySide, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
             biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment
         );
         res.status(201).json(newBiopsy);
@@ -108,11 +108,11 @@ const addNewBiopsyForPatient = async (req, res, next) => {
 
 const updateBiopsyInfo = async (req, res, next) => {
     //console.log(req.body.biopsy);
-    const {_id, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
+    var {_id, date, biopsySide, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
         biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment} = req.body.biopsy;
 
     try{
-        if (_id == undefined || date == undefined || side == undefined || 
+        if (_id == undefined || date == undefined || biopsySide == undefined || 
             biopsyTypeLeft == undefined || numLeft == undefined || histotypeLeft == undefined || multifocalityLeft  == undefined ||
             biopsyTypeRight == undefined || numRight == undefined || histotypeRight == undefined || multifocalityRight  == undefined ||
             comment == undefined
@@ -120,10 +120,39 @@ const updateBiopsyInfo = async (req, res, next) => {
             const error = new Error('Check input data!');
             error.status = 400;
             throw error;
+        } 
+    
+        if (biopsySide === "Leva" ) {
+            if (numLeft === '') {
+                const indexLeft = await counterService.getBiopsyIndex();
+                numLeft = indexLeft + '/' + (new Date(date)).getFullYear();
+            }
+            numRight = '';
+        }    
+        else if (biopsySide === "Desna") {
+            if (numRight === '') {
+                const indexRight = await counterService.getBiopsyIndex();
+                numRight = indexRight + '/' + (new Date(date)).getFullYear();
+            }
+            numLeft = '';
+        } else if(biopsySide === "Obe") { 
+            if(numLeft === '') {
+                const indexLeft = await counterService.getBiopsyIndex();
+                numLeft = indexLeft + '/' + (new Date(date)).getFullYear();
+            } 
+
+            if (numRight ==='') {
+                const indexRight = await counterService.getBiopsyIndex();
+                numRight = indexRight + '/' + (new Date(date)).getFullYear()
+            }
+        } else {
+            const error = new Error('Check biopsy side!');
+            error.status = 400;
+            throw error;
         }
 
         const updatedBiopsy = await biopsyService.updateBiopsyInfo(
-            _id, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
+            _id, date, biopsySide, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
             biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment
         );
         res.status(201).json(updatedBiopsy);

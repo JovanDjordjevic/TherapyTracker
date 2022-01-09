@@ -3,8 +3,12 @@
     <div class="column" [ngSwitch]="switch_expression">
       <!-- <app-biopsy-form *ngIf="showBiopsyForm" [patient]="patient"></app-biopsy-form>
       <app-patient-info *ngIf="showPatientInfo" [patient]="patient"></app-patient-info> -->
-      <app-biopsy-form *ngSwitchCase="'biopsyForm'" (newBiopsyAdded)="onNewBiopsyAdded()"> </app-biopsy-form>
+      <app-biopsy-form *ngSwitchCase="'biopsyForm'" [biopsy]="biopsy" [usedAsUpdateForm]="biopsyFormUsedForUpdating" 
+                       (newBiopsyAdded)="onNewBiopsyAdded()" (biopsyUpdated)="onBiopsyUpdated()"> 
+      </app-biopsy-form>
+
       <app-patient-info *ngSwitchCase="'patientInfo'"> </app-patient-info>
+
       <table *ngSwitchCase="'biopsyInfo'" class="ui mini fixed celled definition table">
         <tbody>
           <tr>
@@ -39,25 +43,24 @@
         </tbody>
       </table>
 
-      <button *ngSwitchCase="'biopsyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
-        Biopsiju</button>
+      <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickUpdateBiopsyInfo()">Izmeni podatke o biopsiji</button>
+
+      <button *ngSwitchCase="'biopsyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Biopsiju</button>
     </div>
 
     <div class="column">
-      <app-biopsy-list class="list" [biopsies]="biopsies" (selectBiopsy)="onBiopsySelected($event)"
-        (loadMoreBiopsies)="onLoadMoreBiopsies($event)">
-      </app-biopsy-list>
-      <div class="buttons" [ngSwitch]="switch_expression">
-        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'biopsyForm'">Unesi
-          podatke
-          o biopsiji</button>
-        <button class="ui button" *ngSwitchCase="'biopsyInfo'">Izmeni podatke o biopsiji</button>
+      <app-biopsy-list class="list" [biopsies]="biopsies" (selectBiopsy)="onBiopsySelected($event)" (loadMoreBiopsies)="onLoadMoreBiopsies($event)"></app-biopsy-list>
+      
+      <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
+        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'biopsyForm'">Unesi podatke o biopsiji</button>
+        
         <button class="ui button"
           *ngSwitchCase="switch_expression === 'biopsyInfo' || switch_expression === 'biopsyForm' ? switch_expression : ''"
           (click)="switch_expression = 'patientInfo'">Nazad na pacijenta</button>
       </div>
     </div>
   </div>
+
   <div class="ui vertical divider">
     <i class="far fa-address-card fa-lg"></i>
   </div>

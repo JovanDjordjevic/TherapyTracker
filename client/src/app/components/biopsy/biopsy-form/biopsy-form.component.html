@@ -17,22 +17,21 @@
   <div class="required inline-grouped fields" [ngClass]="{error: sideHasErrors}">
     <div class="field">
       <div class="ui radio checkbox">
-        <input type="radio" [value]="BiopsySideEnum.Left" formControlName="side" (change)="leftSideChecked()"
-          checked="checked">
+        <input type="radio" [value]="BiopsySideEnum.Left" formControlName="biopsySide" (change)="leftSideChecked()" id="nesto">
         <label>{{ BiopsySideEnum.Left }}</label>
       </div>
     </div>
 
     <div class="field">
       <div class="ui radio checkbox">
-        <input type="radio" [value]="BiopsySideEnum.Right" formControlName="side" (change)="rightSideChecked()" />
+        <input type="radio" [value]="BiopsySideEnum.Right" formControlName="biopsySide" (change)="rightSideChecked()" />
         <label>{{ BiopsySideEnum.Right }}</label>
       </div>
     </div>
 
     <div class="field">
       <div class="ui radio checkbox">
-        <input type="radio" [value]="BiopsySideEnum.Both" formControlName="side" (change)="bothSidesChecked()" />
+        <input type="radio" [value]="BiopsySideEnum.Both" formControlName="biopsySide" (change)="bothSidesChecked()" />
         <label>{{ BiopsySideEnum.Both }}</label>
       </div>
     </div>
@@ -198,5 +197,5 @@
     <textarea type="number" formControlName="comment" rows="5"> </textarea>
   </div>
 
-  <button class="ui fluid button" type="submit">Sacuvaj podatke</button>
+  <button class="ui fluid teal button" type="submit">Sacuvaj podatke</button>
 </form>

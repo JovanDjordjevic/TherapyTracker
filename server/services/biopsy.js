@@ -39,7 +39,7 @@ const addNewBiopsy = async (patientId, date, side, biopsyTypeLeft, numLeft, hist
     return newBiopsy;
 };
 
-const updateBiopsyInfo = async (id, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
+const updateBiopsyInfo = async (id, date, biopsySide, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
     biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment) => {
 
         const updatedBiopsy = await Biopsy.findOneAndUpdate(
@@ -47,7 +47,7 @@ const updateBiopsyInfo = async (id, date, side, biopsyTypeLeft, numLeft, histoty
             {
                 $set: {
                     date: date,
-                    side: side,
+                    biopsySide: biopsySide,
                     biopsyTypeLeft: biopsyTypeLeft,
                     numLeft: numLeft,
                     histotypeLeft: histotypeLeft,

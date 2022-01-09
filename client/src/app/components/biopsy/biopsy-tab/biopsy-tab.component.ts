@@ -19,6 +19,8 @@ export class BiopsyTabComponent implements OnInit {
   biopsy: Biopsy;
   counter: number = 2;
 
+  biopsyFormUsedForUpdating : boolean = false;
+
   constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
     this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
     this.patient = this.patientService.getCurrentPatient();
@@ -54,6 +56,21 @@ export class BiopsyTabComponent implements OnInit {
     else {
       //console.log('no')
     }
+  }
+
+  onClickUpdateBiopsyInfo(){
+    //console.log('onClickUpdateTumorInfo')
+    this.biopsyFormUsedForUpdating = true;
+    this.switch_expression = "biopsyForm";
+  }
+
+  onBiopsyUpdated(){
+    this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
+      this.biopsies = biopsies;
+      console.log("all biopsies for patient: ", this.biopsies);
+    });
+    this.switch_expression = "patientInfo";
+    this.biopsyFormUsedForUpdating = false;
   }
 
   ngOnInit(): void { }
