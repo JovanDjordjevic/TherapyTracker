@@ -72,5 +72,10 @@ export class TreatmentTabComponent implements OnInit {
     this.therapyFormUsedForUpdating = false;
   }
 
+  backToPatient() {
+    this.switch_expression = 'patientInfo'
+    this.therapyFormUsedForUpdating = false;
+  }
+
   ngOnInit(): void { }
 }

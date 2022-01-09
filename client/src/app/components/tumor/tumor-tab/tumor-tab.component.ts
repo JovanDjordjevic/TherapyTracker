@@ -77,5 +77,10 @@ export class TumorTabComponent implements OnInit {
     this.tumorFormUsedForUpdating = false;
   }
 
+  backToPatient() {
+    this.switch_expression = 'patientInfo'
+    this.tumorFormUsedForUpdating = false;
+  }
+
   ngOnInit(): void { }
 }

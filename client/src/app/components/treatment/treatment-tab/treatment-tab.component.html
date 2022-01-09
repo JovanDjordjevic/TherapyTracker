@@ -49,7 +49,7 @@
         
         <button class="ui button"
           *ngSwitchCase="switch_expression === 'therapyInfo' || switch_expression === 'therapyForm' ? switch_expression : ''"
-          (click)="switch_expression = 'patientInfo'">Nazad na pacijenta</button>
+          (click)="backToPatient()">Nazad na pacijenta</button>
       </div>
     </div>
   </div>

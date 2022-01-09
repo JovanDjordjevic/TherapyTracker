@@ -73,5 +73,10 @@ export class BiopsyTabComponent implements OnInit {
     this.biopsyFormUsedForUpdating = false;
   }
 
+  backToPatient() {
+    this.switch_expression = 'patientInfo'
+    this.biopsyFormUsedForUpdating = false;
+  }
+
   ngOnInit(): void { }
 }
