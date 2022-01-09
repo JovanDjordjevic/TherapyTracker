@@ -2,15 +2,15 @@
   <div class="ui two column very relaxed grid">
     <div class="column">
       <!-- <app-patient-info [patient]="patient"></app-patient-info> -->
-      <app-patient-info *ngIf="showPatientInfo"></app-patient-info>
+      <app-patient-info *ngIf="showPatientInfo" id="patientInfoId"></app-patient-info>
       
       <button class="ui red fluid button" *ngIf="showPatientInfo" type=button (click)="confirmDeletion()">Obrisi Pacijenta</button>
 
-      <app-clinical-state-form *ngIf="showClinicalStateForm"></app-clinical-state-form>
+      <app-clinical-state-form *ngIf="showClinicalStateForm" ></app-clinical-state-form>
     </div>
     
-    <div class="column">
-      <table class="ui mini definition table">
+    <div class="column" >
+      <table class="ui mini definition table" id="clinicalStateId">
         <tbody>
           <tr>
             <td class="six wide column">T stage</td>
@@ -39,6 +39,7 @@
           stanju' : 'Prikazi
           informacije o pacijentu'}}</button>
         <button class="ui button">Izmeni informacije o pacijentu</button>
+        <button class="ui button" (click)="genPDF()" *ngIf="showPatientInfo">Download PDF</button>
       </div>
     </div>
   </div>
