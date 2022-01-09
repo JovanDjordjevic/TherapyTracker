@@ -1,15 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
-import {
-  Therapy,
-  TherapyResponse,
-  TherapyType,
-} from 'src/app/models/therapy.model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Therapy, TherapyResponse, TherapyType } from 'src/app/models/therapy.model';
 import { MustBeNumber } from 'src/app/validators/common.validator';
 import { HerceptinTherapyValidator } from 'src/app/validators/therapy.validator';
 import { Subscription } from 'rxjs';
@@ -25,12 +16,17 @@ declare const $: any;
   styleUrls: ['./therapy-form.component.css'],
 })
 export class TherapyFormComponent implements OnInit {
+  @Input() therapy : Therapy;
+  @Input() usedAsUpdateForm : boolean = false;
+
   therapyForm: FormGroup;
   TherapyTypeEnum = TherapyType;
   TherapyResponseEnum = TherapyResponse;
   sub: Subscription = new Subscription();
-  @Output() newTherapyAdded = new EventEmitter<string>();
   patient: Patient;
+
+  @Output() newTherapyAdded = new EventEmitter<string>();
+  @Output() therapyUpdated = new EventEmitter<void>();
 
   // nigde nije naglaseno koliko moze da bude kolicine kog leka, recimo 500
   numberValues: number[] = [];
@@ -53,14 +49,12 @@ export class TherapyFormComponent implements OnInit {
   numTxtrErrors: string[] = [];
   herceptinTherapyErrors: string[] = [];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private therapyService: TherapyService,
-    private patientService: PatientService
-  ) {
+  constructor(private formBuilder: FormBuilder, private therapyService: TherapyService, private patientService: PatientService) {
     for (let i = 0; i <= 500; i++) {
       this.numberValues.push(i);
     }
+    
+    this.therapy = new Therapy(new Date, 0, TherapyType.AC, false, 0, 0, "test", "test");
 
     this.patient = this.patientService.getCurrentPatient();
 
@@ -68,13 +62,9 @@ export class TherapyFormComponent implements OnInit {
       date: ['', [Validators.required]],
       numCycles: ['', [Validators.required, MustBeNumber]],
       therapyType: ['', [Validators.required]],
-      usingNeoadjuvant: ['', []], // ovo ni ne treba izgleda
       numTaxol: ['', [Validators.required]],
       numTxtr: ['', [Validators.required]],
-      herceptinTherapy: [
-        'nije primenljivo',
-        [Validators.required, HerceptinTherapyValidator],
-      ],
+      herceptinTherapy: ['nije primenljivo', [Validators.required, HerceptinTherapyValidator]],
       comment: ['', []],
       //therapyResponse: ['', []],
     });
@@ -86,11 +76,28 @@ export class TherapyFormComponent implements OnInit {
 
   ngOnInit(): void {
     $('.ui.checkbox').checkbox();
+
+    if (this.usedAsUpdateForm) {
+      if (this.therapy.herceptinTherapy !== "nije primenljivo") {
+        $("#herceptinCheckbox").prop("checked", true);
+        this.herceptinDisabled = false;
+      }
+
+      this.therapyForm.patchValue({ 
+        date : new Date(this.therapy.date).toISOString().slice(0,10),
+        numCycles : this.therapy.numCycles.toString(),
+        therapyType : this.therapy.therapyType,
+        numTaxol : this.therapy.numTaxol,
+        numTxtr : this.therapy.numTxtr,
+        herceptinTherapy : this.therapy.herceptinTherapy,
+        comment : this.therapy.comment,
+      });
+    }
   }
 
   onTherapyFormSubmit() {
     if (this.therapyForm.invalid) {
-      //window.alert('Neka polja nemaju validnu vrednost!');
+      window.alert('Neka polja nemaju validnu vrednost!');
       this.updateNumCyclesErrors();
       this.updateTherapyTypeErrors();
       this.updateNumTaxolErrors();
@@ -109,24 +116,24 @@ export class TherapyFormComponent implements OnInit {
     console.log(this.therapyForm);
     const data = this.therapyForm.value;
 
-    const newTherapy = new Therapy(
-      data.date,
-      data.numCycles,
-      data.therapyType,
-      false,
-      data.numTaxol,
-      data.numTxtr,
-      data.herceptinTherapy,
-      data.comment
-    );
+    const newTherapy = new Therapy(data.date, data.numCycles, data.therapyType, false, data.numTaxol, data.numTxtr, data.herceptinTherapy, data.comment);
 
-    //console.log(this.patient._id);
-    this.sub = this.therapyService
-      .addNewTherapyForPatient(this.patient._id, newTherapy)
-      .subscribe((addedTherapy: Therapy) => {
+    console.log(newTherapy);
+    if(this.usedAsUpdateForm){
+      //update se postojeci
+      newTherapy._id = this.therapy._id;
+      this.sub = this.therapyService.updateTherapyInfo(newTherapy).subscribe((updatedTherapy: Therapy) => {
+        console.log('therapy updated', updatedTherapy);
+        this.therapyUpdated.emit();
+      });
+    }
+    else {
+      // dodaje se novi
+      this.sub = this.therapyService.addNewTherapyForPatient(this.patient._id, newTherapy).subscribe((addedTherapy: Therapy) => {
         console.log('added therapy for ', this.patient._id, ' : ', addedTherapy);
         this.newTherapyAdded.emit("dodat nova terapija, refresuj listu")
       });
+    }
   }
 
   updateNumCyclesErrors() {

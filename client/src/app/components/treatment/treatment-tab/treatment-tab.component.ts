@@ -18,6 +18,8 @@ export class TreatmentTabComponent implements OnInit {
   therapy: Therapy;
   patient: Patient;
 
+  therapyFormUsedForUpdating : boolean = false;
+
   constructor(private therapyService: TherapyService, private patientService: PatientService) {
     this.therapy = new Therapy(new Date, 0, TherapyType.AC, false, 0, 0, "test", "test");
     this.patient = this.patientService.getCurrentPatient();
@@ -53,6 +55,21 @@ export class TreatmentTabComponent implements OnInit {
     else {
       //console.log('no')
     }
+  }
+
+  onClickUpdateTherapyInfo(){
+    //console.log('onClickUpdateTherapyInfo')
+    this.therapyFormUsedForUpdating = true;
+    this.switch_expression = "therapyForm";
+  }
+
+  onTherapyUpdated(){
+    this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
+      this.therapies = therapies;
+      console.log("all therapies for patient: ", this.therapies);
+    });
+    this.switch_expression = "patientInfo";
+    this.therapyFormUsedForUpdating = false;
   }
 
   ngOnInit(): void { }
