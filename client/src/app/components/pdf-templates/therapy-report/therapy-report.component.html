@@ -1,0 +1,143 @@
+<h1>Institut za onkologiju ( placeholder info, itd)</h1>
+<h1>Danasnji datum {{ today }}</h1>
+
+<h3>Informacije o pacijentu</h3>
+<div class = "ui two column grid">
+    <div class="ui column"> 
+        <table class="ui mini fixed definition table">
+            <tbody>
+              <tr>
+                <td class="six wide column">Ime:</td>
+                <td>{{ patient.name }}</td>
+              </tr>
+              <tr>
+                <td>Prezime:</td>
+                <td>{{ patient.surname }}</td>
+              </tr>
+              <tr>
+                <td>Godina rodjenja:</td>
+                <td>{{ patient.yearOfBirth }}</td>
+              </tr>
+              <tr>
+                <td>JMBG:</td>
+                <td>{{ patient.jmbg }}</td>
+              </tr>
+              <tr>
+                <td>Pol:</td>
+                <td>{{ patient.gender }}</td>
+              </tr>
+              <tr>
+                <td>Adresa boravka / Grad:</td>
+                <td>{{ patient.address }} / {{ patient.city }} </td>
+              </tr>
+              <tr>
+                <td>Kontakt telefon:</td>
+                <td>{{ patient.contact }}</td>
+              </tr>
+              <tr>
+                <td>Email:</td>
+                <td>{{ patient.email }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <div class="ui column"> 
+        <table class="ui mini fixed definition table">
+            <tbody>
+              <tr>
+                <td class="six wide column">Datum otvaranja kartona:</td>
+                <td>{{ patientHistoryDate }}</td>
+              </tr>
+              <tr *ngIf="patient.gender === 'z'">
+                <td>Status menopauze:</td>
+                <td>{{ menopauseString }}</td>
+              </tr>
+              <tr *ngIf="patient.isClinicalStateSet">
+                <td>TStage:</td>
+                <td>{{ patient.tStage }}</td>
+              </tr>
+              <tr *ngIf="patient.isClinicalStateSet">
+                <td>NStage:</td>
+                <td>{{ patient.nStage }}</td>
+              </tr>
+              <tr *ngIf="patient.isClinicalStateSet">
+                <td>MStage:</td>
+                <td>{{ patient.mStage }}</td>
+              </tr>
+              <tr *ngIf="patient.isClinicalStateSet">
+                <td>TNMStage:</td>
+                <td>{{ patient.tnmStage }}</td>
+              </tr>
+              <tr *ngIf="patient.isClinicalStateSet">
+                <td>Klinicki stadijum:</td>
+                <td>{{ patient.clinicalStage }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<table class="ui mini fixed definition table">
+    <tbody>
+        <tr>
+            <td>Datum dijagnostikovanja tumora:</td>
+            <td>{{ diagnosisDate }}</td>
+          </tr>
+          <tr>
+            <td>Porodicna anamneza:</td>
+            <td class="anamneza">
+              {{ patient.familyAnamnesis }}
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>Izvestaj o Terapiji</h3>
+<table class="ui mini definition table">
+    <tbody>
+      <tr>
+        <td class="six wide column">Datum prepisivanja terapije:</td>
+        <td>{{ therapyStartDate }}</td>
+      </tr>
+      <tr>
+        <td >Terapija ukratko:</td>
+        <td>{{ therapyShortString }}</td>
+      </tr>
+      <tr>
+        <td >Broj ciklusa:</td>
+        <td>{{ therapy.numCycles }}</td>
+      </tr>
+      <tr>
+        <td>Tip terapije:</td>
+        <td>{{ therapy.therapyType }}</td>
+      </tr>
+      <tr>
+        <td>Taxol:</td>
+        <td>{{ therapy.numTaxol }}</td>
+      </tr>
+      <tr>
+        <td>TXTR:</td>
+        <td>{{ therapy.numTxtr }}</td>
+      </tr>
+      <tr>
+        <td>Terapija herceptinom:</td>
+        <td>{{ therapy.herceptinTherapy }}</td>
+      </tr>
+      <tr>
+        <td>Komentar:</td>
+        <td>{{ therapy.comment }}</td>
+      </tr>
+      <tr *ngIf='therapy.isTherapyResponseSet'>
+        <td>Terapijski odgovor:</td>
+        <td>{{ therapy.therapyResponse }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<h4>
+    Potpis i pecat lekara:______________________________________________________
+</h4>
+<br>
+<br>
+<br>
