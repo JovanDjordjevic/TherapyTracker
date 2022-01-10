@@ -8,7 +8,7 @@ import { TherapyService } from 'src/app/services/therapy.service';
 @Component({
   selector: 'app-treatment-tab',
   templateUrl: './treatment-tab.component.html',
-  styleUrls: ['./treatment-tab.component.css'],
+  styleUrls: ['../../../styles/tab.css'],
 })
 export class TreatmentTabComponent implements OnInit {
   @Input() therapies: Therapy[] = [];
@@ -18,7 +18,7 @@ export class TreatmentTabComponent implements OnInit {
   therapy: Therapy;
   @Input() patient: Patient;
 
-  therapyFormUsedForUpdating : boolean = false;
+  therapyFormUsedForUpdating: boolean = false;
 
   constructor(private therapyService: TherapyService, private patientService: PatientService) {
     this.therapy = new Therapy(new Date, 0, TherapyType.AC, false, 0, 0, "test", "test");
@@ -57,13 +57,13 @@ export class TreatmentTabComponent implements OnInit {
     }
   }
 
-  onClickUpdateTherapyInfo(){
+  onClickUpdateTherapyInfo() {
     //console.log('onClickUpdateTherapyInfo')
     this.therapyFormUsedForUpdating = true;
     this.switch_expression = "therapyForm";
   }
 
-  onTherapyUpdated(){
+  onTherapyUpdated() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
       console.log("all therapies for patient: ", this.therapies);

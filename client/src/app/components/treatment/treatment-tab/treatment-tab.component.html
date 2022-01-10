@@ -1,8 +1,9 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column" [ngSwitch]="switch_expression">
-      <app-therapy-form *ngSwitchCase="'therapyForm'" [therapy]="therapy" [usedAsUpdateForm]="therapyFormUsedForUpdating" 
-                        (newTherapyAdded)="onNewTherapyAdded()" (therapyUpdated)="onTherapyUpdated()">
+      <app-therapy-form *ngSwitchCase="'therapyForm'" [therapy]="therapy"
+        [usedAsUpdateForm]="therapyFormUsedForUpdating" (newTherapyAdded)="onNewTherapyAdded()"
+        (therapyUpdated)="onTherapyUpdated()">
       </app-therapy-form>
 
       <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"></app-patient-info>
@@ -36,17 +37,24 @@
         </tbody>
       </table>
 
-      <button class="ui fluid teal button" *ngSwitchCase="'therapyInfo'" (click)="onClickUpdateTherapyInfo()">Izmeni podatke o terapiji</button>
+      <div class="buttons">
+        <button class="ui fluid teal button" *ngSwitchCase="'therapyInfo'" (click)="onClickUpdateTherapyInfo()">Izmeni
+          podatke o terapiji</button>
 
-      <button *ngSwitchCase="'therapyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Terapiju</button>
+        <button *ngSwitchCase="'therapyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
+          Terapiju</button>
+      </div>
     </div>
 
     <div class="column">
-      <app-treatment-list [therapies]="therapies" (selectTherapy)="onTherapySelected($event)" (loadMoreTherapies)="onLoadMoreTherapies($event)"></app-treatment-list>
-      
+      <app-treatment-list [therapies]="therapies" (selectTherapy)="onTherapySelected($event)"
+        (loadMoreTherapies)="onLoadMoreTherapies($event)"></app-treatment-list>
+
       <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
-        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'therapyForm'">Unesi podatke o terapiji</button>
-        
+        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'therapyForm'">Unesi
+          podatke
+          o terapiji</button>
+
         <button class="ui button"
           *ngSwitchCase="switch_expression === 'therapyInfo' || switch_expression === 'therapyForm' ? switch_expression : ''"
           (click)="backToPatient()">Nazad na pacijenta</button>

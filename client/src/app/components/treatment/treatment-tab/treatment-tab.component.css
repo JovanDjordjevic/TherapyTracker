@@ -1,12 +1,1 @@
-.ui.grid > .column {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  word-wrap: break-word;
-}
 
-.buttons {
-  display: flex;
-  flex-direction: column;
-}

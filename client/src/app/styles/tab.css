@@ -1,13 +1,14 @@
-/* .ui.grid > .column {
+.ui.grid > .column {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
 }
- */
 
+.ui.button{
+  margin-top: 10px;
+}

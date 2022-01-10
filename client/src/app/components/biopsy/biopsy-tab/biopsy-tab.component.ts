@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-biopsy-tab',
   templateUrl: './biopsy-tab.component.html',
-  styleUrls: ['./biopsy-tab.component.css'],
+  styleUrls: ['../../../styles/tab.css'],
 })
 export class BiopsyTabComponent implements OnInit {
   @Input() biopsies: Biopsy[] = [];
@@ -19,7 +19,7 @@ export class BiopsyTabComponent implements OnInit {
   biopsy: Biopsy;
   counter: number = 2;
 
-  biopsyFormUsedForUpdating : boolean = false;
+  biopsyFormUsedForUpdating: boolean = false;
 
   constructor(private patientService: PatientService, private biopsyService: BiopsyService) {
     this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
@@ -58,13 +58,13 @@ export class BiopsyTabComponent implements OnInit {
     }
   }
 
-  onClickUpdateBiopsyInfo(){
+  onClickUpdateBiopsyInfo() {
     //console.log('onClickUpdateTumorInfo')
     this.biopsyFormUsedForUpdating = true;
     this.switch_expression = "biopsyForm";
   }
 
-  onBiopsyUpdated(){
+  onBiopsyUpdated() {
     this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
       console.log("all biopsies for patient: ", this.biopsies);

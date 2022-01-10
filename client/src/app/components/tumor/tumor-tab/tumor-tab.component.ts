@@ -9,7 +9,7 @@ import { TumorFormComponent } from '../tumor-form/tumor-form.component';
 @Component({
   selector: 'app-tumor-tab',
   templateUrl: './tumor-tab.component.html',
-  styleUrls: ['./tumor-tab.component.css'],
+  styleUrls: ['../../../styles/tab.css'],
 })
 export class TumorTabComponent implements OnInit {
   switch_expression = "patientInfo";
@@ -19,7 +19,7 @@ export class TumorTabComponent implements OnInit {
   @Input() patient: Patient;
   counter: number = 2;
 
-  tumorFormUsedForUpdating : boolean = false;
+  tumorFormUsedForUpdating: boolean = false;
 
   onShowTumorForm() {
     this.switch_expression = "tumorForm";
@@ -62,13 +62,13 @@ export class TumorTabComponent implements OnInit {
     }
   }
 
-  onClickUpdateTumorInfo(){
+  onClickUpdateTumorInfo() {
     //console.log('onClickUpdateTumorInfo')
     this.tumorFormUsedForUpdating = true;
     this.switch_expression = "tumorForm";
   }
 
-  onTumorUpdated(){
+  onTumorUpdated() {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
       console.log("all tumors for patient: ", this.tumors);
