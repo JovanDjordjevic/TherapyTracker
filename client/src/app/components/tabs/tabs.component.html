@@ -8,7 +8,8 @@
 
   <div class="ui bottom attached tab segment active" data-tab="patient-tab">
     <!--<app-patient-tab [patient]="patient"></app-patient-tab> -->
-    <app-patient-tab></app-patient-tab>
+    <app-patient-tab (generatePDF)="genPDF()" ></app-patient-tab>
+    
   </div>
   <div class="ui bottom attached tab segment" data-tab="biopsy-tab">
     <!--<app-biopsy-tab [patient]="patient" [biopsies]="biopsies"></app-biopsy-tab>-->
@@ -20,4 +21,7 @@
   <div class="ui bottom attached tab segment" data-tab="treatment-tab">
     <app-treatment-tab [therapies]="therapies"></app-treatment-tab>
   </div>
+</div>
+<div>
+  <app-pdf-form id="pdfFormId"></app-pdf-form>
 </div>

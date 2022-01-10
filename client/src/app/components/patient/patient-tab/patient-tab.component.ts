@@ -5,6 +5,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { PatientService } from 'src/app/services/patient-service.service';
 import html2canvas from 'html2canvas';
 import {jsPDF} from 'jspdf';
+
 @Component({
   selector: 'app-patient-tab',
   templateUrl: './patient-tab.component.html',
@@ -17,7 +18,7 @@ export class PatientTabComponent implements OnInit , OnDestroy{
   showClinicalStateForm: boolean = false;
   sub : Subscription = new Subscription();
 
-  //@Output() genPDF2: EventEmitter<any> = new EventEmitter<any>();
+  @Output() generatePDF: EventEmitter<any> = {} as EventEmitter<any>;
 
   constructor(private patientService: PatientService, private commonService : CommonService) {
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );
@@ -68,5 +69,15 @@ export class PatientTabComponent implements OnInit , OnDestroy{
       })
     });
     
+  }
+
+  genPDF2() {
+    /*const patientInfoElement: HTMLElement | null = document.getElementById("patientInfoId");
+
+    var html = htmlToPdfmake((patientInfoElement as HTMLElement).innerHTML);
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).open();*/
+
+    this.generatePDF.emit();
   }
 }
