@@ -18,7 +18,7 @@ export class PatientTabComponent implements OnInit , OnDestroy{
   showClinicalStateForm: boolean = false;
   sub : Subscription = new Subscription();
 
-  @Output() generatePDF: EventEmitter<any> = {} as EventEmitter<any>;
+  @Output() generatePDF: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private patientService: PatientService, private commonService : CommonService) {
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );
