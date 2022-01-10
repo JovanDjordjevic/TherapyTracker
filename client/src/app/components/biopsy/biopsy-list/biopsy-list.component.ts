@@ -3,13 +3,15 @@ import { Biopsy } from 'src/app/models/biopsy.model';
 import { formattedDate } from 'src/app/utils/utils';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-biopsy-list',
   templateUrl: './biopsy-list.component.html',
-  styleUrls: ['./biopsy-list.component.css'],
+  styleUrls: ['../../../styles/table.css'],
 })
 export class BiopsyListComponent implements OnInit {
   @Input() biopsies: Biopsy[] = [];
+  @Input() position: boolean = false;
   @Output() selectBiopsy = new EventEmitter<Biopsy>();
   @Output() loadMoreBiopsies = new EventEmitter<string>();
   formatDate = formattedDate;

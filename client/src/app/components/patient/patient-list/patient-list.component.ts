@@ -8,7 +8,7 @@ declare const $: any;
 @Component({
   selector: 'app-patient-list',
   templateUrl: './patient-list.component.html',
-  styleUrls: ['./patient-list.component.css'],
+  styleUrls: ['../../../styles/table.css'],
 })
 export class PatientListComponent implements OnInit {
   @Input() patients: Patient[] = [];

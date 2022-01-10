@@ -6,7 +6,7 @@
 
 .colored-header {
   height: 120px;
-  background: var(--java);
+  background: #00b5ad;
   padding: 25px 0px 0px 45px;
   color: white;
 }

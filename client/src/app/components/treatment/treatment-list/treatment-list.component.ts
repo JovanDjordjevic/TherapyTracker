@@ -5,10 +5,11 @@ import { formattedDate } from 'src/app/utils/utils';
 @Component({
   selector: 'app-treatment-list',
   templateUrl: './treatment-list.component.html',
-  styleUrls: ['./treatment-list.component.css'],
+  styleUrls: ['../../../styles/table.css'],
 })
 export class TreatmentListComponent implements OnInit {
   @Input() therapies: Therapy[] = [];
+  @Input() position: boolean = false;
   @Output() selectTherapy = new EventEmitter<Therapy>();
   @Output() loadMoreTherapies = new EventEmitter<string>();
 

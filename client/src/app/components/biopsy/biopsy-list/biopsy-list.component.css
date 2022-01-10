@@ -1,4 +1,4 @@
-tbody {
+/* tbody {
   display: block;
   height: 92%;
   overflow-y: scroll;
@@ -44,4 +44,4 @@ thead tr th {
 
 tr:hover {
   background-color: var(--swans-down);
-}
+} */

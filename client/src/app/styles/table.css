@@ -1,23 +1,31 @@
-/* tbody {
+tbody {
   display: block;
   height: 92%;
   overflow-y: scroll;
 }
-
-.ui.table {
-  height: 600px;
-  border-top: 1px solid;
-  border-color: var(--javat);
+ 
+.ui.table.dashboard {
+  height: 680px;
   overflow: hidden;
   padding: 0px;
-}
 
-thead {
+} 
+
+.ui.table.tabs {
+  height: 350px;
+  overflow: hidden;
+  padding: 0px;
+} 
+
+thead,
+tr {
   display: table;
   width: 100%;
   table-layout: fixed;
-  padding-right: 10px;
-  border-bottom: 0.1px solid var(--delta);
+}
+
+thead {
+  padding-right: 5px;
   background-color: rgb(226, 226, 226);
 }
 
@@ -29,6 +37,10 @@ thead tr th {
   background: #f1f1f1;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+
 ::-webkit-scrollbar-thumb {
   background: var(--javat);
 }
@@ -37,14 +49,6 @@ thead tr th {
   background: var(--java);
 }
 
-tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-  border-bottom: 0.1px solid var(--delta);
-}
-
 tr:hover {
   background-color: var(--swans-down);
 }
- */

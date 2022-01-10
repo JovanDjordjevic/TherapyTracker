@@ -53,13 +53,15 @@
     <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
     <app-tabs *ngSwitchCase="'tabs'"> </app-tabs>
 
-    <app-biopsy-list (loadMoreBiopsies)="onLoadMoreBiopsies($event)" *ngSwitchCase="'biopsies'" [biopsies]="biopsies">
+    <app-biopsy-list (loadMoreBiopsies)="onLoadMoreBiopsies($event)" *ngSwitchCase="'biopsies'" [biopsies]="biopsies"
+      [position]='true'>
     </app-biopsy-list>
 
-    <app-tumor-list (loadMoreTumors)="onLoadMoreTumors($event)" *ngSwitchCase="'tumors'" [tumors]="tumors">
+    <app-tumor-list (loadMoreTumors)="onLoadMoreTumors($event)" *ngSwitchCase="'tumors'" [tumors]="tumors"
+      [position]='true'>
     </app-tumor-list>
 
     <app-treatment-list (loadMoreTherapies)="onLoadMoreTherapies($event)" *ngSwitchCase="'therapies'"
-      [therapies]="treatments"></app-treatment-list>
+      [therapies]="treatments" [position]='true'></app-treatment-list>
   </div>
 </div>
