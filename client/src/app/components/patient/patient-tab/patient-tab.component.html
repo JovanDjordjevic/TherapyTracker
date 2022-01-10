@@ -1,52 +1,33 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column" [ngSwitch]="switch_expression">
-      <app-patient-form *ngSwitchCase="'patientFormForUpdate'" [patient]="patient" [usedAsUpdateForm]="patientFormUsedForUpdating" 
-                        (patientUpdated)="onPatientUpdated()">
+      <app-patient-form *ngSwitchCase="'patientFormForUpdate'" [patient]="patient"
+        [usedAsUpdateForm]="patientFormUsedForUpdating" (patientUpdated)="onPatientUpdated()">
       </app-patient-form>
 
       <app-patient-info *ngSwitchCase="'patientInfo'"></app-patient-info>
 
-      <button class="ui fluid teal button" *ngSwitchCase="'patientInfo'" (click)="onClickUpdatePatientInfo()">Izmeni informacije o pacijentu</button>
+      <button class="ui fluid teal button" *ngSwitchCase="'patientInfo'" (click)="onClickUpdatePatientInfo()">Izmeni
+        informacije o pacijentu</button>
 
-      <button class="ui red fluid button" *ngSwitchCase="'patientInfo'" type=button (click)="confirmDeletion()">Obrisi Pacijenta</button>
+      <button class="ui red fluid button" *ngSwitchCase="'patientInfo'" type=button (click)="confirmDeletion()">Obrisi
+        Pacijenta</button>
 
-      <app-clinical-state-form *ngSwitchCase="'clinicalStateForm'" [patient]="patient" [usedAsUpdateForm]="clinicalStateFormUsedForUpdating"
-                                (onClinicalStateUpdated)="onClinicalStateUpdated()">
+      <app-clinical-state-form *ngSwitchCase="'clinicalStateForm'" [patient]="patient"
+        [usedAsUpdateForm]="clinicalStateFormUsedForUpdating" (onClinicalStateUpdated)="onClinicalStateUpdated()">
 
-      </app-clinical-state-form>      
+      </app-clinical-state-form>
     </div>
 
     <div class="column">
-      <table class="ui mini definition table">
-        <tbody>
-          <tr>
-            <td class="six wide column">T stage</td>
-            <td>{{patient.tStage}}</td>
-          </tr>
-          <tr>
-            <td>N stage</td>
-            <td>{{patient.nStage}}</td>
-          </tr>
-          <tr>
-            <td>M stage</td>
-            <td>{{patient.mStage}}</td>
-          </tr>
-          <tr>
-            <td>TNM clinical stage</td>
-            <td>{{patient.tnmStage}}</td>
-          </tr>
-          <tr>
-            <td>Klinicki stadijum</td>
-            <td>{{patient.clinicalStage}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-clinical-state-info [patient]="patient"></app-clinical-state-info>
 
       <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
-        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="onClickUpdateClinicalState()">Azuriraj podatke o klinickom stanju</button>
+        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="onClickUpdateClinicalState()">Azuriraj podatke
+          o klinickom stanju</button>
 
-        <button class="ui button" *ngSwitchCase="switch_expression === 'patientFormForUpdate' || switch_expression === 'clinicalStateForm' ? switch_expression : ''"
+        <button class="ui button"
+          *ngSwitchCase="switch_expression === 'patientFormForUpdate' || switch_expression === 'clinicalStateForm' ? switch_expression : ''"
           (click)="backToPatient()">
           Nazad na pacijenta
         </button>

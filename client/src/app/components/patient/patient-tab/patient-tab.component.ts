@@ -7,20 +7,20 @@ import { PatientService } from 'src/app/services/patient-service.service';
 @Component({
   selector: 'app-patient-tab',
   templateUrl: './patient-tab.component.html',
-  styleUrls: ['./patient-tab.component.css'],
+  styleUrls: ['../../../styles/tab.css'],
 })
-export class PatientTabComponent implements OnInit , OnDestroy{
+export class PatientTabComponent implements OnInit, OnDestroy {
   patient: Patient;
-  sub : Subscription = new Subscription();
+  sub: Subscription = new Subscription();
 
   switch_expression = "patientInfo";
-  patientFormUsedForUpdating : boolean = false;
-  clinicalStateFormUsedForUpdating : boolean = false;
+  patientFormUsedForUpdating: boolean = false;
+  clinicalStateFormUsedForUpdating: boolean = false;
 
   // kada se ovo desi, ostali tabovi moraju da ponovo dohvate current patienta iz patient servisa
   @Output() patientHasBeenUpdated = new EventEmitter<void>();
 
-  constructor(private patientService: PatientService, private commonService : CommonService) {
+  constructor(private patientService: PatientService, private commonService: CommonService) {
     //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );
     this.patient = this.patientService.getCurrentPatient();
   }
@@ -40,20 +40,20 @@ export class PatientTabComponent implements OnInit , OnDestroy{
     }
   }
 
-  onClickUpdateClinicalState(){
-    if(this.patient.isClinicalStateSet) {
+  onClickUpdateClinicalState() {
+    if (this.patient.isClinicalStateSet) {
       this.clinicalStateFormUsedForUpdating = true;
     }
     this.switch_expression = 'clinicalStateForm';
   }
 
-  onClickUpdatePatientInfo(){
+  onClickUpdatePatientInfo() {
     //console.log('onClickUpdateTherapyInfo')
     this.patientFormUsedForUpdating = true;
     this.switch_expression = "patientFormForUpdate";
   }
 
-  onPatientUpdated(){
+  onPatientUpdated() {
     this.patient = this.patientService.getCurrentPatient();
     this.switch_expression = "patientInfo";
     this.patientFormUsedForUpdating = false;
@@ -66,7 +66,7 @@ export class PatientTabComponent implements OnInit , OnDestroy{
     this.clinicalStateFormUsedForUpdating = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
