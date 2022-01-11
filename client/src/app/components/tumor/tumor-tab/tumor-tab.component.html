@@ -7,47 +7,19 @@
 
       <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"></app-patient-info>
 
-      <table *ngSwitchCase="'tumorInfo'" class="ui mini definition table">
-        <tbody>
-          <tr>
-            <td class="six wide column">Gradus</td>
-            <td>{{tumor.gradus}}</td>
-          </tr>
-          <tr>
-            <td>Er</td>
-            <td>{{tumor.erScore}} | {{tumor.erScorePercent}}% | status: {{tumor.erStatus}}</td>
-          </tr>
-          <tr>
-            <td>Pgr</td>
-            <td>{{tumor.pgrScore}} | {{tumor.pgrScorePercent}}% | status: {{tumor.pgrStatus}}</td>
-          </tr>
-          <tr>
-            <td>Her2 INC</td>
-            <td>{{tumor.her2INC}} | {{tumor.her2INCPercent}} | {{tumor.her2Status}}</td>
-          </tr>
-          <tr>
-            <td>Her2 FISH-SICH</td>
-            <td>{{tumor.her2_FISH_SICH}}</td>
-          </tr>
-          <tr>
-            <td>Ki67</td>
-            <td>{{tumor.ki67}}</td>
-          </tr>
-          <tr>
-            <td>Molekularni tip</td>
-            <td>{{tumor.molecularSubtype}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-tumor-info *ngSwitchCase="'tumorInfo'" [tumor]='tumor'></app-tumor-info>
 
       <app-tumor-report id="tumorReport" [patient]="patient" [tumor]="tumor" hidden></app-tumor-report>
 
       <div class="buttons">
-        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickGeneratePDF()">Preuzmi izvestaj o tumoru</button>
+        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickGeneratePDF()">Preuzmi izvestaj
+          o tumoru</button>
 
-        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickUpdateTumorInfo()">Izmeni podatke o tumoru</button>
+        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickUpdateTumorInfo()">Izmeni
+          podatke o tumoru</button>
 
-        <button *ngSwitchCase="'tumorInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Tumor</button>
+        <button *ngSwitchCase="'tumorInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
+          Tumor</button>
       </div>
     </div>
 
