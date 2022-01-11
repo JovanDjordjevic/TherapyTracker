@@ -4,6 +4,10 @@ import { Patient } from 'src/app/models/patient.model';
 import { Therapy, TherapyType } from 'src/app/models/therapy.model';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { TherapyService } from 'src/app/services/therapy.service';
+import htmlToPdfmake from 'html-to-pdfmake';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-treatment-tab',
@@ -75,6 +79,14 @@ export class TreatmentTabComponent implements OnInit {
   backToPatient() {
     this.switch_expression = 'patientInfo'
     this.therapyFormUsedForUpdating = false;
+  }
+
+  onClickGeneratePDF() {
+    const elem: HTMLElement | null = document.getElementById("therapyReport");
+    var html = htmlToPdfmake((elem as HTMLElement).innerHTML);
+    console.log(html)
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).open();
   }
 
   ngOnInit(): void { }

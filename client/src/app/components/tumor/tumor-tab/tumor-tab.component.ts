@@ -5,6 +5,10 @@ import { Gradus, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { TumorService } from 'src/app/services/tumor.service';
 import { TumorFormComponent } from '../tumor-form/tumor-form.component';
+import htmlToPdfmake from 'html-to-pdfmake';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-tumor-tab',
@@ -80,6 +84,14 @@ export class TumorTabComponent implements OnInit {
   backToPatient() {
     this.switch_expression = 'patientInfo'
     this.tumorFormUsedForUpdating = false;
+  }
+
+  onClickGeneratePDF() {
+    const elem: HTMLElement | null = document.getElementById("tumorReport");
+    var html = htmlToPdfmake((elem as HTMLElement).innerHTML);
+    console.log(html)
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).open();
   }
 
   ngOnInit(): void { }

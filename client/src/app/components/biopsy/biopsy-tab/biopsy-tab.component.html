@@ -43,12 +43,14 @@
         </tbody>
       </table>
 
-      <div class="buttons">
-        <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickUpdateBiopsyInfo()">Izmeni
-          podatke o biopsiji</button>
+      <app-biopsy-report id="biopsyReport" [patient]="patient" [biopsy]="biopsy" hidden></app-biopsy-report>
 
-        <button *ngSwitchCase="'biopsyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
-          Biopsiju</button>
+      <div class="buttons">
+        <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickGeneratePDF()">Preuzmi izvestaj o biopsiji</button>
+
+        <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickUpdateBiopsyInfo()">Izmeni podatke o biopsiji</button>
+
+        <button *ngSwitchCase="'biopsyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Biopsiju</button>
       </div>
     </div>
 

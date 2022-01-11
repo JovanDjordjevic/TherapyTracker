@@ -8,10 +8,6 @@ import { Tumor } from 'src/app/models/tumor.model';
 import { Therapy } from 'src/app/models/therapy.model';
 import { TumorService } from 'src/app/services/tumor.service';
 import { TherapyService } from 'src/app/services/therapy.service';
-import htmlToPdfmake from 'html-to-pdfmake';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 declare const $: any;
 
@@ -60,13 +56,5 @@ export class TabsComponent implements OnInit, OnDestroy {
 
   onPatientFormHasBeenUpdated() {
     this.patient = this.patientService.getCurrentPatient();
-  }
-  
-  genPDF() {
-    const elem: HTMLElement | null = document.getElementById("pdfFormId");
-
-    var html = htmlToPdfmake((elem as HTMLElement).innerHTML);
-    const documentDefinition = { content: html };
-    pdfMake.createPdf(documentDefinition).open();
   }
 }

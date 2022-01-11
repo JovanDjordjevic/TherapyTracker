@@ -40,12 +40,14 @@
         </tbody>
       </table>
 
-      <div class="buttons">
-        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickUpdateTumorInfo()">Izmeni
-          podatke o tumoru</button>
+      <app-tumor-report id="tumorReport" [patient]="patient" [tumor]="tumor" hidden></app-tumor-report>
 
-        <button *ngSwitchCase="'tumorInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
-          Tumor</button>
+      <div class="buttons">
+        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickGeneratePDF()">Preuzmi izvestaj o tumoru</button>
+
+        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickUpdateTumorInfo()">Izmeni podatke o tumoru</button>
+
+        <button *ngSwitchCase="'tumorInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Tumor</button>
       </div>
     </div>
 

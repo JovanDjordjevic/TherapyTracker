@@ -4,6 +4,10 @@ import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/
 import { PatientService } from 'src/app/services/patient-service.service';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { Subscription } from 'rxjs';
+import htmlToPdfmake from 'html-to-pdfmake';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-biopsy-tab',
@@ -76,6 +80,14 @@ export class BiopsyTabComponent implements OnInit {
   backToPatient() {
     this.switch_expression = 'patientInfo'
     this.biopsyFormUsedForUpdating = false;
+  }
+
+  onClickGeneratePDF() {
+    const elem: HTMLElement | null = document.getElementById("biopsyReport");
+    var html = htmlToPdfmake((elem as HTMLElement).innerHTML);
+    console.log(html)
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).open();
   }
 
   ngOnInit(): void { }

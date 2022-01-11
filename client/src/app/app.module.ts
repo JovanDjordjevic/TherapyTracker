@@ -24,7 +24,6 @@ import { BiopsyListComponent } from './components/biopsy/biopsy-list/biopsy-list
 import { ClinicalStateFormComponent } from './components/patient/clinical-state-form/clinical-state-form.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ClinicalStateInfoComponent } from './components/patient/clinical-state-info/clinical-state-info.component';
-import { PdfFormComponent } from './components/pdf-form/pdf-form.component';
 import { BiopsyReportComponent } from './components/pdf-templates/biopsy-report/biopsy-report.component';
 import { TumorReportComponent } from './components/pdf-templates/tumor-report/tumor-report.component';
 import { TherapyReportComponent } from './components/pdf-templates/therapy-report/therapy-report.component';
@@ -50,7 +49,6 @@ import { TherapyReportComponent } from './components/pdf-templates/therapy-repor
     TumorListComponent,
     TreatmentListComponent,
     ClinicalStateInfoComponent,
-    PdfFormComponent,
     BiopsyReportComponent,
     TumorReportComponent,
     TherapyReportComponent
