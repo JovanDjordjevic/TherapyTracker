@@ -30,10 +30,9 @@ const getPatientsByFullName = async (firstName, lastName) => {
     return patients;
 };
 
-// TODO: naci nacin da se nad ovim izvrsi pagination
 const searchForPatients = async (searchParam, page, limit) => {
     const regex = RegExp(searchParam, 'i');
-    //const foundPatients = await Patient.find({$or: [{name: regex}, {surname: regex}, {jmbg: regex}] });
+    
     const foundPatients = await Patient.find({
         "$expr": {
           "$regexMatch": {
@@ -42,7 +41,7 @@ const searchForPatients = async (searchParam, page, limit) => {
           }
         }
       });
-    //console.log("found ", foundPatients);
+    
     return foundPatients;
 };
 

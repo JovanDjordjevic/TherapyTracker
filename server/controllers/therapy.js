@@ -3,7 +3,7 @@ const therapyService = require('../services/therapy');
 const getAllTherapies = async (req, res, next) => {
     const page = req.query.page;
     const limit = req.query.limit;
-    //console.log('getAllTherapies');
+
     try {
         const therapies = await therapyService.paginateThroughTherapies(page, limit);
         res.status(200).json(therapies);
@@ -16,7 +16,6 @@ const getAllTherapiesForPatient = async (req, res, next) => {
     const patientId = req.query._id;
     const page = req.query.page;
     const limit = req.query.limit;
-    //console.log(patientId);
 
     try {
         const therapies = await therapyService.getAllTherapiesForPatient(patientId, page, limit);
@@ -28,10 +27,9 @@ const getAllTherapiesForPatient = async (req, res, next) => {
 
 const addNewTherapyForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
-    //console.log(patientId, req.body.therapy);
+
     const {therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment,
         date, isTherapyResponseSet, therapyResponse} = req.body.therapy;
-    // console.log('...');
     
     try {
         if (therapyType == undefined || numCycles == undefined || usingNeoadjuvant == undefined || numTaxol == undefined || 
@@ -58,7 +56,6 @@ const addNewTherapyForPatient = async (req, res, next) => {
 };
 
 const updateTherapyInfo = async (req, res, next) => {
-    //console.log(req.body.therapy);
     const {_id, isTherapyResponseSet, therapyResponse, therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, date, comment} = req.body.therapy;
     
     try{
@@ -89,7 +86,6 @@ const updateTherapyInfo = async (req, res, next) => {
 const deleteTherapy = async (req, res, next) => {
     const patientId = req.params.patientId;
     const therapyId = req.params.therapyId;
-    //console.log(patientId, therapyId);
 
     try {
         if (patientId == undefined || therapyId == undefined) {

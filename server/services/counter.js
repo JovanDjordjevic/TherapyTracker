@@ -1,7 +1,4 @@
-//const mongoose = require('mongoose');
 const Counter = require('../models/counter');
-const Patient = require('../models/patient');
-const Biopsy = require('../models/biopsy');
 
 const checkCounter = async () => {
     const counter = await Counter.findOne({}).exec();

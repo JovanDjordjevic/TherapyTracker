@@ -15,7 +15,6 @@ const getAllBiopsiesForPatient = async (patientId, page=1, limit=20) => {
 const addNewBiopsy = async (patientId, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
     biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment) => {
 
-    //indeksi provera
     const newBiopsy = new Biopsy();
     const biopsyId = new mongoose.Types.ObjectId();
     newBiopsy._id = biopsyId;

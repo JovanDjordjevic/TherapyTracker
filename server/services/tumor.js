@@ -15,7 +15,6 @@ const getAllTumorsForPatient = async (patientId, page=1, limit=20) => {
 const addNewTumor = async (patientId, biopsyIndex, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
     pgrStatus, her2INC, her2INCPercent, her2_FISH_SICH, her2Status, ki67, molecularSubtype, name, date) => {
 
-    //indeksi provera
     const newTumor = new Tumor();
     const tumorId = new mongoose.Types.ObjectId();
     newTumor._id = tumorId;
