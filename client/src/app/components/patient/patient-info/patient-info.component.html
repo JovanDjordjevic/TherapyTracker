@@ -24,6 +24,10 @@
       <td>Pol</td>
       <td>{{patient.gender}}</td>
     </tr>
+    <tr *ngIf="patient.gender === GenderEnum.Female">
+      <td>Menopauza</td>
+      <td>{{patient.menopause}}</td>
+    </tr>
     <tr>
       <td>Adresa boravka</td>
       <td>{{patient.address}} </td>

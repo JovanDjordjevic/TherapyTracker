@@ -2,15 +2,24 @@
   <thead>
     <tr>
       <th>Datum</th>
-      <th>Tip biopsije</th>
-      <th>Broj</th>
+      <th colspan="2">Tip biopsije</th>
+      <th colspan="2">Broj</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Leva Strana</th>
+      <th>Desna Strana</th>
+      <th>Leva Strana</th>
+      <th>Desna Strana</th>
     </tr>
   </thead>
   <tbody class="search-results-container" infinite-scroll [scrollWindow]="false" (scrolled)="onScrollDown($event)">
     <tr (click)="openBiopsy(biopsy)" *ngFor="let biopsy of biopsies">
       <td>{{formatDate(biopsy.date)}}</td>
-      <td>{{biopsy.biopsyTypeLeft}} | {{biopsy.biopsyTypeRight}}</td>
-      <td>{{biopsy.numLeft}} | {{biopsy.numRight}}</td>
+      <td>{{biopsy.biopsyTypeLeft}}</td>
+      <td>{{biopsy.biopsyTypeRight}}</td>
+      <td>{{biopsy.numLeft}}</td>
+      <td>{{biopsy.numRight}}</td>
     </tr>
   </tbody>
 </table>

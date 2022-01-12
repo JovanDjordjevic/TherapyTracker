@@ -28,6 +28,7 @@ import { BiopsyReportComponent } from './components/pdf-templates/biopsy-report/
 import { TumorReportComponent } from './components/pdf-templates/tumor-report/tumor-report.component';
 import { TherapyReportComponent } from './components/pdf-templates/therapy-report/therapy-report.component';
 import { TumorInfoComponent } from './components/tumor/tumor-info/tumor-info.component';
+import { TreatmentInfoComponent } from './components/treatment/treatment-info/treatment-info.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { TumorInfoComponent } from './components/tumor/tumor-info/tumor-info.com
     BiopsyReportComponent,
     TumorReportComponent,
     TherapyReportComponent,
-    TumorInfoComponent
+    TumorInfoComponent,
+    TreatmentInfoComponent
   ],
   imports: [
     BrowserModule,
