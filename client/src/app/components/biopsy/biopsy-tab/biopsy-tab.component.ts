@@ -16,7 +16,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class BiopsyTabComponent implements OnInit {
   @Input() biopsies: Biopsy[] = [];
-  BiopsySideEnum = BiopsySide;
   sub: Subscription = new Subscription;
   switch_expression = "patientInfo";
   @Input() patient: Patient;

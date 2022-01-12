@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { filter, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
-import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
+import { Patient } from 'src/app/models/patient.model';
 import { Therapy } from 'src/app/models/therapy.model';
 import { Tumor } from 'src/app/models/tumor.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   searchForm: FormGroup;
 
-  //patients: Patient[] = [];
   allPatients: Patient[] = [];
   filteredPatients: Patient[] = [];
   biopsies: Biopsy[] = [];
@@ -30,11 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   counter: number = 2;
 
   patient: Patient;
-  patientsSub: Subscription = new Subscription();
-  patientSearchSub: Subscription = new Subscription();
-  biopsiesSub: Subscription = new Subscription();
-  tumorsSub: Subscription = new Subscription();
-  treatmentsSub: Subscription = new Subscription();
+  sub: Subscription = new Subscription();
 
   constructor(private formBuilder: FormBuilder, private patientsService: PatientService, private biopsyService: BiopsyService,
     private tumorService: TumorService, private therapyService: TherapyService, private commonService: CommonService) {
@@ -65,47 +60,38 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getAllPatients() {
-    this.patientsSub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
+    this.sub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
       this.allPatients = patients;
       this.filteredPatients = patients;
       this.patientsService.setCurrentPatient(this.allPatients[0]);
-      //console.log("dashboard constructor, getAllPatients zahtev: ", this.allPatients);    // radi dobro
     });
-    //this.onDisplayAllPatientsList.emit();
-    //this.switch_expression = 'patients'
   }
 
   getAllDataForPatients() {
-    this.biopsiesSub = this.biopsyService.getAllBiopsies(1).subscribe((biopsies: Biopsy[]) => {
+    this.sub = this.biopsyService.getAllBiopsies(1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
-      //console.log("dashboard constructor, getAllBiopsies zahtev: ", this.biopsies);    // radi dobro
     });
 
-    this.tumorsSub = this.tumorService.getAllTumors(1).subscribe((tumors: Tumor[]) => {
+    this.sub = this.tumorService.getAllTumors(1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
-      //console.log("dashboard constructor, getAllTumors zahtev: ", this.tumors);    // radi dobro
     });
 
-    this.treatmentsSub = this.therapyService.getAllTherapies(1).subscribe((therapies: Therapy[]) => {
+    this.sub = this.therapyService.getAllTherapies(1).subscribe((therapies: Therapy[]) => {
       this.treatments = therapies;
-      //console.log("dashboard constructor, getAllTherapies zahtev: ", this.treatments);    // radi dobro
     });
   }
 
   onSearchSubmit() {
     this.filteredPatients = [];
     const searchParam = this.searchForm.get('searchParam')?.value.toLowerCase().trim();
-    //console.log("param ", searchParam)
 
     if (searchParam === '') {
-      //console.log('empty search param');
       this.filteredPatients = this.allPatients;
       this.counter = 2;
     }
     else {
-      this.patientsSub = this.patientsService.searchForPatients(searchParam, 1).subscribe((patients: Patient[]) => {
+      this.sub = this.patientsService.searchForPatients(searchParam, 1).subscribe((patients: Patient[]) => {
         this.filteredPatients = patients;
-        //console.log("search request results: ", this.filteredPatients);    // radi dobro
       });
     }
   }
@@ -116,28 +102,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onLoadMoreBiopsies(value: string) {
     console.log(value)
-    this.biopsiesSub = this.biopsyService.getAllBiopsies(this.counter).subscribe((biopsies: Biopsy[]) => {
+    this.sub = this.biopsyService.getAllBiopsies(this.counter).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = [...this.biopsies, ...biopsies];
       this.counter++;
     })
   };
 
   onLoadMorePatients(value: string) {
-    this.patientsSub = this.patientsService.getAllPatients(this.counter).subscribe((patients: Patient[]) => {
+    this.sub = this.patientsService.getAllPatients(this.counter).subscribe((patients: Patient[]) => {
       this.filteredPatients = [...this.filteredPatients, ...patients];
       this.counter++;
     })
   }
 
   onLoadMoreTumors(value: string) {
-    this.tumorsSub = this.tumorService.getAllTumors(this.counter).subscribe((tumors: Tumor[]) => {
+    this.sub = this.tumorService.getAllTumors(this.counter).subscribe((tumors: Tumor[]) => {
       this.tumors = [...this.tumors, ...tumors];
       this.counter++;
     })
   }
 
   onLoadMoreTherapies(value: string) {
-    this.treatmentsSub = this.therapyService.getAllTherapies(this.counter).subscribe((therapies: Therapy[]) => {
+    this.sub = this.therapyService.getAllTherapies(this.counter).subscribe((therapies: Therapy[]) => {
       this.treatments = [...this.treatments, ...therapies];
       this.counter++;
     })
@@ -146,10 +132,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void { }
 
   ngOnDestroy(): void {
-    this.patientsSub.unsubscribe();
-    this.patientSearchSub.unsubscribe();
-    this.biopsiesSub.unsubscribe();
-    this.tumorsSub.unsubscribe();
-    this.treatmentsSub.unsubscribe();
+    this.sub.unsubscribe();
   }
 }

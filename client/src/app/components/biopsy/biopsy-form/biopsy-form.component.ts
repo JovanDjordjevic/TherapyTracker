@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Biopsy, BiopsyType, BiopsySide, BiopsyHistotype, } from 'src/app/models/biopsy.model';
-import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
+import { Patient } from 'src/app/models/patient.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { PatientService } from 'src/app/services/patient-service.service';
 
@@ -14,8 +14,8 @@ declare const $: any;
   styleUrls: ['./biopsy-form.component.css'],
 })
 export class BiopsyFormComponent implements OnInit, OnDestroy {
-  @Input() biopsy : Biopsy;
-  @Input() usedAsUpdateForm : boolean = false;
+  @Input() biopsy: Biopsy;
+  @Input() usedAsUpdateForm: boolean = false;
 
   biopsyForm: FormGroup;
   BiopsyTypeEnum = BiopsyType;
@@ -25,9 +25,8 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
   leftFormDisabled: boolean = false;
   rightFormDisabled: boolean = false;
 
-  //@Input() patient: Patient;
   patient: Patient;
-  
+
   @Output() newBiopsyAdded = new EventEmitter<string>();
   @Output() biopsyUpdated = new EventEmitter<void>();
 
@@ -54,7 +53,6 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     this.leftFormDisabled = false;
     this.rightFormDisabled = true;
 
-    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  ); 
     this.patient = this.patientService.getCurrentPatient();
 
     this.biopsy = new Biopsy(new Date(), BiopsySide.Left, BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', BiopsyType.AxillaBiopsy, '', BiopsyHistotype.Type0, '', '');
@@ -91,30 +89,30 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
         case BiopsySide.Both:
           this.leftFormDisabled = false;
           this.rightFormDisabled = false;
-          break;    
+          break;
         default:
           break;
       }
 
-      this.biopsyForm.patchValue({ 
-        date : new Date(this.biopsy.date).toISOString().slice(0,10),
-        biopsySide : this.biopsy.biopsySide,
-        comment : this.biopsy.comment, 
+      this.biopsyForm.patchValue({
+        date: new Date(this.biopsy.date).toISOString().slice(0, 10),
+        biopsySide: this.biopsy.biopsySide,
+        comment: this.biopsy.comment,
       });
 
-      if(this.biopsy.biopsySide == BiopsySide.Left || this.biopsy.biopsySide == BiopsySide.Both) {
-        this.biopsyForm.patchValue({ 
-          biopsyTypeLeft : this.biopsy.biopsyTypeLeft,
-          histotypeLeft : this.biopsy.histotypeLeft,
-          multifocalityLeft : this.biopsy.multifocalityLeft, 
+      if (this.biopsy.biopsySide == BiopsySide.Left || this.biopsy.biopsySide == BiopsySide.Both) {
+        this.biopsyForm.patchValue({
+          biopsyTypeLeft: this.biopsy.biopsyTypeLeft,
+          histotypeLeft: this.biopsy.histotypeLeft,
+          multifocalityLeft: this.biopsy.multifocalityLeft,
         });
       }
 
-      if(this.biopsy.biopsySide == BiopsySide.Right || this.biopsy.biopsySide == BiopsySide.Both) {
-        this.biopsyForm.patchValue({ 
-          biopsyTypeRight : this.biopsy.biopsyTypeRight,
-          histotypeRight : this.biopsy.histotypeRight,
-          multifocalityRight : this.biopsy.multifocalityRight, 
+      if (this.biopsy.biopsySide == BiopsySide.Right || this.biopsy.biopsySide == BiopsySide.Both) {
+        this.biopsyForm.patchValue({
+          biopsyTypeRight: this.biopsy.biopsyTypeRight,
+          histotypeRight: this.biopsy.histotypeRight,
+          multifocalityRight: this.biopsy.multifocalityRight,
         });
       }
     }
@@ -144,7 +142,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
 
 
     if (this.biopsyTypeLeftHasErrors == true || this.histotypeLeftHasErrors == true || this.multifocalityLeftHasErrors == true ||
-        this.biopsyTypeRightHasErrors == true || this.histotypeRightHasErrors == true || this.multifocalityRightHasErrors == true) {
+      this.biopsyTypeRightHasErrors == true || this.histotypeRightHasErrors == true || this.multifocalityRightHasErrors == true) {
       window.alert('Neka polja nemaju validnu vrednost!');
       return;
     }
@@ -159,45 +157,40 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
     this.multifocalityRightHasErrors = false;
 
     // slanje zahteva ovde:
-    console.log(this.biopsyForm);
-
     const data = this.biopsyForm.value;
 
     const newBiopsy = new Biopsy(data.date, data.biopsySide, data.biopsyTypeLeft, '', data.histotypeLeft, data.multifocalityLeft,
       data.biopsyTypeRight, '', data.histotypeRight, data.multifocalityRight, data.comment
     );
 
-    console.log(newBiopsy);
-    if(this.usedAsUpdateForm){
+    if (this.usedAsUpdateForm) {
       //update se postojeci
       newBiopsy._id = this.biopsy._id;
 
-      if(newBiopsy.biopsySide === BiopsySide.Both) {
+      if (newBiopsy.biopsySide === BiopsySide.Both) {
         newBiopsy.numLeft = this.biopsy.numLeft;
         newBiopsy.numRight = this.biopsy.numRight;
       }
-      else if(newBiopsy.biopsySide === BiopsySide.Left) {
+      else if (newBiopsy.biopsySide === BiopsySide.Left) {
         newBiopsy.numLeft = this.biopsy.numLeft;
         newBiopsy.numRight = '';
       }
-      else if(newBiopsy.biopsySide === BiopsySide.Right) {
+      else if (newBiopsy.biopsySide === BiopsySide.Right) {
         newBiopsy.numLeft = '';
         newBiopsy.numRight = this.biopsy.numRight;
       }
-      
-      this.sub = this.biopsyService.updateBiopsyInfo(newBiopsy).subscribe((updatedBiopsy : Biopsy) => {
-        console.log('biopsy updated', updatedBiopsy);
+
+      this.sub = this.biopsyService.updateBiopsyInfo(newBiopsy).subscribe((updatedBiopsy: Biopsy) => {
         this.biopsyUpdated.emit();
       });
     }
     else {
       // dodaje se novi
       this.sub = this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
-      .subscribe((addedBiopsy: Biopsy) => {
-        console.log("added biopsy for ", this.patient._id, " : ", addedBiopsy);
-        this.newBiopsyAdded.emit("dodata nova biopsija, refresuj listu")
-      });
-    }    
+        .subscribe((addedBiopsy: Biopsy) => {
+          this.newBiopsyAdded.emit("dodata nova biopsija, refresuj listu")
+        });
+    }
   }
 
   updateDateErrors() {
@@ -331,8 +324,8 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
 
   checkIfMultifocalityIsValid(data: string): boolean {
     const regex1 = new RegExp("^ne$");
-    const regex2 = new RegExp("^[0-9]+$"); 
-      if (!data.match(regex1) && !data.match(regex2)) {
+    const regex2 = new RegExp("^[0-9]+$");
+    if (!data.match(regex1) && !data.match(regex2)) {
       return false;
     }
     return true;

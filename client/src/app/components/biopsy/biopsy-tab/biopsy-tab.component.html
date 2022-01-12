@@ -9,48 +9,19 @@
 
       <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"> </app-patient-info>
 
-      <table *ngSwitchCase="'biopsyInfo'" class="ui mini fixed celled definition table">
-        <tbody>
-          <tr>
-            <td class="six wide column">Strana</td>
-            <td>{{BiopsySideEnum.Left}}</td>
-            <td>{{BiopsySideEnum.Right}}</td>
-          </tr>
-          <tr>
-            <td>Tip</td>
-            <td>{{biopsy.biopsyTypeLeft}}</td>
-            <td>{{biopsy.biopsyTypeRight}}</td>
-          </tr>
-          <tr>
-            <td>Broj</td>
-            <td>{{biopsy.numLeft}}</td>
-            <td>{{biopsy.numRight}}</td>
-          </tr>
-          <tr>
-            <td>Histotip</td>
-            <td>{{biopsy.histotypeLeft}}</td>
-            <td>{{biopsy.histotypeRight}}</td>
-          </tr>
-          <tr>
-            <td>Multifokalnost</td>
-            <td>{{biopsy.multifocalityLeft}}</td>
-            <td>{{biopsy.multifocalityRight}}</td>
-          </tr>
-          <tr>
-            <td>Komentar</td>
-            <td colspan="2">{{biopsy.comment}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-biopsy-info *ngSwitchCase="'biopsyInfo'" [biopsy]="biopsy"></app-biopsy-info>
 
       <app-biopsy-report id="biopsyReport" [patient]="patient" [biopsy]="biopsy" hidden></app-biopsy-report>
 
       <div class="buttons">
-        <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickGeneratePDF()">Preuzmi izvestaj o biopsiji</button>
+        <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickGeneratePDF()">Preuzmi
+          izvestaj o biopsiji</button>
 
-        <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickUpdateBiopsyInfo()">Izmeni podatke o biopsiji</button>
+        <button class="ui fluid teal button" *ngSwitchCase="'biopsyInfo'" (click)="onClickUpdateBiopsyInfo()">Izmeni
+          podatke o biopsiji</button>
 
-        <button *ngSwitchCase="'biopsyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Biopsiju</button>
+        <button *ngSwitchCase="'biopsyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
+          Biopsiju</button>
       </div>
     </div>
 

@@ -1,9 +1,11 @@
 <div class="dashboard">
+  <!--Header-->
   <div class="colored-header">
-    <h1>Dashboard</h1>
+    <h1></h1>
   </div>
+
   <div class="content" [ngSwitch]="switch_expression">
-    <!-- TODO: stilizovati-->
+    <!--Dashboard Buttons-->
     <div #home class="buttons" *ngSwitchCase="'main'">
       <div>
         <button class="my-button" (click)="switch_expression = 'patients'"><i class="fas fa-hospital-user fa-8x"></i>
@@ -23,14 +25,16 @@
       </div>
     </div>
 
+    <!--Patients Page-->
     <div *ngSwitchCase="'patients'">
-      <!--New patient button and patient search bar-->
       <div class="ui grid header">
+        <!--New patient button-->
         <div class="three wide column">
           <button class="ui fluid teal  button" (click)="switch_expression = 'patientForm'">
             Dodaj novog pacijenta
           </button>
         </div>
+        <!--Search Bar-->
         <div class="thirteen wide column">
           <form class="ui fluid form" [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()">
             <div class="inline fields">
@@ -49,10 +53,13 @@
         (loadMorePatients)="onLoadMorePatients($event)"> </app-patient-list>
     </div>
 
+    <!--Patient Form-->
     <app-patient-form *ngSwitchCase="'patientForm'" (newPatientAdded)="onNewPatientAdded()"> </app-patient-form>
-    <!-- <app-tabs *ngIf="displayPatientHistory" [patient]="patient"> </app-tabs> -->
+
+    <!--Patient History-->
     <app-tabs *ngSwitchCase="'tabs'"> </app-tabs>
 
+    <!--SideBar Lists-->
     <app-biopsy-list (loadMoreBiopsies)="onLoadMoreBiopsies($event)" *ngSwitchCase="'biopsies'" [biopsies]="biopsies"
       [position]='true'>
     </app-biopsy-list>
