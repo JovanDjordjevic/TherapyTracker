@@ -87,17 +87,8 @@
         </ul>
     </div>
 
-    <div class="fluid field">
-        <label>Komentar</label>
-        <textarea type="number" formControlName="comment" rows="5"> </textarea>
-    </div>
-
-    <br>
-
-    <div *ngIf="placeholder">
-        <!-- TODO: izmeniti palceholder-->
+    <div *ngIf="usedAsUpdateForm">
         <hr>
-
         <div class="ui fluid field">
             <label>Terapijski odgovor</label>
             <select formControlName="therapyResponse" class="ui fluid search selection dropdown">
@@ -108,7 +99,15 @@
                 <option [value]="TherapyResponseEnum.NoChange">{{ TherapyResponseEnum.NoChange }}</option>
             </select>
         </div>
+        <hr>
     </div>
+
+    <div class="fluid field">
+        <label>Komentar</label>
+        <textarea type="number" formControlName="comment" rows="5"> </textarea>
+    </div>
+
+    <br>
 
     <button class="ui fluid teal button" type="submit">Sacuvaj podatke</button>
 </form>

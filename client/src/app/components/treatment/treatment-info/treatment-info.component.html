@@ -24,6 +24,10 @@
       <td>Hemioterapija</td>
       <td>{{therapyShortString}}</td>
     </tr>
+    <tr *ngIf="therapy.isTherapyResponseSet">
+      <td>Terapijski odgovor:</td>
+      <td>{{ therapy.therapyResponse }}</td>
+    </tr>
     <tr>
       <td>Komentar</td>
       <td>{{therapy.comment}}</td>
