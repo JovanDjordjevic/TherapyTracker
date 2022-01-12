@@ -27,7 +27,7 @@ export class TreatmentTabComponent implements OnInit {
   @Output() refreshTherapies = new EventEmitter<void>();
 
   constructor(private therapyService: TherapyService, private patientService: PatientService) {
-    this.therapy = new Therapy(new Date, 0, TherapyType.AC, false, 0, 0, "test", "test");
+    this.therapy = new Therapy(new Date, 2, TherapyType.AC, 3, 2, "2", "temp", "neki komentar");
     this.patient = this.patientService.getCurrentPatient();
   }
 

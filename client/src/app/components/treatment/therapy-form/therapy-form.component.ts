@@ -50,7 +50,7 @@ export class TherapyFormComponent implements OnInit {
       this.numberValues.push(i);
     }
     
-    this.therapy = new Therapy(new Date, 0, TherapyType.AC, false, 0, 0, "test", "test");
+    this.therapy = new Therapy(new Date, 2, TherapyType.AC, 3, 2, "2", "temp", "neki komentar");
 
     this.patient = this.patientService.getCurrentPatient();
 
@@ -118,7 +118,12 @@ export class TherapyFormComponent implements OnInit {
     console.log(this.therapyForm);
     const data = this.therapyForm.value;
 
-    const newTherapy = new Therapy(data.date, data.numCycles, data.therapyType, false, data.numTaxol, data.numTxtr, data.herceptinTherapy, data.comment);
+    var therapyShortString = this.therapy.numCycles + this.therapy.therapyType
+                            + (data.numTaxol > 0 ? ("+" + this.therapy.numTaxol + "TAXOL") : "")
+                            + (data.numTxtr > 0 ? ("+" + this.therapy.numTxtr + "TXTR") : "")
+                            + (data.herceptinTherapy != 'nije primenljivo' ? "+" + this.therapy.herceptinTherapy + "H" : "");
+
+    const newTherapy = new Therapy(data.date, data.numCycles, data.therapyType, data.numTaxol, data.numTxtr, data.herceptinTherapy, therapyShortString, data.comment);
 
     console.log(newTherapy);
     if(this.usedAsUpdateForm){

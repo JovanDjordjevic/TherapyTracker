@@ -19,10 +19,6 @@ const therapySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Number,
         require: true,
     },
-    usingNeoadjuvant: {
-        type: mongoose.Schema.Types.Boolean,
-        require: true,
-    },
     numTaxol: {
         type: mongoose.Schema.Types.Number,
         require: true,
@@ -38,6 +34,10 @@ const therapySchema = new mongoose.Schema({
     date: {
         type: mongoose.Schema.Types.Date,
         require: true,
+    },
+    therapyShortString: {
+        type: mongoose.Schema.Types.String,
+        require: true, 
     },
     comment: {
         type: mongoose.Schema.Types.String,

@@ -28,12 +28,12 @@ const getAllTherapiesForPatient = async (req, res, next) => {
 const addNewTherapyForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
 
-    const {therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment,
+    const {therapyType, numCycles, numTaxol, numTxtr, herceptinTherapy, therapyShortString, comment,
         date, isTherapyResponseSet, therapyResponse} = req.body.therapy;
     
     try {
-        if (therapyType == undefined || numCycles == undefined || usingNeoadjuvant == undefined || numTaxol == undefined || 
-            numTxtr == undefined || herceptinTherapy == undefined || comment == undefined || date == undefined
+        if (therapyType == undefined || numCycles == undefined || numTaxol == undefined || 
+            numTxtr == undefined || herceptinTherapy == undefined || therapyShortString == undefined || comment == undefined || date == undefined
         ) {
             const error = new Error('Check input data!');
             error.status = 400;
@@ -47,7 +47,7 @@ const addNewTherapyForPatient = async (req, res, next) => {
         }
 
         const newTherapy = await therapyService.addNewTherapy( patientId, therapyType, date, numCycles,
-            usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment, isTherapyResponseSet, therapyResponse
+            numTaxol, numTxtr, herceptinTherapy, therapyShortString, comment, isTherapyResponseSet, therapyResponse
         );
         res.status(201).json(newTherapy);
     } catch (error) {
@@ -56,11 +56,11 @@ const addNewTherapyForPatient = async (req, res, next) => {
 };
 
 const updateTherapyInfo = async (req, res, next) => {
-    const {_id, isTherapyResponseSet, therapyResponse, therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, date, comment} = req.body.therapy;
+    const {_id, isTherapyResponseSet, therapyResponse, therapyType, numCycles, numTaxol, numTxtr, herceptinTherapy, date, therapyShortString, comment} = req.body.therapy;
     
     try{
         if (_id == undefined || therapyType == undefined||
-            numCycles == undefined || usingNeoadjuvant == undefined ||numTaxol == undefined || date == undefined ||
+            numCycles == undefined  ||numTaxol == undefined || date == undefined || therapyShortString == undefined ||
             numTxtr == undefined || herceptinTherapy == undefined || comment == undefined 
         ) {
             const error = new Error('Check input data!');
@@ -75,7 +75,7 @@ const updateTherapyInfo = async (req, res, next) => {
         }
 
         const updatedTherapy = await therapyService.updateTherapyInfo(_id, isTherapyResponseSet, therapyResponse,
-            therapyType, numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment, date
+            therapyType, numCycles, numTaxol, numTxtr, herceptinTherapy, therapyShortString, comment, date
         );
         res.status(201).json(updatedTherapy);
     } catch (error) {

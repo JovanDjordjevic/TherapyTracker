@@ -11,18 +11,18 @@ const getAllTherapiesForPatient = async (patientId, page=1, limit=20) => {
     return await Therapy.paginate({patient: patientId}, { page, limit, sort: '-date'});
 };
 
-const addNewTherapy = async (patientId, therapyType, date, numCycles, usingNeoadjuvant,
-    numTaxol, numTxtr, herceptinTherapy, comment, isTherapyResponseSet, therapyResponse) => {
+const addNewTherapy = async (patientId, therapyType, date, numCycles,
+    numTaxol, numTxtr, herceptinTherapy, therapyShortString, comment, isTherapyResponseSet, therapyResponse) => {
 
     const newTherapy = new Therapy();
     const therapyId = new mongoose.Types.ObjectId();
     newTherapy._id = therapyId;
     newTherapy.therapyType = therapyType;
     newTherapy.numCycles = numCycles;
-    newTherapy.usingNeoadjuvant = usingNeoadjuvant;
     newTherapy.numTaxol = numTaxol;
     newTherapy.numTxtr = numTxtr;
     newTherapy.herceptinTherapy = herceptinTherapy;
+    newTherapy.therapyShortString = therapyShortString;
     newTherapy.comment = comment;
     newTherapy.patient = patientId;
     newTherapy.date = date;
@@ -37,7 +37,7 @@ const addNewTherapy = async (patientId, therapyType, date, numCycles, usingNeoad
 };
 
 const updateTherapyInfo = async (id, isTherapyResponseSet, therapyResponse, therapyType,
-    numCycles, usingNeoadjuvant, numTaxol, numTxtr, herceptinTherapy, comment, date) => {
+    numCycles, numTaxol, numTxtr, herceptinTherapy, therapyShortString, comment, date) => {
 
         const updatedTherapy = await Therapy.findOneAndUpdate(
             { _id: id },
@@ -47,10 +47,10 @@ const updateTherapyInfo = async (id, isTherapyResponseSet, therapyResponse, ther
                     therapyResponse: therapyResponse,
                     therapyType: therapyType,
                     numCycles: numCycles,
-                    usingNeoadjuvant: usingNeoadjuvant,
                     numTaxol: numTaxol,
                     numTxtr: numTxtr,
                     herceptinTherapy: herceptinTherapy,
+                    therapyShortString: therapyShortString,
                     comment: comment,
                     date: date
                 },
