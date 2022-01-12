@@ -10,26 +10,6 @@ const getAllPatients = async () => {
     return patients;
 };
 
-const getPatientByJmbg = async (jmbg) => {
-    const patient = await Patient.findOne({ jmbg: jmbg }).exec();
-    return patient;
-};
-
-const getPatientsByFirstName = async (firstName) => {
-    const patients = await Patient.find({ name: firstName }).exec();
-    return patients;
-};
-
-const getPatientsByLastName = async (lastName) => {
-    const patients = await Patient.find({ surname: lastName }).exec();
-    return patients;
-};
-
-const getPatientsByFullName = async (firstName, lastName) => {
-    const patients = await Patient.find({ name: firstName, surname: lastName }).exec();
-    return patients;
-};
-
 const searchForPatients = async (searchParam, page, limit) => {
     const regex = RegExp(searchParam, 'i');
     
@@ -145,10 +125,6 @@ async function paginateThroughPatients(page = 1, limit = 20) {
 
 module.exports = {
     getAllPatients,
-    getPatientByJmbg,
-    getPatientsByFirstName,
-    getPatientsByLastName,
-    getPatientsByFullName,
     searchForPatients,
     addNewPatient,
     deletePatient,

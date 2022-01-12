@@ -14,31 +14,6 @@ const getAllPatients = async (req, res, next) => {
     }
 };
 
-const getPatientByName = async (req, res, next) => {
-    const { firstName, lastName } = req.query;
-
-    if (firstName == undefined && lastName == undefined) {
-        const error = new Error('First name and last name cannot be undefined!');
-        error.status = 400;
-        throw error;
-    }
-
-    try {
-        if (firstName !== "" && lastName === "") {         
-            const patients = await patientsService.getPatientsByFirstName(firstName);
-            res.status(200).json(patients);
-        } else if (firstName === "" && lastName !== "") {          
-            const patients = await patientsService.getPatientsByLastName(lastName);
-            res.status(200).json(patients);
-        } else { 
-            const patients = await patientsService.getPatientsByFullName(firstName, lastName);
-            res.status(200).json(patients);
-        }
-    } catch (error) {
-        next(error);
-    }
-};
-
 const searchForPatients = async (req, res, next) => {
     const { searchParam, page, limit } = req.query;
 
@@ -50,7 +25,6 @@ const searchForPatients = async (req, res, next) => {
 
     try {
         const foundPatients = await patientsService.searchForPatients(searchParam, page, limit);
-        console.log(foundPatients)
         res.status(200).json(foundPatients);
     } catch (error) {
         next(error);
@@ -141,7 +115,6 @@ const deletePatient = async (req, res, next) => {
 
 module.exports = {
     getAllPatients,
-    getPatientByName,
     searchForPatients,
     addNewPatient,
     updatePatientInfo,
