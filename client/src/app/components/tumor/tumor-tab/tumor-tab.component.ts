@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Patient } from 'src/app/models/patient.model';
 import { Gradus, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
@@ -25,6 +25,9 @@ export class TumorTabComponent implements OnInit {
 
   tumorFormUsedForUpdating: boolean = false;
 
+  
+  @Output() refreshTumors = new EventEmitter<void>();
+
   onShowTumorForm() {
     this.switch_expression = "tumorForm";
   }
@@ -38,8 +41,9 @@ export class TumorTabComponent implements OnInit {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
       console.log("all tumors for patient: ", this.tumors);
+      this.switch_expression = "patientInfo";
+      this.refreshTumors.emit();
     });
-    this.switch_expression = "patientInfo";
   }
 
   onLoadMoreTumors(value: string) {
@@ -57,6 +61,7 @@ export class TumorTabComponent implements OnInit {
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete tumor?")) {
       this.sub = this.tumorService.deleteTumorForPatient(this.patient._id, this.tumor._id).subscribe(() => {
+        this.patient._tumorIds = this.patient._tumorIds.filter( (id) => id != this.tumor._id);
         this.onNewTumorAdded();
       });
       //console.log('yes')
@@ -76,9 +81,10 @@ export class TumorTabComponent implements OnInit {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
       console.log("all tumors for patient: ", this.tumors);
+      this.switch_expression = "patientInfo";
+      this.tumorFormUsedForUpdating = false;
+      this.refreshTumors.emit();
     });
-    this.switch_expression = "patientInfo";
-    this.tumorFormUsedForUpdating = false;
   }
 
   backToPatient() {

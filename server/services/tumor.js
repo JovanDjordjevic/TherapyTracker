@@ -9,7 +9,7 @@ const getAllTumors = async () => {
 
 const getAllTumorsForPatient = async (patientId, page=1, limit=20) => {
 
-    return await Tumor.paginate({patient: patientId}, {page, limit})
+    return await Tumor.paginate({patient: patientId}, { page, limit, sort: '-date'});
 };
 
 const addNewTumor = async (patientId, biopsyIndex, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent,
@@ -83,7 +83,7 @@ const deleteTumor = async (patientId, tumorId) => {
 };
 
 async function paginateThroughTumors(page = 1, limit = 20) {
-    return await Tumor.paginate({}, {page, limit});
+    return await Tumor.paginate({}, { page, limit, sort: '-date'});
 }
 
 module.exports = {

@@ -8,8 +8,7 @@ const getAllTherapies = async () => {
 };
 
 const getAllTherapiesForPatient = async (patientId, page=1, limit=20) => {
-    
-    return await Therapy.paginate({patient: patientId}, {page, limit});
+    return await Therapy.paginate({patient: patientId}, { page, limit, sort: '-date'});
 };
 
 const addNewTherapy = async (patientId, therapyType, date, numCycles, usingNeoadjuvant,
@@ -68,7 +67,7 @@ const deleteTherapy = async (patientId, therapyId) => {
 };
 
 async function paginateThroughTherapies(page = 1, limit = 20) {
-    return await Therapy.paginate({}, {page, limit});
+    return await Therapy.paginate({}, { page, limit, sort: '-date'});
 }
 
 module.exports = {

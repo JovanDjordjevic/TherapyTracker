@@ -22,6 +22,39 @@
     <div class="column">
       <app-clinical-state-info [patient]="patient"></app-clinical-state-info>
 
+      <table class="ui mini fixed teal table">
+        <tbody>
+          <tr>
+            <td>Broj biopsija:</td>
+            <td><b>{{ numberOfBiopsies }}</b></td>
+            <td>Poslednja registrovana biopsija: </td>
+            <td><b>{{ lastBiopsyDate }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="ui mini fixed teal table">
+        <tbody>
+          <tr>
+            <td>Broj tumora:</td>
+            <td><b>{{ numberOfTumors }}</b></td>
+            <td>Datum poslednje dijagnoze tumora: </td>
+            <td><b>{{ lastTumorDate }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table class="ui mini fixed teal table">
+        <tbody>
+          <tr>
+            <td>Broj terapija:</td>
+            <td><b>{{ numberOfTherapies }}</b></td>
+            <td>Datum poslednje prepisane terapije: </td>
+            <td><b>{{ lastTherapyDate }}</b></td>
+          </tr>
+        </tbody>
+      </table>
+
       <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
         <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="onClickUpdateClinicalState()">Azuriraj podatke
           o klinickom stanju</button>

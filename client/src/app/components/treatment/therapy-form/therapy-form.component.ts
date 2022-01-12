@@ -33,10 +33,6 @@ export class TherapyFormComponent implements OnInit {
 
   herceptinDisabled: boolean = true;
 
-  // deo za terapijski odgovor ne treba da bude dostupan prilikom unosa terapije u bazu, nego samo ako se terapija edituje
-  // iz kartona
-  placeholder: boolean = false; // samo za testiranje
-
   numCyclesHasErrors: boolean = false;
   therapyTypeHasErrors: boolean = false;
   numTaxolHasErrors: boolean = false;
@@ -66,7 +62,7 @@ export class TherapyFormComponent implements OnInit {
       numTxtr: ['', [Validators.required]],
       herceptinTherapy: ['nije primenljivo', [Validators.required, HerceptinTherapyValidator]],
       comment: ['', []],
-      //therapyResponse: ['', []],
+      therapyResponse: ['', []],
     });
   }
 
@@ -92,6 +88,12 @@ export class TherapyFormComponent implements OnInit {
         herceptinTherapy : this.therapy.herceptinTherapy,
         comment : this.therapy.comment,
       });
+
+      if(this.therapy.isTherapyResponseSet) {
+        this.therapyForm.patchValue({ 
+          therapyResponse : this.therapy.therapyResponse,
+        });
+      }
     }
   }
 
@@ -122,6 +124,13 @@ export class TherapyFormComponent implements OnInit {
     if(this.usedAsUpdateForm){
       //update se postojeci
       newTherapy._id = this.therapy._id;
+
+      const responseValue = this.therapyForm.get('therapyResponse')?.value
+      if (responseValue) {
+        newTherapy.isTherapyResponseSet = true;
+        newTherapy.therapyResponse = responseValue;
+      }
+
       this.sub = this.therapyService.updateTherapyInfo(newTherapy).subscribe((updatedTherapy: Therapy) => {
         console.log('therapy updated', updatedTherapy);
         this.therapyUpdated.emit();
@@ -130,6 +139,7 @@ export class TherapyFormComponent implements OnInit {
     else {
       // dodaje se novi
       this.sub = this.therapyService.addNewTherapyForPatient(this.patient._id, newTherapy).subscribe((addedTherapy: Therapy) => {
+        this.patient._therapyIds.push(addedTherapy._id);
         console.log('added therapy for ', this.patient._id, ' : ', addedTherapy);
         this.newTherapyAdded.emit("dodat nova terapija, refresuj listu")
       });

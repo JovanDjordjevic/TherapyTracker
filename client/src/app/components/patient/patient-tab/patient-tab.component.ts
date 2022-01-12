@@ -1,8 +1,15 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Biopsy } from 'src/app/models/biopsy.model';
 import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
+import { Therapy } from 'src/app/models/therapy.model';
+import { Tumor } from 'src/app/models/tumor.model';
+import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { CommonService } from 'src/app/services/common.service';
 import { PatientService } from 'src/app/services/patient-service.service';
+import { TherapyService } from 'src/app/services/therapy.service';
+import { TumorService } from 'src/app/services/tumor.service';
 
 @Component({
   selector: 'app-patient-tab',
@@ -17,11 +24,19 @@ export class PatientTabComponent implements OnInit, OnDestroy {
   patientFormUsedForUpdating: boolean = false;
   clinicalStateFormUsedForUpdating: boolean = false;
 
+  @Input() lastBiopsyDate : string = "";
+  @Input() numberOfBiopsies : number = 0;
+  @Input() lastTumorDate : string = "";
+  @Input() numberOfTumors : number = 0;
+  @Input() lastTherapyDate : string = "";
+  @Input() numberOfTherapies : number = 0;
+
   // kada se ovo desi, ostali tabovi moraju da ponovo dohvate current patienta iz patient servisa
   @Output() patientHasBeenUpdated = new EventEmitter<void>();
   
-  constructor(private patientService: PatientService, private commonService : CommonService) {
-    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );
+  constructor(private patientService: PatientService, private biopsyService : BiopsyService, 
+              private tumorService : TumorService, private therapyService : TherapyService, private commonService : CommonService) {
+    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );  
     this.patient = this.patientService.getCurrentPatient();
   }
 
@@ -66,7 +81,19 @@ export class PatientTabComponent implements OnInit, OnDestroy {
     this.clinicalStateFormUsedForUpdating = false;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    // this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1, 1).subscribe( (biopsies : Biopsy[]) => {
+    //   this.lastBiopsyDate = formatDate(biopsies[0].date, 'dd/MM/yyyy', 'en-US');
+    // });
+    
+    // this.tumorService.getAllTumorsForPatient(this.patient._id, 1, 1).subscribe( (tumors : Tumor[]) => {
+    //   this.lastTumorDate = formatDate(tumors[0].date, 'dd/MM/yyyy', 'en-US');
+    // });
+
+    // this.therapyService.getAllTherapiesForPatient(this.patient._id, 1, 1).subscribe( (therapies : Therapy[]) => {
+    //   this.lastTherapyDate = formatDate(therapies[0].date, 'dd/MM/yyyy', 'en-US');
+    // });
+  }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

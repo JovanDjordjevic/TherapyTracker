@@ -9,7 +9,7 @@ const getAllBiopsies = async () => {
 
 const getAllBiopsiesForPatient = async (patientId, page=1, limit=20) => {
 
-    return await Biopsy.paginate({patient: patientId}, {page, limit, sort: 'date'});
+    return await Biopsy.paginate({patient: patientId}, {page, limit, sort: '-date'});
 };
 
 const addNewBiopsy = async (patientId, date, side, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
@@ -73,7 +73,7 @@ const deleteBiopsy = async (patientId, biopsyId) => {
 };
 
 async function paginateThroughBiopsies(page = 1, limit = 20) {
-    return await Biopsy.paginate({}, { page, limit, sort: 'date'});
+    return await Biopsy.paginate({}, { page, limit, sort: '-date'});
 }
 
 module.exports = {

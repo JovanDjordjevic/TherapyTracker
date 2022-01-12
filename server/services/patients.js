@@ -120,7 +120,7 @@ const updatePatientInfo = async (id, date, index, isClinicalStateSet,
 }
 
 async function paginateThroughPatients(page = 1, limit = 20) {
-    return await Patient.paginate({}, { page, limit, sort: 'history.date'});
+    return await Patient.paginate({}, { page, limit, sort: '-history.date'});
 }
 
 module.exports = {

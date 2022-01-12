@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Patient } from 'src/app/models/patient.model';
 import { Therapy, TherapyType } from 'src/app/models/therapy.model';
@@ -24,6 +24,8 @@ export class TreatmentTabComponent implements OnInit {
 
   therapyFormUsedForUpdating: boolean = false;
 
+  @Output() refreshTherapies = new EventEmitter<void>();
+
   constructor(private therapyService: TherapyService, private patientService: PatientService) {
     this.therapy = new Therapy(new Date, 0, TherapyType.AC, false, 0, 0, "test", "test");
     this.patient = this.patientService.getCurrentPatient();
@@ -33,8 +35,9 @@ export class TreatmentTabComponent implements OnInit {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
       console.log("all therapies for patient: ", this.therapies);
+      this.switch_expression = "patientInfo";
+      this.refreshTherapies.emit();
     });
-    this.switch_expression = "patientInfo";
   }
 
   onTherapySelected(value: any) {
@@ -52,6 +55,7 @@ export class TreatmentTabComponent implements OnInit {
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete terapiju?")) {
       this.sub = this.therapyService.deleteTherapyForPatient(this.patient._id, this.therapy._id).subscribe(() => {
+        this.patient._therapyIds = this.patient._therapyIds.filter( (id) => id != this.therapy._id);
         this.onNewTherapyAdded();
       });
       //console.log('yes')
@@ -71,9 +75,10 @@ export class TreatmentTabComponent implements OnInit {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
       console.log("all therapies for patient: ", this.therapies);
+      this.switch_expression = "patientInfo";
+      this.therapyFormUsedForUpdating = false;
+      this.refreshTherapies.emit();
     });
-    this.switch_expression = "patientInfo";
-    this.therapyFormUsedForUpdating = false;
   }
 
   backToPatient() {

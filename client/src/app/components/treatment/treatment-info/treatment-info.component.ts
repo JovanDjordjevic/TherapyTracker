@@ -15,6 +15,7 @@ export class TreatmentInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //console.log('current therapy:', this.therapy)
     this.therapyShortString = this.therapy.numCycles + this.therapy.therapyType;
     if (this.therapy.numTaxol > 0) {
       this.therapyShortString += "+" + this.therapy.numTaxol + "TAXOL";
