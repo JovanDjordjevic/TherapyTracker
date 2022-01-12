@@ -19,7 +19,7 @@ const therapySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Number,
         require: true,
     },
-    usingNeoadjuvant: { //moguce promene
+    usingNeoadjuvant: {
         type: mongoose.Schema.Types.Boolean,
         require: true,
     },

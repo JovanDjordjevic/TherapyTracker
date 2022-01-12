@@ -6,8 +6,6 @@ const getAllPatients = async (req, res, next) => {
     const limit = req.query.limit;
 
     try {
-        // const allPatients = await patientsService.getAllPatients();
-        // res.status(200).json(allPatients);
         const allPatients = await patientsService.paginateThroughPatients(page, limit);
         res.status(200).json(allPatients);
 
@@ -16,35 +14,8 @@ const getAllPatients = async (req, res, next) => {
     }
 };
 
-const getPatientByName = async (req, res, next) => {
-    const { firstName, lastName } = req.query;
-    //console.log("firstname ", firstName, " lastname ", lastName);
-
-    if (firstName == undefined && lastName == undefined) {
-        const error = new Error('First name and last name cannot be undefined!');
-        error.status = 400;
-        throw error;
-    }
-
-    try {
-        if (firstName !== "" && lastName === "") {           // samo po imenu
-            const patients = await patientsService.getPatientsByFirstName(firstName);
-            res.status(200).json(patients);
-        } else if (firstName === "" && lastName !== "") {           // samo po prezimenu
-            const patients = await patientsService.getPatientsByLastName(lastName);
-            res.status(200).json(patients);
-        } else {    // i ime i prezime
-            const patients = await patientsService.getPatientsByFullName(firstName, lastName);
-            res.status(200).json(patients);
-        }
-    } catch (error) {
-        next(error);
-    }
-};
-
 const searchForPatients = async (req, res, next) => {
     const { searchParam, page, limit } = req.query;
-    //console.log("searchParam ", searchParam, "page ", page, "limit", limit);
 
     if (searchParam == undefined) {
         const error = new Error('Search parameter must be valid!');
@@ -54,16 +25,14 @@ const searchForPatients = async (req, res, next) => {
 
     try {
         const foundPatients = await patientsService.searchForPatients(searchParam, page, limit);
-        console.log(foundPatients)
         res.status(200).json(foundPatients);
     } catch (error) {
         next(error);
     }
 };
 
-// TODO: izmeniti tako da se otvori novi karton za novog pacijenta i onda da se vrati taj karton
 const addNewPatient = async (req, res, next) => {
-    //console.log(req.body.patient);
+
     const { jmbg, name, parentName, surname, yearOfBirth, gender, menopause, address,
         city, contact, email, tumorDateDiagnosis, familyAnamnesis} = req.body.patient;
 
@@ -127,7 +96,6 @@ const updatePatientInfo = async (req, res, next) => {
     }
 };
 
-// TODO: da li je mozda bolje da se brisu na osnovu mongo _id ?
 const deletePatient = async (req, res, next) => {
     const id = req.params.id;
 
@@ -138,13 +106,6 @@ const deletePatient = async (req, res, next) => {
             throw error;
         }
 
-        //const patient = await patientsService.getPatientById(id);
-        // if (!patient) {
-        //     const error = new Error('Check id!');
-        //     error.status = 404;
-        //     throw error;
-        // }
-
         success = await patientsService.deletePatient(id);
         res.status(200).json({ success: true }); 
     } catch (error) {
@@ -154,7 +115,6 @@ const deletePatient = async (req, res, next) => {
 
 module.exports = {
     getAllPatients,
-    getPatientByName,
     searchForPatients,
     addNewPatient,
     updatePatientInfo,

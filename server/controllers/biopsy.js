@@ -31,10 +31,8 @@ const checkInput = (date, biopsySide, biopsyTypeLeft, histotypeLeft, multifocali
 const getAllBiopsies = async (req, res, next) => {
     const page = req.query.page;
     const limit = req.query.limit;
-    //console.log("get all biopsies");
 
     try {
-        //const biopsies = await biopsyService.getAllBiopsies();
         const biopsies = await biopsyService.paginateThroughBiopsies(page, limit);
         res.status(200).json(biopsies);
     } catch (error) {
@@ -46,7 +44,6 @@ const getAllBiopsiesForPatient = async (req, res, next) => {
     const patientId = req.query._id;
     const page = req.query.page;
     const limit = req.query.limit;
-    //console.log(patientId, page, limit);
 
     try {
         const biopsies = await biopsyService.getAllBiopsiesForPatient(patientId, page, limit);
@@ -58,11 +55,11 @@ const getAllBiopsiesForPatient = async (req, res, next) => {
 
 const addNewBiopsyForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
-    //console.log(patientId);
+
     const {biopsySide, biopsyTypeLeft, histotypeLeft, multifocalityLeft,
         biopsyTypeRight, histotypeRight, multifocalityRight, comment} = req.body.biopsy;
     const date = new Date(req.body.biopsy.date);
-    // console.log('...');
+
     let numLeft = "";
     let numRight = "";
     
@@ -107,7 +104,7 @@ const addNewBiopsyForPatient = async (req, res, next) => {
 };
 
 const updateBiopsyInfo = async (req, res, next) => {
-    //console.log(req.body.biopsy);
+
     var {_id, date, biopsySide, biopsyTypeLeft, numLeft, histotypeLeft, multifocalityLeft,
         biopsyTypeRight, numRight, histotypeRight, multifocalityRight, comment} = req.body.biopsy;
 
@@ -164,7 +161,6 @@ const updateBiopsyInfo = async (req, res, next) => {
 const deleteBiopsy = async (req, res, next) => {
     const patientId = req.params.patientId;
     const biopsyId = req.params.biopsyId;
-    // console.log(patientId, biopsyId);
 
     try {
         if (patientId == undefined || biopsyId == undefined) {

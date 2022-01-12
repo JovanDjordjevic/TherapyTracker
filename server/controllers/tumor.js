@@ -3,7 +3,7 @@ const tumorService = require('../services/tumor');
 const getAllTumors = async (req, res, next) => {
     const page = req.query.page;
     const limit = req.query.limit;
-    //console.log('getAllTumors');
+
     try {
         const tumors = await tumorService.paginateThroughTumors(page, limit);
         res.status(200).json(tumors);
@@ -16,7 +16,6 @@ const getAllTumorsForPatient = async (req, res, next) => {
     const patientId = req.query._id;
     const page = req.query.page;
     const limit = req.query.limit;
-    //console.log(patientId);
 
     try {
         const tumors = await tumorService.getAllTumorsForPatient(patientId, page, limit);
@@ -28,11 +27,10 @@ const getAllTumorsForPatient = async (req, res, next) => {
 
 const addNewTumorForPatient = async (req, res, next) => {
     const patientId = req.body.patientId;
-    //console.log(patientId, req.body.tumor);
+
     const {gradus, biopsyIndex, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
            her2INC, her2INCPercent, her2_FISH_SICH, her2Status, name, date,
            ki67, molecularSubtype} = req.body.tumor;
-    // console.log('...');
     
     try {
         if (gradus == undefined || biopsyIndex == undefined || erScore == undefined || erScorePercent == undefined || erStatus == undefined || 
@@ -55,7 +53,7 @@ const addNewTumorForPatient = async (req, res, next) => {
 };
 
 const updateTumorInfo = async (req, res, next) => {
-    //console.log(req.body.tumor);
+
     const {_id, gradus, erScore, erScorePercent, erStatus, pgrScore, pgrScorePercent, pgrStatus, 
         her2INC, her2INCPercent, her2_FISH_SICH, her2Status, biopsyIndex, name, date,
         ki67, molecularSubtype} = req.body.tumor;
@@ -85,7 +83,6 @@ const updateTumorInfo = async (req, res, next) => {
 const deleteTumor = async (req, res, next) => {
     const patientId = req.params.patientId;
     const tumorId = req.params.tumorId;
-    //console.log(patientId, tumorId);
 
     try {
         if (patientId == undefined || tumorId == undefined) {

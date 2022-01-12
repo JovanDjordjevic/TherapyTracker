@@ -10,30 +10,9 @@ const getAllPatients = async () => {
     return patients;
 };
 
-const getPatientByJmbg = async (jmbg) => {
-    const patient = await Patient.findOne({ jmbg: jmbg }).exec();
-    return patient;
-};
-
-const getPatientsByFirstName = async (firstName) => {
-    const patients = await Patient.find({ name: firstName }).exec();
-    return patients;
-};
-
-const getPatientsByLastName = async (lastName) => {
-    const patients = await Patient.find({ surname: lastName }).exec();
-    return patients;
-};
-
-const getPatientsByFullName = async (firstName, lastName) => {
-    const patients = await Patient.find({ name: firstName, surname: lastName }).exec();
-    return patients;
-};
-
-// TODO: naci nacin da se nad ovim izvrsi pagination
 const searchForPatients = async (searchParam, page, limit) => {
     const regex = RegExp(searchParam, 'i');
-    //const foundPatients = await Patient.find({$or: [{name: regex}, {surname: regex}, {jmbg: regex}] });
+    
     const foundPatients = await Patient.find({
         "$expr": {
           "$regexMatch": {
@@ -42,7 +21,7 @@ const searchForPatients = async (searchParam, page, limit) => {
           }
         }
       });
-    //console.log("found ", foundPatients);
+    
     return foundPatients;
 };
 
@@ -146,10 +125,6 @@ async function paginateThroughPatients(page = 1, limit = 20) {
 
 module.exports = {
     getAllPatients,
-    getPatientByJmbg,
-    getPatientsByFirstName,
-    getPatientsByLastName,
-    getPatientsByFullName,
     searchForPatients,
     addNewPatient,
     deletePatient,

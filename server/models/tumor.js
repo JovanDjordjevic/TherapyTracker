@@ -63,7 +63,7 @@ const tumorSchema = new mongoose.Schema({
         require: true,
         enum: [0, 1]
     }, 
-    ki67: { //moguce promene
+    ki67: {
         type: mongoose.Schema.Types.String,
         require: true,
     },
