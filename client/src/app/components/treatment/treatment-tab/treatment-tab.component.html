@@ -8,43 +8,19 @@
 
       <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"></app-patient-info>
 
-      <table *ngSwitchCase="'therapyInfo'" class="ui mini definition table">
-        <tbody>
-          <tr>
-            <td class="six wide column">Broj ciklusa</td>
-            <td>{{therapy.numCycles}}</td>
-          </tr>
-          <tr>
-            <td>Tip terapije</td>
-            <td>{{therapy.therapyType}}</td>
-          </tr>
-          <tr>
-            <td>Taxol</td>
-            <td>{{therapy.numTaxol}}</td>
-          </tr>
-          <tr>
-            <td>TXTR</td>
-            <td>{{therapy.numTxtr}}</td>
-          </tr>
-          <tr>
-            <td>Terapija herceptinom</td>
-            <td>{{therapy.herceptinTherapy}}</td>
-          </tr>
-          <tr>
-            <td>Komentar</td>
-            <td>{{therapy.comment}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-treatment-info *ngSwitchCase="'therapyInfo'" [therapy]="therapy"></app-treatment-info>
 
       <app-therapy-report id="therapyReport" [patient]="patient" [therapy]="therapy" hidden></app-therapy-report>
 
       <div class="buttons">
-        <button class="ui fluid teal button" *ngSwitchCase="'therapyInfo'" (click)="onClickGeneratePDF()">Preuzmi izvestaj o terapiji</button>
+        <button class="ui fluid teal button" *ngSwitchCase="'therapyInfo'" (click)="onClickGeneratePDF()">Preuzmi
+          izvestaj o terapiji</button>
 
-        <button class="ui fluid teal button" *ngSwitchCase="'therapyInfo'" (click)="onClickUpdateTherapyInfo()">Izmeni podatke o terapiji</button>
+        <button class="ui fluid teal button" *ngSwitchCase="'therapyInfo'" (click)="onClickUpdateTherapyInfo()">Izmeni
+          podatke o terapiji</button>
 
-        <button *ngSwitchCase="'therapyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi Terapiju</button>
+        <button *ngSwitchCase="'therapyInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
+          Terapiju</button>
       </div>
     </div>
 
