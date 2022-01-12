@@ -195,6 +195,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
       this.sub = this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
       .subscribe((addedBiopsy: Biopsy) => {
         console.log("added biopsy for ", this.patient._id, " : ", addedBiopsy);
+        this.patient._biopsyIds.push(addedBiopsy._id);
         this.newBiopsyAdded.emit("dodata nova biopsija, refresuj listu")
       });
     }    

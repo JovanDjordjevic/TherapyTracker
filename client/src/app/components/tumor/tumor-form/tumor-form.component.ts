@@ -172,6 +172,7 @@ export class TumorFormComponent implements OnInit {
       // dodaje se novi
       this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
       .subscribe((addedTumor: Tumor) => {
+        this.patient._tumorIds.push(addedTumor._id);
         console.log('added tumor for ', this.patient._id, ' : ', addedTumor);
         this.newTumorAdded.emit("dodat nov tumor, refresuj listu")
       });

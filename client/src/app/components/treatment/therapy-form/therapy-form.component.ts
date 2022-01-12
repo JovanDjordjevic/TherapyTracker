@@ -130,6 +130,7 @@ export class TherapyFormComponent implements OnInit {
     else {
       // dodaje se novi
       this.sub = this.therapyService.addNewTherapyForPatient(this.patient._id, newTherapy).subscribe((addedTherapy: Therapy) => {
+        this.patient._therapyIds.push(addedTherapy._id);
         console.log('added therapy for ', this.patient._id, ' : ', addedTherapy);
         this.newTherapyAdded.emit("dodat nova terapija, refresuj listu")
       });
