@@ -1,25 +1,25 @@
 <div class="ui vertical inverted visible sidebar menu psuh">
-  <a class="item" id="main" (click)="onClick($event)">
+  <a class="item" [id]="PageEnum.Main" (click)="onClick($event)">
     <i class="home icon"></i>
     Pocetna strana
   </a>
 
-  <a class="item" id="patients" (click)="onClick($event)">
+  <a class="item" [id]="PageEnum.Patients" (click)="onClick($event)">
     Pacijenti
     <i class="fas fa-hospital-user"></i>
   </a>
 
-  <a class="item" id="biopsies" (click)="onClick($event)">
+  <a class="item" [id]="PageEnum.Biopsies" (click)="onClick($event)">
     <i class="fas fa-microscope"></i>
     Biopsije
   </a>
 
-  <a class="item" id="tumors" (click)="onClick($event)">
+  <a class="item" [id]="PageEnum.Tumors" (click)="onClick($event)">
     <i class="fas fa-ribbon"></i>
     Tumori
   </a>
 
-  <a class="item" id="therapies" (click)="onClick($event)">
+  <a class="item" [id]="PageEnum.Therapies" (click)="onClick($event)">
     <i class="fas fa-tablets"></i>
     Terapije
   </a>

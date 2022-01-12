@@ -3,6 +3,8 @@ import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { CommonService } from 'src/app/services/common.service';
 import { TherapyService } from 'src/app/services/therapy.service';
 import { TumorService } from 'src/app/services/tumor.service';
+import { Page } from 'src/app/models/enums.model';
+import { type } from 'os';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,12 +14,16 @@ import { TumorService } from 'src/app/services/tumor.service';
 
 export class SidebarComponent implements OnInit {
 
+  PageEnum = Page;
+
   onClick(e: any) {
     this.id = e.target.id;
     this.commonService.sideBarItemClicked.emit(this.id);
+    console.log(e + " " + typeof (e));
+    console.log(this.id, typeof (this.id));
   }
 
-  id: string = "main";
+  id: Page = Page.Main;
 
   constructor(private commonService: CommonService, private bs: BiopsyService, private ts: TumorService, private ths: TherapyService) { }
 

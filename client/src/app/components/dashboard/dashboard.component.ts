@@ -10,6 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { TherapyService } from 'src/app/services/therapy.service';
 import { TumorService } from 'src/app/services/tumor.service';
+import { Page } from 'src/app/models/enums.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,14 +20,16 @@ import { TumorService } from 'src/app/services/tumor.service';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   searchForm: FormGroup;
+  PageEnum = Page;
 
   allPatients: Patient[] = [];
   filteredPatients: Patient[] = [];
   biopsies: Biopsy[] = [];
   tumors: Tumor[] = [];
   treatments: Therapy[] = [];
-  switch_expression: string = 'main';
+  page: Page = Page.Main;
   counter: number = 2;
+  firstPage: number = 1;
 
   patient: Patient;
   sub: Subscription = new Subscription();
@@ -45,8 +48,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getAllDataForPatients();
 
     this.commonService.sideBarItemClicked.subscribe((data: any) => {
-      this.counter = 2;
-      this.switch_expression = data;
+      this.resetCounter();
+      this.page = data;
       this.getAllPatients();
       this.getAllDataForPatients();
       console.log("clicked on patients")
@@ -54,13 +57,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onNewPatientAdded() {
-    this.counter = 2;
+    this.resetCounter();
     this.getAllPatients();
-    this.switch_expression = 'patients';
+    this.page = Page.Patients;
   }
 
   getAllPatients() {
-    this.sub = this.patientsService.getAllPatients(1).subscribe((patients: Patient[]) => {
+    this.sub = this.patientsService.getAllPatients(this.firstPage).subscribe((patients: Patient[]) => {
       this.allPatients = patients;
       this.filteredPatients = patients;
       this.patientsService.setCurrentPatient(this.allPatients[0]);
@@ -68,15 +71,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getAllDataForPatients() {
-    this.sub = this.biopsyService.getAllBiopsies(1).subscribe((biopsies: Biopsy[]) => {
+    this.sub = this.biopsyService.getAllBiopsies(this.firstPage).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
     });
 
-    this.sub = this.tumorService.getAllTumors(1).subscribe((tumors: Tumor[]) => {
+    this.sub = this.tumorService.getAllTumors(this.firstPage).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
     });
 
-    this.sub = this.therapyService.getAllTherapies(1).subscribe((therapies: Therapy[]) => {
+    this.sub = this.therapyService.getAllTherapies(this.firstPage).subscribe((therapies: Therapy[]) => {
       this.treatments = therapies;
     });
   }
@@ -87,17 +90,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     if (searchParam === '') {
       this.filteredPatients = this.allPatients;
-      this.counter = 2;
+      this.resetCounter();
     }
     else {
-      this.sub = this.patientsService.searchForPatients(searchParam, 1).subscribe((patients: Patient[]) => {
+      this.sub = this.patientsService.searchForPatients(searchParam, this.firstPage).subscribe((patients: Patient[]) => {
         this.filteredPatients = patients;
       });
     }
   }
 
   onPatientSelected() {
-    this.switch_expression = 'tabs';
+    this.page = Page.Tabs;
   }
 
   onLoadMoreBiopsies(value: string) {
@@ -128,6 +131,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.counter++;
     })
   };
+
+  resetCounter() {
+    this.counter = 2;
+  }
 
   ngOnInit(): void { }
 
