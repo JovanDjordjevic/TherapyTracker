@@ -19,8 +19,6 @@ export class SidebarComponent implements OnInit {
   onClick(e: any) {
     this.id = e.target.id;
     this.commonService.sideBarItemClicked.emit(this.id);
-    console.log(e + " " + typeof (e));
-    console.log(this.id, typeof (this.id));
   }
 
   id: Page = Page.Main;

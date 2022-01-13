@@ -25,15 +25,14 @@ export class TabsComponent implements OnInit, OnDestroy {
   therapies: Therapy[] = []
   sub: Subscription = new Subscription;
 
-  lastBiopsyDate : string = "";
-  numberOfBiopsies : number = 0;
-  lastTumorDate : string = "";
-  numberOfTumors : number = 0;
-  lastTherapyDate : string = "";
-  numberOfTherapies : number = 0;
+  lastBiopsyDate: string = "";
+  numberOfBiopsies: number = 0;
+  lastTumorDate: string = "";
+  numberOfTumors: number = 0;
+  lastTherapyDate: string = "";
+  numberOfTherapies: number = 0;
 
   constructor(private patientService: PatientService, private biopsyService: BiopsyService, private tumorService: TumorService, private therapyService: TherapyService) {
-    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );   
     this.patient = this.patientService.getCurrentPatient();
     this.getInitialBiopsiesForPatient();
     this.getInitialTumorsForPatient();
@@ -59,7 +58,6 @@ export class TabsComponent implements OnInit, OnDestroy {
       else {
         this.lastBiopsyDate = "/";
       }
-      console.log("all biopsies for patient: ", this.biopsies);
     });
   }
 
@@ -73,7 +71,6 @@ export class TabsComponent implements OnInit, OnDestroy {
       else {
         this.lastTumorDate = "/";
       }
-      console.log("all tumors for patient: ", this.tumors);
     });
   }
 
@@ -87,7 +84,6 @@ export class TabsComponent implements OnInit, OnDestroy {
       else {
         this.lastTherapyDate = "/";
       }
-      console.log("all therapies for patient: ", this.therapies);
     });
   }
 

@@ -1,8 +1,7 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
     <div class="column" [ngSwitch]="switch_expression">
-      <!-- <app-biopsy-form *ngIf="showBiopsyForm" [patient]="patient"></app-biopsy-form>
-      <app-patient-info *ngIf="showPatientInfo" [patient]="patient"></app-patient-info> -->
+
       <app-biopsy-form *ngSwitchCase="'biopsyForm'" [biopsy]="biopsy" [usedAsUpdateForm]="biopsyFormUsedForUpdating"
         (newBiopsyAdded)="onNewBiopsyAdded()" (biopsyUpdated)="onBiopsyUpdated()">
       </app-biopsy-form>

@@ -34,7 +34,6 @@ export class TreatmentTabComponent implements OnInit {
   onNewTherapyAdded() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
-      console.log("all therapies for patient: ", this.therapies);
       this.switch_expression = "patientInfo";
       this.refreshTherapies.emit();
     });
@@ -55,18 +54,15 @@ export class TreatmentTabComponent implements OnInit {
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete terapiju?")) {
       this.sub = this.therapyService.deleteTherapyForPatient(this.patient._id, this.therapy._id).subscribe(() => {
-        this.patient._therapyIds = this.patient._therapyIds.filter( (id) => id != this.therapy._id);
+        this.patient._therapyIds = this.patient._therapyIds.filter((id) => id != this.therapy._id);
         this.onNewTherapyAdded();
       });
-      //console.log('yes')
     }
     else {
-      //console.log('no')
     }
   }
 
   onClickUpdateTherapyInfo() {
-    //console.log('onClickUpdateTherapyInfo')
     this.therapyFormUsedForUpdating = true;
     this.switch_expression = "therapyForm";
   }
@@ -74,7 +70,6 @@ export class TreatmentTabComponent implements OnInit {
   onTherapyUpdated() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
-      console.log("all therapies for patient: ", this.therapies);
       this.switch_expression = "patientInfo";
       this.therapyFormUsedForUpdating = false;
       this.refreshTherapies.emit();
@@ -89,7 +84,6 @@ export class TreatmentTabComponent implements OnInit {
   onClickGeneratePDF() {
     const elem: HTMLElement | null = document.getElementById("therapyReport");
     var html = htmlToPdfmake((elem as HTMLElement).innerHTML);
-    console.log(html)
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).open();
   }

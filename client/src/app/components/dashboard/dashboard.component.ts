@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.page = data;
       this.getAllPatients();
       this.getAllDataForPatients();
-      console.log("clicked on patients")
     })
   }
 
@@ -104,7 +103,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onLoadMoreBiopsies(value: string) {
-    console.log(value)
     this.sub = this.biopsyService.getAllBiopsies(this.counter).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = [...this.biopsies, ...biopsies];
       this.counter++;

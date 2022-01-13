@@ -15,9 +15,9 @@ declare const $: any;
   styleUrls: ['./patient-form.component.css'],
 })
 export class PatientFormComponent implements OnInit, OnDestroy {
-  
-  @Input() patient : Patient;
-  @Input() usedAsUpdateForm : boolean = false;
+
+  @Input() patient: Patient;
+  @Input() usedAsUpdateForm: boolean = false;
 
   shouldDisplayMenopauseForm: boolean = false;
   patientForm: FormGroup;
@@ -60,7 +60,7 @@ export class PatientFormComponent implements OnInit, OnDestroy {
   familyAnamnesisErrors: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private patientService: PatientService) {
-    
+
     this.patient = this.patientService.getCurrentPatient();
 
     this.patientForm = this.formBuilder.group({
@@ -84,26 +84,25 @@ export class PatientFormComponent implements OnInit, OnDestroy {
     $('.ui.checkbox').checkbox();
     $('.ui.radio.checkbox').checkbox();
 
-    if(this.usedAsUpdateForm) {
-      console.log("update form:", this.patient)
-      if(this.patient.gender === Gender.Female) {
+    if (this.usedAsUpdateForm) {
+      if (this.patient.gender === Gender.Female) {
         this.shouldDisplayMenopauseForm = true;
       }
 
       this.patientForm.patchValue({
-        jmbg : this.patient.jmbg,
-        name : this.patient.name,
-        parentName : this.patient.parentName,
-        surname : this.patient.surname,
-        yearOfBirth : this.patient.yearOfBirth.toString(),
-        gender : this.patient.gender,
-        menopause : this.patient.menopause,
-        address : this.patient.address,
-        city : this.patient.city,
-        contact : this.patient.contact,
-        email : this.patient.email,
-        tumorDateDiagnosis : new Date(this.patient.tumorDateDiagnosis).toISOString().slice(0,10),
-        familyAnamnesis : this.patient.familyAnamnesis,
+        jmbg: this.patient.jmbg,
+        name: this.patient.name,
+        parentName: this.patient.parentName,
+        surname: this.patient.surname,
+        yearOfBirth: this.patient.yearOfBirth.toString(),
+        gender: this.patient.gender,
+        menopause: this.patient.menopause,
+        address: this.patient.address,
+        city: this.patient.city,
+        contact: this.patient.contact,
+        email: this.patient.email,
+        tumorDateDiagnosis: new Date(this.patient.tumorDateDiagnosis).toISOString().slice(0, 10),
+        familyAnamnesis: this.patient.familyAnamnesis,
       });
     }
   }
@@ -152,20 +151,17 @@ export class PatientFormComponent implements OnInit, OnDestroy {
     this.familyAnamnesisHasErrors = false;
 
     // zahtev:
-    // console.log(this.patientForm);
     const data = this.patientForm.value;
 
     const newPatient = new Patient(
       data.jmbg, data.name, data.parentName, data.surname, data.yearOfBirth, data.gender, data.menopause,
       data.address, data.city, data.contact, data.email, data.tumorDateDiagnosis, data.familyAnamnesis
     );
-    
-    //console.log("Patient beeing added to DB: ", newPatient);
-    if(this.usedAsUpdateForm){
+
+    if (this.usedAsUpdateForm) {
       //update se postojeci
       newPatient._id = this.patient._id;
       this.sub = this.patientService.updatePatientInfo(newPatient).subscribe((updatedPatient: Patient) => {
-        console.log('patient updated', updatedPatient);
         this.patientService.setCurrentPatient(updatedPatient);
         this.patientUpdated.emit();
       });
@@ -175,7 +171,6 @@ export class PatientFormComponent implements OnInit, OnDestroy {
       // NOTE/FIXME: kada se napise this.sub = ..ovo ispod... ovaj zahtev se ne izvrsi. Tj izvrsi se ali ne bude ubacen u bazu,
       // ako se samo ostavi .subscribe() kao sto je ovde, radi sve lepo, nisam nasao razlog
       this.patientService.insertPatientInDB(newPatient).subscribe((insertedPatient: Patient) => {
-        console.log("Inserted patient: ", insertedPatient);
         this.newPatientAdded.emit();
       });
     }

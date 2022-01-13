@@ -1,7 +1,12 @@
 <div class="dashboard">
   <!--Header-->
-  <div class="colored-header">
-    <h1></h1>
+  <div class="colored-header" [ngSwitch]="page">
+    <h1 *ngSwitchCase="PageEnum.Main">Dobrodosli</h1>
+    <h1 *ngSwitchCase="PageEnum.Tabs">Karton</h1>
+    <h1 *ngSwitchCase="PageEnum.Patients">Svi pacijenti</h1>
+    <h1 *ngSwitchCase="PageEnum.Biopsies">Sve biopsije</h1>
+    <h1 *ngSwitchCase="PageEnum.Tumors">Svi tumori</h1>
+    <h1 *ngSwitchCase="PageEnum.Therapies">Sve terapije</h1>
   </div>
 
   <div class="content" [ngSwitch]="page">

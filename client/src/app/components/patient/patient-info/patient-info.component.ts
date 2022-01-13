@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { Gender, Patient } from 'src/app/models/patient.model';
 import { CommonService } from 'src/app/services/common.service';
 import { PatientService } from 'src/app/services/patient-service.service';
+import { formattedDate } from 'src/app/utils/utils';
 
 declare const $: any;
 
@@ -22,6 +22,10 @@ export class PatientInfoComponent implements OnInit {
 
   shortenText(text: string) {
     return text.substring(0, 50) + "...";
+  }
+
+  formatDate(date: Date) {
+    return formattedDate(date);
   }
 
   ngOnInit() {

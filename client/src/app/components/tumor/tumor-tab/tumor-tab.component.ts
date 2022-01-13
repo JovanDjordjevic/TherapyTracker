@@ -4,7 +4,6 @@ import { Patient } from 'src/app/models/patient.model';
 import { Gradus, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { TumorService } from 'src/app/services/tumor.service';
-import { TumorFormComponent } from '../tumor-form/tumor-form.component';
 import htmlToPdfmake from 'html-to-pdfmake';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -25,7 +24,7 @@ export class TumorTabComponent implements OnInit {
 
   tumorFormUsedForUpdating: boolean = false;
 
-  
+
   @Output() refreshTumors = new EventEmitter<void>();
 
   onShowTumorForm() {
@@ -40,7 +39,6 @@ export class TumorTabComponent implements OnInit {
   onNewTumorAdded() {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
-      console.log("all tumors for patient: ", this.tumors);
       this.switch_expression = "patientInfo";
       this.refreshTumors.emit();
     });
@@ -61,18 +59,15 @@ export class TumorTabComponent implements OnInit {
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete tumor?")) {
       this.sub = this.tumorService.deleteTumorForPatient(this.patient._id, this.tumor._id).subscribe(() => {
-        this.patient._tumorIds = this.patient._tumorIds.filter( (id) => id != this.tumor._id);
+        this.patient._tumorIds = this.patient._tumorIds.filter((id) => id != this.tumor._id);
         this.onNewTumorAdded();
       });
-      //console.log('yes')
     }
     else {
-      //console.log('no')
     }
   }
 
   onClickUpdateTumorInfo() {
-    //console.log('onClickUpdateTumorInfo')
     this.tumorFormUsedForUpdating = true;
     this.switch_expression = "tumorForm";
   }
@@ -80,7 +75,6 @@ export class TumorTabComponent implements OnInit {
   onTumorUpdated() {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
-      console.log("all tumors for patient: ", this.tumors);
       this.switch_expression = "patientInfo";
       this.tumorFormUsedForUpdating = false;
       this.refreshTumors.emit();
@@ -95,7 +89,6 @@ export class TumorTabComponent implements OnInit {
   onClickGeneratePDF() {
     const elem: HTMLElement | null = document.getElementById("tumorReport");
     var html = htmlToPdfmake((elem as HTMLElement).innerHTML);
-    console.log(html)
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).open();
   }

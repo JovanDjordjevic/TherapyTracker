@@ -10,8 +10,8 @@ import { PatientService } from 'src/app/services/patient-service.service';
   styleUrls: ['./clinical-state-form.component.css'],
 })
 export class ClinicalStateFormComponent implements OnInit {
-  @Input() patient : Patient;
-  @Input() usedAsUpdateForm : boolean = false;
+  @Input() patient: Patient;
+  @Input() usedAsUpdateForm: boolean = false;
 
   @Output() onClinicalStateUpdated = new EventEmitter<void>();
 
@@ -23,18 +23,18 @@ export class ClinicalStateFormComponent implements OnInit {
   ClinicalStaegEnum = ClinicalStage;
 
   TStageEnumKeys: string[] = [];
-  
-  sub: Subscription = new Subscription();
-  
-  tStageHasErrors : boolean = false;
-  nStageHasErrors : boolean = false;
-  mStageHasErrors : boolean = false;
-  clinicalStageHasErrors : boolean = false;
 
-  tStageErrors : string[] = [];
-  nStageErrors : string[] = [];
-  mStageErrors : string[] = [];
-  clinicalStageErrors : string[] = [];
+  sub: Subscription = new Subscription();
+
+  tStageHasErrors: boolean = false;
+  nStageHasErrors: boolean = false;
+  mStageHasErrors: boolean = false;
+  clinicalStageHasErrors: boolean = false;
+
+  tStageErrors: string[] = [];
+  nStageErrors: string[] = [];
+  mStageErrors: string[] = [];
+  clinicalStageErrors: string[] = [];
 
   constructor(private formBuilder: FormBuilder, private patientService: PatientService) {
     this.TStageEnumKeys = Object.keys(this.TStageEnum);
@@ -56,17 +56,16 @@ export class ClinicalStateFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.usedAsUpdateForm) {
       this.clinicalStateForm.patchValue({
-        tStage : this.patient.tStage,
-        nStage : this.patient.nStage,
-        mStage : this.patient.mStage,
-        tnmStage : this.patient.tnmStage,
-        clinicalStage : this.patient.clinicalStage,
+        tStage: this.patient.tStage,
+        nStage: this.patient.nStage,
+        mStage: this.patient.mStage,
+        tnmStage: this.patient.tnmStage,
+        clinicalStage: this.patient.clinicalStage,
       });
     }
   }
 
   onClinicalStateFormSubmit() {
-    //console.log("onClinicalStateFormSubmit")
     if (this.clinicalStateForm.invalid) {
       window.alert('Neka polja nemaju validnu vrednost!');
       this.updateTStageErrors();
@@ -76,13 +75,12 @@ export class ClinicalStateFormComponent implements OnInit {
       return;
     }
 
-    this.tStageHasErrors  = false;
+    this.tStageHasErrors = false;
     this.nStageHasErrors = false;
     this.mStageHasErrors = false;
     this.clinicalStageHasErrors = false;
 
     // slanje zahteva:
-    // console.log(this.clinicalStateForm);
     const data = this.clinicalStateForm.value;
 
     this.patient.isClinicalStateSet = true;
@@ -91,64 +89,63 @@ export class ClinicalStateFormComponent implements OnInit {
     this.patient.mStage = data.mStage;
     this.patient.tnmStage = 'T' + data.tStage + 'N' + data.nStage + 'M' + data.mStage;
     this.patient.clinicalStage = data.clinicalStage;
-      
+
     this.sub = this.patientService.updatePatientInfo(this.patient).subscribe((updatedPatient: Patient) => {
-      console.log('updated clinical stage', updatedPatient);
       this.onClinicalStateUpdated.emit();
     });
   }
 
-  updateTStageErrors(){
+  updateTStageErrors() {
     this.tStageErrors = [];
-    const errors : ValidationErrors | undefined | null = this.clinicalStateForm.get('tStage')?.errors;
+    const errors: ValidationErrors | undefined | null = this.clinicalStateForm.get('tStage')?.errors;
     if (errors === null || errors === undefined) {
       this.tStageHasErrors = false;
     }
     else {
       this.tStageHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.tStageErrors.push("TStage mora imati vrednost");
       }
     }
   }
 
-  updateNStageErrors(){
+  updateNStageErrors() {
     this.nStageErrors = [];
-    const errors : ValidationErrors | undefined | null = this.clinicalStateForm.get('nStage')?.errors;
+    const errors: ValidationErrors | undefined | null = this.clinicalStateForm.get('nStage')?.errors;
     if (errors === null || errors === undefined) {
       this.nStageHasErrors = false;
     }
     else {
       this.nStageHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.nStageErrors.push("NStage mora imati vrednost");
       }
     }
   }
 
-  updateMStageErrors(){
+  updateMStageErrors() {
     this.mStageErrors = [];
-    const errors : ValidationErrors | undefined | null = this.clinicalStateForm.get('mStage')?.errors;
+    const errors: ValidationErrors | undefined | null = this.clinicalStateForm.get('mStage')?.errors;
     if (errors === null || errors === undefined) {
       this.mStageHasErrors = false;
     }
     else {
       this.mStageHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.mStageErrors.push("MStage mora imati vrednost");
       }
     }
   }
 
-  updateClinicalStageErrors(){
+  updateClinicalStageErrors() {
     this.clinicalStageErrors = [];
-    const errors : ValidationErrors | undefined | null = this.clinicalStateForm.get('clinicalStage')?.errors;
+    const errors: ValidationErrors | undefined | null = this.clinicalStateForm.get('clinicalStage')?.errors;
     if (errors === null || errors === undefined) {
       this.clinicalStageHasErrors = false;
     }
     else {
       this.clinicalStageHasErrors = true;
-      if(errors['required']){
+      if (errors['required']) {
         this.clinicalStageErrors.push("Klinicki stadijum mora imati vrednost");
       }
     }

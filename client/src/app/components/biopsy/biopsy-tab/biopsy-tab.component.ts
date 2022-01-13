@@ -39,7 +39,6 @@ export class BiopsyTabComponent implements OnInit {
   onNewBiopsyAdded() {
     this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
-      console.log("all biopsies for patient: ", this.biopsies);
       this.switch_expression = "patientInfo";
       this.refreshBiopsies.emit();
     });
@@ -55,18 +54,15 @@ export class BiopsyTabComponent implements OnInit {
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete biopsiju?")) {
       this.sub = this.biopsyService.deleteBiopsyForPatient(this.patient._id, this.biopsy._id).subscribe(() => {
-        this.patient._biopsyIds = this.patient._biopsyIds.filter( (id) => id != this.biopsy._id);
+        this.patient._biopsyIds = this.patient._biopsyIds.filter((id) => id != this.biopsy._id);
         this.onNewBiopsyAdded();
       });
-      //console.log('yes')
     }
     else {
-      //console.log('no')
     }
   }
 
   onClickUpdateBiopsyInfo() {
-    //console.log('onClickUpdateTumorInfo')
     this.biopsyFormUsedForUpdating = true;
     this.switch_expression = "biopsyForm";
   }
@@ -77,7 +73,6 @@ export class BiopsyTabComponent implements OnInit {
       this.switch_expression = "patientInfo";
       this.biopsyFormUsedForUpdating = false;
       this.refreshBiopsies.emit();
-      console.log("all biopsies for patient: ", this.biopsies);
     });
   }
 
@@ -89,7 +84,6 @@ export class BiopsyTabComponent implements OnInit {
   onClickGeneratePDF() {
     const elem: HTMLElement | null = document.getElementById("biopsyReport");
     var html = htmlToPdfmake((elem as HTMLElement).innerHTML);
-    console.log(html)
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).open();
   }

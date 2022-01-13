@@ -16,8 +16,8 @@ declare const $: any;
   styleUrls: ['./therapy-form.component.css'],
 })
 export class TherapyFormComponent implements OnInit {
-  @Input() therapy : Therapy;
-  @Input() usedAsUpdateForm : boolean = false;
+  @Input() therapy: Therapy;
+  @Input() usedAsUpdateForm: boolean = false;
 
   therapyForm: FormGroup;
   TherapyTypeEnum = TherapyType;
@@ -49,7 +49,7 @@ export class TherapyFormComponent implements OnInit {
     for (let i = 0; i <= 500; i++) {
       this.numberValues.push(i);
     }
-    
+
     this.therapy = new Therapy(new Date, 2, TherapyType.AC, 3, 2, "2", "temp", "neki komentar");
 
     this.patient = this.patientService.getCurrentPatient();
@@ -79,19 +79,19 @@ export class TherapyFormComponent implements OnInit {
         this.herceptinDisabled = false;
       }
 
-      this.therapyForm.patchValue({ 
-        date : new Date(this.therapy.date).toISOString().slice(0,10),
-        numCycles : this.therapy.numCycles.toString(),
-        therapyType : this.therapy.therapyType,
-        numTaxol : this.therapy.numTaxol,
-        numTxtr : this.therapy.numTxtr,
-        herceptinTherapy : this.therapy.herceptinTherapy,
-        comment : this.therapy.comment,
+      this.therapyForm.patchValue({
+        date: new Date(this.therapy.date).toISOString().slice(0, 10),
+        numCycles: this.therapy.numCycles.toString(),
+        therapyType: this.therapy.therapyType,
+        numTaxol: this.therapy.numTaxol,
+        numTxtr: this.therapy.numTxtr,
+        herceptinTherapy: this.therapy.herceptinTherapy,
+        comment: this.therapy.comment,
       });
 
-      if(this.therapy.isTherapyResponseSet) {
-        this.therapyForm.patchValue({ 
-          therapyResponse : this.therapy.therapyResponse,
+      if (this.therapy.isTherapyResponseSet) {
+        this.therapyForm.patchValue({
+          therapyResponse: this.therapy.therapyResponse,
         });
       }
     }
@@ -114,19 +114,16 @@ export class TherapyFormComponent implements OnInit {
     this.numTxtrHasErrors = false;
     this.herceptinTherapyHasErrors = false;
 
-    // TODO: ovde ide zahtev
-    console.log(this.therapyForm);
     const data = this.therapyForm.value;
 
     var therapyShortString = this.therapy.numCycles + this.therapy.therapyType
-                            + (data.numTaxol > 0 ? ("+" + this.therapy.numTaxol + "TAXOL") : "")
-                            + (data.numTxtr > 0 ? ("+" + this.therapy.numTxtr + "TXTR") : "")
-                            + (data.herceptinTherapy != 'nije primenljivo' ? "+" + this.therapy.herceptinTherapy + "H" : "");
+      + (data.numTaxol > 0 ? ("+" + this.therapy.numTaxol + "TAXOL") : "")
+      + (data.numTxtr > 0 ? ("+" + this.therapy.numTxtr + "TXTR") : "")
+      + (data.herceptinTherapy != 'nije primenljivo' ? "+" + this.therapy.herceptinTherapy + "H" : "");
 
     const newTherapy = new Therapy(data.date, data.numCycles, data.therapyType, data.numTaxol, data.numTxtr, data.herceptinTherapy, therapyShortString, data.comment);
 
-    console.log(newTherapy);
-    if(this.usedAsUpdateForm){
+    if (this.usedAsUpdateForm) {
       //update se postojeci
       newTherapy._id = this.therapy._id;
 
@@ -137,7 +134,6 @@ export class TherapyFormComponent implements OnInit {
       }
 
       this.sub = this.therapyService.updateTherapyInfo(newTherapy).subscribe((updatedTherapy: Therapy) => {
-        console.log('therapy updated', updatedTherapy);
         this.therapyUpdated.emit();
       });
     }
@@ -145,7 +141,6 @@ export class TherapyFormComponent implements OnInit {
       // dodaje se novi
       this.sub = this.therapyService.addNewTherapyForPatient(this.patient._id, newTherapy).subscribe((addedTherapy: Therapy) => {
         this.patient._therapyIds.push(addedTherapy._id);
-        console.log('added therapy for ', this.patient._id, ' : ', addedTherapy);
         this.newTherapyAdded.emit("dodat nova terapija, refresuj listu")
       });
     }

@@ -16,8 +16,8 @@ declare const $: any;
   styleUrls: ['./tumor-form.component.css'],
 })
 export class TumorFormComponent implements OnInit {
-  @Input() tumor : Tumor;
-  @Input() usedAsUpdateForm : boolean = false;
+  @Input() tumor: Tumor;
+  @Input() usedAsUpdateForm: boolean = false;
 
   tumorForm: FormGroup;
   GradusEnum = Gradus;
@@ -67,7 +67,6 @@ export class TumorFormComponent implements OnInit {
     this.patient = this.patientService.getCurrentPatient();
 
     this.tumor = new Tumor(new Date(), "", "", Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, 0, "", 0);
-    //console.log("tumor ctor", this.usedAsUpdateForm, this.tumor)
 
     this.tumorForm = this.formBuilder.group({
       date: ['', [Validators.required]],
@@ -95,26 +94,25 @@ export class TumorFormComponent implements OnInit {
 
   ngOnInit(): void {
     $('.ui.checkbox').checkbox();
-   // console.log("tumor nginit", this.usedAsUpdateForm, this.tumor)
 
     if (this.usedAsUpdateForm) {
-      this.tumorForm.patchValue({ 
-        date: new Date(this.tumor.date).toISOString().slice(0,10),
-        tumorName: this.tumor.name, 
+      this.tumorForm.patchValue({
+        date: new Date(this.tumor.date).toISOString().slice(0, 10),
+        tumorName: this.tumor.name,
         biopsyIndex: this.tumor.biopsyIndex,
-        gradus : this.tumor.gradus,
-        erScore : this.tumor.erScore.toString(),
-        erScorePercent : this.tumor.erScorePercent.toString(),
-        erStatus : this.tumor.erStatus.toString(),
-        pgrScore : this.tumor.pgrScore.toString(),
-        pgrScorePercent : this.tumor.pgrScorePercent.toString(),
-        pgrStatus : this.tumor.pgrStatus.toString(),
-        her2INC : this.tumor.her2INC.toString(),
-        her2INCPercent : this.tumor.her2INCPercent.toString(),
-        her2_FISH_SICH : this.tumor.her2_FISH_SICH,
-        her2Status : this.tumor.her2Status,
-        ki67 : this.tumor.ki67,
-        molecularSubtype : this.tumor.molecularSubtype.toString(),
+        gradus: this.tumor.gradus,
+        erScore: this.tumor.erScore.toString(),
+        erScorePercent: this.tumor.erScorePercent.toString(),
+        erStatus: this.tumor.erStatus.toString(),
+        pgrScore: this.tumor.pgrScore.toString(),
+        pgrScorePercent: this.tumor.pgrScorePercent.toString(),
+        pgrStatus: this.tumor.pgrStatus.toString(),
+        her2INC: this.tumor.her2INC.toString(),
+        her2INCPercent: this.tumor.her2INCPercent.toString(),
+        her2_FISH_SICH: this.tumor.her2_FISH_SICH,
+        her2Status: this.tumor.her2Status,
+        ki67: this.tumor.ki67,
+        molecularSubtype: this.tumor.molecularSubtype.toString(),
       });
     }
   }
@@ -152,32 +150,28 @@ export class TumorFormComponent implements OnInit {
     this.molecularSubtypeHasErrors = false;
 
     // slanje zahteva:
-    console.log(this.tumorForm);
     const data = this.tumorForm.value;
 
     const newTumor = new Tumor(data.date, data.tumorName, data.biopsyIndex, data.gradus, data.erScore, data.erScorePercent, data.erStatus, data.pgrScore, data.pgrScorePercent,
       data.pgrStatus, data.her2INC, data.her2INCPercent, data.her2_FISH_SICH, data.her2Status, data.ki67, data.molecularSubtype
     );
 
-    console.log(newTumor);
-    if(this.usedAsUpdateForm){
+    if (this.usedAsUpdateForm) {
       //update se postojeci
       newTumor._id = this.tumor._id;
       this.sub = this.tumorService.updateTumorInfo(newTumor).subscribe((updatedTumor: Tumor) => {
-        console.log('tumor updated', updatedTumor);
         this.tumorUpdated.emit();
       });
     }
     else {
       // dodaje se novi
       this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
-      .subscribe((addedTumor: Tumor) => {
-        this.patient._tumorIds.push(addedTumor._id);
-        console.log('added tumor for ', this.patient._id, ' : ', addedTumor);
-        this.newTumorAdded.emit("dodat nov tumor, refresuj listu")
-      });
+        .subscribe((addedTumor: Tumor) => {
+          this.patient._tumorIds.push(addedTumor._id);
+          this.newTumorAdded.emit("dodat nov tumor, refresuj listu")
+        });
     }
-    
+
   }
 
   updateDateErrors() {
