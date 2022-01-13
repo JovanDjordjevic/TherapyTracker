@@ -2,6 +2,8 @@
 
 TherapyTracker je aplikacija koja omogucava lako pracenje pacijenata, njihovih klinickih stanja, biopsija koje su odradili, i onkoloskih terapija koje su im prepisane. <br>
 Cilj aplikacije da svi podaci budu lako dostupni i pregledni, kao i da njeno koriscenje bude lako i intuitivno. <br>
+<br>
+[Demo snimak](https://gitlab.com/matfpveb/projekti/2021-2022/02-TherapyTracker/-/blob/master/demo.mkv)
 
 # Pokretanje projekta iz izvornog koda:
 Da bi se klijent i server pokrenuli, potrebno je prvo na sistemu instalirati [Node](https://nodejs.org/en/download/), [MongoDB](https://www.mongodb.com/try/download/community) i [Mongo Shell](https://www.mongodb.com/try/download/shell) <br>
