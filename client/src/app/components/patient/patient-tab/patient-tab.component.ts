@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
-import { tabComponent } from 'src/app/models/enums.model';
+import { Page, tabComponent } from 'src/app/models/enums.model';
 import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 import { Therapy } from 'src/app/models/therapy.model';
 import { Tumor } from 'src/app/models/tumor.model';
@@ -55,7 +55,7 @@ export class PatientTabComponent implements OnInit, OnDestroy {
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete pacijenta?")) {
       this.sub = this.patientService.deletePatientFromDB(this.patient._id).subscribe(() => {
-        this.commonService.sideBarItemClicked.emit('patients');
+        this.commonService.sideBarItemClicked.emit(Page.Patients);
       });
     }
     else {

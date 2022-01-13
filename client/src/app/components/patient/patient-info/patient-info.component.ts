@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Gender, Patient } from 'src/app/models/patient.model';
+import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 import { CommonService } from 'src/app/services/common.service';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { formattedDate } from 'src/app/utils/utils';
@@ -15,6 +15,7 @@ export class PatientInfoComponent implements OnInit {
   @Input() patient: Patient;
   GenderEnum = Gender;
   showFullText: boolean = false;
+  menopauseString : string = "";
 
   constructor(private patientService: PatientService, private commonService: CommonService) {
     this.patient = this.patientService.getCurrentPatient();
@@ -22,6 +23,20 @@ export class PatientInfoComponent implements OnInit {
 
   ngOnInit() {
     $('.menu .item').tab();
+    switch (this.patient.menopause) {
+      case Menopause.Pre:
+        this.menopauseString = "Pre";
+        break;
+      case Menopause.Post:
+        this.menopauseString = "Post";
+        break;
+      case Menopause.Peri:
+        this.menopauseString = "Peri";
+        break;
+      default:
+        this.menopauseString = "Nema";
+        break;
+    }
   }
 
   shortenText(text: string) {

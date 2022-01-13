@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Patient } from 'src/app/models/patient.model';
+import { Menopause, Patient } from 'src/app/models/patient.model';
 import { Gradus, Her2Status, HER2_FISH_SICH, Tumor } from 'src/app/models/tumor.model';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { formattedDate } from 'src/app/utils/utils';
@@ -25,18 +25,19 @@ export class TumorReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.patient.gender == 'z') {
+    if (this.patient.gender == 'z') {
       switch (this.patient.menopause) {
-        case 1:
-          this.menopauseString = "Pre"
+        case Menopause.Pre:
+          this.menopauseString = "Pre";
           break;
-        case 2:
-          this.menopauseString = "Post"
+        case Menopause.Post:
+          this.menopauseString = "Post";
           break;
-        case 3:
-          this.menopauseString = "Peri"
+        case Menopause.Peri:
+          this.menopauseString = "Peri";
           break;
         default:
+          this.menopauseString = "Nema";
           break;
       }
     }
