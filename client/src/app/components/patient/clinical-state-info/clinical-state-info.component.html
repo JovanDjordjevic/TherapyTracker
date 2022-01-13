@@ -2,23 +2,23 @@
   <tbody>
     <tr>
       <td class="six wide column">T stage</td>
-      <td>{{patient.tStage}}</td>
+      <td>{{ patient.isClinicalStateSet ? patient.tStage : "" }}</td>
     </tr>
     <tr>
       <td>N stage</td>
-      <td>{{patient.nStage}}</td>
+      <td>{{ patient.isClinicalStateSet ? patient.nStage : "" }}</td>
     </tr>
     <tr>
       <td>M stage</td>
-      <td>{{patient.mStage}}</td>
+      <td>{{ patient.isClinicalStateSet ? patient.mStage : "" }}</td>
     </tr>
     <tr>
       <td>TNM clinical stage</td>
-      <td>{{patient.tnmStage}}</td>
+      <td>{{ patient.isClinicalStateSet ? patient.tnmStage : "" }}</td>
     </tr>
     <tr>
       <td>Klinicki stadijum</td>
-      <td>{{patient.clinicalStage}}</td>
+      <td>{{ patient.isClinicalStateSet ? patient.clinicalStage : "" }}</td>
     </tr>
   </tbody>
 </table>

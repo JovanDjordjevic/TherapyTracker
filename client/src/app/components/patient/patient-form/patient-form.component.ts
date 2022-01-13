@@ -161,6 +161,16 @@ export class PatientFormComponent implements OnInit, OnDestroy {
     if (this.usedAsUpdateForm) {
       //update se postojeci
       newPatient._id = this.patient._id;
+
+      if (this.patient.isClinicalStateSet) {
+        newPatient.isClinicalStateSet = true;
+        newPatient.tStage = this.patient.tStage;
+        newPatient.nStage = this.patient.nStage;
+        newPatient.mStage = this.patient.mStage;
+        newPatient.tnmStage = this.patient.tnmStage;
+        newPatient.clinicalStage = this.patient.clinicalStage;
+      }
+
       this.sub = this.patientService.updatePatientInfo(newPatient).subscribe((updatedPatient: Patient) => {
         this.patientService.setCurrentPatient(updatedPatient);
         this.patientUpdated.emit();
