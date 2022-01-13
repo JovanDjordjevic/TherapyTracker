@@ -4,6 +4,7 @@ import { Biopsy, BiopsyHistotype, BiopsySide, BiopsyType } from 'src/app/models/
 import { PatientService } from 'src/app/services/patient-service.service';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';
 import { Subscription } from 'rxjs';
+import { tabComponent } from 'src/app/models/enums.model';
 import htmlToPdfmake from 'html-to-pdfmake';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -17,7 +18,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class BiopsyTabComponent implements OnInit {
   @Input() biopsies: Biopsy[] = [];
   sub: Subscription = new Subscription;
-  switch_expression = "patientInfo";
+  tabComponent = tabComponent;
+  component = tabComponent.PatientInfo;
   @Input() patient: Patient;
   biopsy: Biopsy;
   counter: number = 2;
@@ -35,13 +37,13 @@ export class BiopsyTabComponent implements OnInit {
 
   onBiopsySelected(value: any) {
     this.biopsy = value;
-    this.switch_expression = 'biopsyInfo';
+    this.component = tabComponent.Info;
   }
 
   onNewBiopsyAdded() {
     this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
-      this.switch_expression = "patientInfo";
+      this.component = tabComponent.PatientInfo;
       this.refreshBiopsies.emit();
     });
   }
@@ -66,20 +68,20 @@ export class BiopsyTabComponent implements OnInit {
 
   onClickUpdateBiopsyInfo() {
     this.biopsyFormUsedForUpdating = true;
-    this.switch_expression = "biopsyForm";
+    this.component = tabComponent.Form;
   }
 
   onBiopsyUpdated() {
     this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = biopsies;
-      this.switch_expression = "patientInfo";
+      this.component = tabComponent.PatientInfo;
       this.biopsyFormUsedForUpdating = false;
       this.refreshBiopsies.emit();
     });
   }
 
   backToPatient() {
-    this.switch_expression = 'patientInfo'
+    this.component = tabComponent.PatientInfo
     this.biopsyFormUsedForUpdating = false;
   }
 

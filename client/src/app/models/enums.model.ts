@@ -7,3 +7,10 @@ export enum Page {
   Tabs,
   PatientForm
 }
+
+export enum tabComponent {
+  Form,
+  Info,
+  PatientInfo,
+  ClinicalStateForm
+}

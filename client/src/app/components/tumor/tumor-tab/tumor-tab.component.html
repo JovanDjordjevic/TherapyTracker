@@ -1,38 +1,41 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
-    <div class="column" [ngSwitch]="switch_expression">
-      <app-tumor-form *ngSwitchCase="'tumorForm'" [tumor]="tumor" [usedAsUpdateForm]="tumorFormUsedForUpdating"
+    <div class="column" [ngSwitch]="component">
+      <app-tumor-form *ngSwitchCase="tabComponent.Form" [tumor]="tumor" [usedAsUpdateForm]="tumorFormUsedForUpdating"
         (newTumorAdded)="onNewTumorAdded()" (tumorUpdated)="onTumorUpdated()">
       </app-tumor-form>
 
-      <app-patient-info *ngSwitchCase="'patientInfo'" [patient]="patient"></app-patient-info>
+      <app-patient-info *ngSwitchCase="tabComponent.PatientInfo" [patient]="patient"></app-patient-info>
 
-      <app-tumor-info *ngSwitchCase="'tumorInfo'" [tumor]='tumor'></app-tumor-info>
+      <app-tumor-info *ngSwitchCase="tabComponent.Info" [tumor]='tumor'></app-tumor-info>
 
       <app-tumor-report id="tumorReport" [patient]="patient" [tumor]="tumor" hidden></app-tumor-report>
 
       <div class="buttons">
-        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickGeneratePDF()">Preuzmi izvestaj
+        <button class="ui fluid teal button" *ngSwitchCase="tabComponent.Info" (click)="onClickGeneratePDF()">Preuzmi
+          izvestaj
           o tumoru</button>
 
-        <button class="ui fluid teal button" *ngSwitchCase="'tumorInfo'" (click)="onClickUpdateTumorInfo()">Izmeni
+        <button class="ui fluid teal button" *ngSwitchCase="tabComponent.Info" (click)="onClickUpdateTumorInfo()">Izmeni
           podatke o tumoru</button>
 
-        <button *ngSwitchCase="'tumorInfo'" class="ui red fluid button" type=button (click)="confirmDeletion()">Obrisi
+        <button *ngSwitchCase="tabComponent.Info" class="ui red fluid button" type=button
+          (click)="confirmDeletion()">Obrisi
           Tumor</button>
       </div>
     </div>
 
     <div class="column">
-      <app-tumor-list [tumors]="tumors" (selectTumor)="onTumorSelected($event)"
-        (loadMoreTumors)="onLoadMoreTumors()"></app-tumor-list>
+      <app-tumor-list [tumors]="tumors" (selectTumor)="onTumorSelected($event)" (loadMoreTumors)="onLoadMoreTumors()">
+      </app-tumor-list>
 
-      <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
-        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'tumorForm'">Unesi podatke
+      <div class="ui fluid teal buttons" [ngSwitch]="component">
+        <button class="ui button" *ngSwitchCase="tabComponent.PatientInfo" (click)="component = tabComponent.Form">Unesi
+          podatke
           o tumoru</button>
 
         <button class="ui button"
-          *ngSwitchCase="switch_expression === 'tumorInfo' || switch_expression === 'tumorForm' ? switch_expression : ''"
+          *ngSwitchCase="component === tabComponent.Info || component === tabComponent.Form ? component : ''"
           (click)="backToPatient()">Nazad na pacijenta</button>
       </div>
     </div>

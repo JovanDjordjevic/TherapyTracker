@@ -1,19 +1,21 @@
 <div class="ui segment">
   <div class="ui two column very relaxed grid">
-    <div class="column" [ngSwitch]="switch_expression">
-      <app-patient-form *ngSwitchCase="'patientFormForUpdate'" [patient]="patient"
+    <div class="column" [ngSwitch]="component">
+      <app-patient-form *ngSwitchCase="tabComponent.Form" [patient]="patient"
         [usedAsUpdateForm]="patientFormUsedForUpdating" (patientUpdated)="onPatientUpdated()">
       </app-patient-form>
 
-      <app-patient-info *ngSwitchCase="'patientInfo'"></app-patient-info>
+      <app-patient-info *ngSwitchCase="tabComponent.PatientInfo"></app-patient-info>
 
-      <button class="ui fluid teal button" *ngSwitchCase="'patientInfo'" (click)="onClickUpdatePatientInfo()">Izmeni
+      <button class="ui fluid teal button" *ngSwitchCase="tabComponent.PatientInfo"
+        (click)="onClickUpdatePatientInfo()">Izmeni
         informacije o pacijentu</button>
 
-      <button class="ui red fluid button" *ngSwitchCase="'patientInfo'" type=button (click)="confirmDeletion()">Obrisi
+      <button class="ui red fluid button" *ngSwitchCase="tabComponent.PatientInfo" type=button
+        (click)="confirmDeletion()">Obrisi
         Pacijenta</button>
 
-      <app-clinical-state-form *ngSwitchCase="'clinicalStateForm'" [patient]="patient"
+      <app-clinical-state-form *ngSwitchCase="tabComponent.ClinicalStateForm" [patient]="patient"
         [usedAsUpdateForm]="clinicalStateFormUsedForUpdating" (onClinicalStateUpdated)="onClinicalStateUpdated()">
 
       </app-clinical-state-form>
@@ -55,12 +57,13 @@
         </tbody>
       </table>
 
-      <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
-        <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="onClickUpdateClinicalState()">Azuriraj podatke
+      <div class="ui fluid teal buttons" [ngSwitch]="component">
+        <button class="ui button" *ngSwitchCase="tabComponent.PatientInfo"
+          (click)="onClickUpdateClinicalState()">Azuriraj podatke
           o klinickom stanju</button>
 
         <button class="ui button"
-          *ngSwitchCase="switch_expression === 'patientFormForUpdate' || switch_expression === 'clinicalStateForm' ? switch_expression : ''"
+          *ngSwitchCase="component === tabComponent.Form || component === tabComponent.ClinicalStateForm ? component : ''"
           (click)="backToPatient()">
           Nazad na pacijenta
         </button>

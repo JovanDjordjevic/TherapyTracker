@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
+import { tabComponent } from 'src/app/models/enums.model';
 import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
 import { Therapy } from 'src/app/models/therapy.model';
 import { Tumor } from 'src/app/models/tumor.model';
@@ -20,27 +21,28 @@ export class PatientTabComponent implements OnInit, OnDestroy {
   patient: Patient;
   sub: Subscription = new Subscription();
 
-  switch_expression = "patientInfo";
+  tabComponent = tabComponent;
+  component = tabComponent.PatientInfo;
+
   patientFormUsedForUpdating: boolean = false;
   clinicalStateFormUsedForUpdating: boolean = false;
 
-  @Input() lastBiopsyDate : string = "";
-  @Input() numberOfBiopsies : number = 0;
-  @Input() lastTumorDate : string = "";
-  @Input() numberOfTumors : number = 0;
-  @Input() lastTherapyDate : string = "";
-  @Input() numberOfTherapies : number = 0;
+  @Input() lastBiopsyDate: string = "";
+  @Input() numberOfBiopsies: number = 0;
+  @Input() lastTumorDate: string = "";
+  @Input() numberOfTumors: number = 0;
+  @Input() lastTherapyDate: string = "";
+  @Input() numberOfTherapies: number = 0;
 
   // kada se ovo desi, ostali tabovi moraju da ponovo dohvate current patienta iz patient servisa
   @Output() patientHasBeenUpdated = new EventEmitter<void>();
-  
-  constructor(private patientService: PatientService, private biopsyService : BiopsyService, 
-              private tumorService : TumorService, private therapyService : TherapyService, private commonService : CommonService) {
-    //this.patient = new Patient('a','a','a','a',0,Gender.Female, Menopause.Peri, '',  '', '',  '', new Date(), ''  );  
+
+  constructor(private patientService: PatientService, private biopsyService: BiopsyService,
+    private tumorService: TumorService, private therapyService: TherapyService, private commonService: CommonService) {
     this.patient = this.patientService.getCurrentPatient();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -57,7 +59,6 @@ export class PatientTabComponent implements OnInit, OnDestroy {
       });
     }
     else {
-      //console.log('no')
     }
   }
 
@@ -65,24 +66,23 @@ export class PatientTabComponent implements OnInit, OnDestroy {
     if (this.patient.isClinicalStateSet) {
       this.clinicalStateFormUsedForUpdating = true;
     }
-    this.switch_expression = 'clinicalStateForm';
+    this.component = tabComponent.ClinicalStateForm;
   }
 
   onClickUpdatePatientInfo() {
-    //console.log('onClickUpdateTherapyInfo')
     this.patientFormUsedForUpdating = true;
-    this.switch_expression = "patientFormForUpdate";
+    this.component = tabComponent.Form;
   }
 
   onPatientUpdated() {
     this.patient = this.patientService.getCurrentPatient();
-    this.switch_expression = "patientInfo";
+    this.component = tabComponent.PatientInfo;
     this.patientFormUsedForUpdating = false;
     this.patientHasBeenUpdated.emit();
   }
 
   backToPatient() {
-    this.switch_expression = 'patientInfo'
+    this.component = tabComponent.PatientInfo;
     this.patientFormUsedForUpdating = false;
     this.clinicalStateFormUsedForUpdating = false;
   }

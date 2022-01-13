@@ -7,6 +7,7 @@ import { TumorService } from 'src/app/services/tumor.service';
 import htmlToPdfmake from 'html-to-pdfmake';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { tabComponent } from 'src/app/models/enums.model';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -15,7 +16,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['../../../styles/tab.css'],
 })
 export class TumorTabComponent implements OnInit {
-  switch_expression = "patientInfo";
+  tabComponent = tabComponent
+  component = tabComponent.PatientInfo;
   sub: Subscription = new Subscription;
   @Input() tumors: Tumor[] = [];
   tumor: Tumor;
@@ -30,22 +32,22 @@ export class TumorTabComponent implements OnInit {
     this.patient = this.patientService.getCurrentPatient();
     this.tumor = new Tumor(new Date(), "", "", Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, 0, "", 0);
   }
-  
-  ngOnInit(): void {}
+
+  ngOnInit(): void { }
 
   onShowTumorForm() {
-    this.switch_expression = "tumorForm";
+    this.component = tabComponent.Form;
   }
 
   onTumorSelected(value: any) {
     this.tumor = value;
-    this.switch_expression = "tumorInfo";
+    this.component = tabComponent.Info;
   }
 
   onNewTumorAdded() {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
-      this.switch_expression = "patientInfo";
+      this.component = tabComponent.PatientInfo;
       this.refreshTumors.emit();
     });
   }
@@ -70,20 +72,20 @@ export class TumorTabComponent implements OnInit {
 
   onClickUpdateTumorInfo() {
     this.tumorFormUsedForUpdating = true;
-    this.switch_expression = "tumorForm";
+    this.component = tabComponent.Form;
   }
 
   onTumorUpdated() {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, 1).subscribe((tumors: Tumor[]) => {
       this.tumors = tumors;
-      this.switch_expression = "patientInfo";
+      this.component = tabComponent.PatientInfo;
       this.tumorFormUsedForUpdating = false;
       this.refreshTumors.emit();
     });
   }
 
   backToPatient() {
-    this.switch_expression = 'patientInfo'
+    this.component = tabComponent.PatientInfo
     this.tumorFormUsedForUpdating = false;
   }
 

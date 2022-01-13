@@ -4,6 +4,7 @@ import { Patient } from 'src/app/models/patient.model';
 import { Therapy, TherapyType } from 'src/app/models/therapy.model';
 import { PatientService } from 'src/app/services/patient-service.service';
 import { TherapyService } from 'src/app/services/therapy.service';
+import { tabComponent } from 'src/app/models/enums.model';
 import htmlToPdfmake from 'html-to-pdfmake';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -17,7 +18,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 export class TreatmentTabComponent implements OnInit {
   @Input() therapies: Therapy[] = [];
   sub: Subscription = new Subscription;
-  switch_expression = "patientInfo";
+  tabComponent = tabComponent;
+  component = tabComponent.PatientInfo;
   counter: number = 2;
   therapy: Therapy;
   @Input() patient: Patient;
@@ -31,19 +33,19 @@ export class TreatmentTabComponent implements OnInit {
     this.patient = this.patientService.getCurrentPatient();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onNewTherapyAdded() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
-      this.switch_expression = "patientInfo";
+      this.component = tabComponent.PatientInfo;
       this.refreshTherapies.emit();
     });
   }
 
   onTherapySelected(value: any) {
     this.therapy = value;
-    this.switch_expression = "therapyInfo";
+    this.component = tabComponent.Info;
   }
 
   onLoadMoreTherapies() {
@@ -66,20 +68,20 @@ export class TreatmentTabComponent implements OnInit {
 
   onClickUpdateTherapyInfo() {
     this.therapyFormUsedForUpdating = true;
-    this.switch_expression = "therapyForm";
+    this.component = tabComponent.Form;
   }
 
   onTherapyUpdated() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
-      this.switch_expression = "patientInfo";
+      this.component = tabComponent.PatientInfo;
       this.therapyFormUsedForUpdating = false;
       this.refreshTherapies.emit();
     });
   }
 
   backToPatient() {
-    this.switch_expression = 'patientInfo'
+    this.component = tabComponent.PatientInfo;
     this.therapyFormUsedForUpdating = false;
   }
 
