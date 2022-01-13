@@ -25,7 +25,7 @@
 
     <div class="column">
       <app-tumor-list [tumors]="tumors" (selectTumor)="onTumorSelected($event)"
-        (loadMoreTumors)="onLoadMoreTumors($event)"></app-tumor-list>
+        (loadMoreTumors)="onLoadMoreTumors()"></app-tumor-list>
 
       <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
         <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'tumorForm'">Unesi podatke

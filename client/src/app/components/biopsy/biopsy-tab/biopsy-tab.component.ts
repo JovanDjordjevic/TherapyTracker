@@ -31,6 +31,8 @@ export class BiopsyTabComponent implements OnInit {
     this.patient = this.patientService.getCurrentPatient();
   }
 
+  ngOnInit(): void { }
+
   onBiopsySelected(value: any) {
     this.biopsy = value;
     this.switch_expression = 'biopsyInfo';
@@ -44,7 +46,7 @@ export class BiopsyTabComponent implements OnInit {
     });
   }
 
-  onLoadMoreBiopsies(value: string) {
+  onLoadMoreBiopsies() {
     this.sub = this.biopsyService.getAllBiopsiesForPatient(this.patient._id, this.counter).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = [...this.biopsies, ...biopsies];
       this.counter++;
@@ -87,6 +89,4 @@ export class BiopsyTabComponent implements OnInit {
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).open();
   }
-
-  ngOnInit(): void { }
 }

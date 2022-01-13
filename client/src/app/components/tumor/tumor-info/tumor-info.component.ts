@@ -13,7 +13,5 @@ export class TumorInfoComponent implements OnInit {
     this.tumor = new Tumor(new Date, '', '', Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, Her2Status.One, '', 0);
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

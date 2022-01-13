@@ -55,7 +55,7 @@
       </div>
       <!--Patient list-->
       <app-patient-list [patients]="filteredPatients" (selectPatient)="onPatientSelected()"
-        (loadMorePatients)="onLoadMorePatients($event)"> </app-patient-list>
+        (loadMorePatients)="onLoadMorePatients()"> </app-patient-list>
     </div>
 
     <!--Patient Form-->
@@ -65,15 +65,15 @@
     <app-tabs *ngSwitchCase="PageEnum.Tabs"> </app-tabs>
 
     <!--SideBar Lists-->
-    <app-biopsy-list (loadMoreBiopsies)="onLoadMoreBiopsies($event)" *ngSwitchCase="PageEnum.Biopsies"
+    <app-biopsy-list (loadMoreBiopsies)="onLoadMoreBiopsies()" *ngSwitchCase="PageEnum.Biopsies"
       [biopsies]="biopsies" [position]='true'>
     </app-biopsy-list>
 
-    <app-tumor-list (loadMoreTumors)="onLoadMoreTumors($event)" *ngSwitchCase="PageEnum.Tumors" [tumors]="tumors"
+    <app-tumor-list (loadMoreTumors)="onLoadMoreTumors()" *ngSwitchCase="PageEnum.Tumors" [tumors]="tumors"
       [position]='true'>
     </app-tumor-list>
 
-    <app-treatment-list (loadMoreTherapies)="onLoadMoreTherapies($event)" *ngSwitchCase="PageEnum.Therapies"
+    <app-treatment-list (loadMoreTherapies)="onLoadMoreTherapies()" *ngSwitchCase="PageEnum.Therapies"
       [therapies]="treatments" [position]='true'></app-treatment-list>
   </div>
 </div>

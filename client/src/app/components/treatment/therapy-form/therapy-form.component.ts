@@ -25,10 +25,9 @@ export class TherapyFormComponent implements OnInit {
   sub: Subscription = new Subscription();
   patient: Patient;
 
-  @Output() newTherapyAdded = new EventEmitter<string>();
+  @Output() newTherapyAdded = new EventEmitter<void>();
   @Output() therapyUpdated = new EventEmitter<void>();
 
-  // nigde nije naglaseno koliko moze da bude kolicine kog leka, recimo 500
   numberValues: number[] = [];
 
   herceptinDisabled: boolean = true;
@@ -66,10 +65,6 @@ export class TherapyFormComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
   ngOnInit(): void {
     $('.ui.checkbox').checkbox();
 
@@ -97,6 +92,27 @@ export class TherapyFormComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  onHerceptinCheckboxChange() {
+    if (this.herceptinDisabled) {
+      this.therapyForm.patchValue({
+        herceptinTherapy: '',
+      });
+    } else {
+      this.therapyForm.patchValue({
+        herceptinTherapy: 'nije primenljivo',
+      });
+    }
+
+    this.herceptinTherapyErrors = [];
+    this.herceptinTherapyHasErrors = false;
+
+    this.herceptinDisabled = !this.herceptinDisabled;
+  }
+
   onTherapyFormSubmit() {
     if (this.therapyForm.invalid) {
       window.alert('Neka polja nemaju validnu vrednost!');
@@ -115,11 +131,14 @@ export class TherapyFormComponent implements OnInit {
     this.herceptinTherapyHasErrors = false;
 
     const data = this.therapyForm.value;
+    if (data.herceptinTherapy.match(new RegExp("^0+$"))) {
+      data.herceptinTherapy = 'nije primenljivo';
+    }
 
-    var therapyShortString = this.therapy.numCycles + this.therapy.therapyType
-      + (data.numTaxol > 0 ? ("+" + this.therapy.numTaxol + "TAXOL") : "")
-      + (data.numTxtr > 0 ? ("+" + this.therapy.numTxtr + "TXTR") : "")
-      + (data.herceptinTherapy != 'nije primenljivo' ? "+" + this.therapy.herceptinTherapy + "H" : "");
+    var therapyShortString = data.numCycles + data.therapyType
+      + (data.numTaxol > 0 ? ("+" + data.numTaxol + "TAXOL") : "")
+      + (data.numTxtr > 0 ? ("+" + data.numTxtr + "TXTR") : "")
+      + (data.herceptinTherapy != 'nije primenljivo' ? ("+" + data.herceptinTherapy + "H") : "");
 
     const newTherapy = new Therapy(data.date, data.numCycles, data.therapyType, data.numTaxol, data.numTxtr, data.herceptinTherapy, therapyShortString, data.comment);
 
@@ -141,7 +160,7 @@ export class TherapyFormComponent implements OnInit {
       // dodaje se novi
       this.sub = this.therapyService.addNewTherapyForPatient(this.patient._id, newTherapy).subscribe((addedTherapy: Therapy) => {
         this.patient._therapyIds.push(addedTherapy._id);
-        this.newTherapyAdded.emit("dodat nova terapija, refresuj listu")
+        this.newTherapyAdded.emit()
       });
     }
   }
@@ -222,22 +241,5 @@ export class TherapyFormComponent implements OnInit {
         this.herceptinTherapyErrors.push(errors['herceptinTherapy'].message);
       }
     }
-  }
-
-  onHerceptinCheckboxChange() {
-    if (this.herceptinDisabled) {
-      this.therapyForm.patchValue({
-        herceptinTherapy: '',
-      });
-    } else {
-      this.therapyForm.patchValue({
-        herceptinTherapy: 'nije primenljivo',
-      });
-    }
-
-    this.herceptinTherapyErrors = [];
-    this.herceptinTherapyHasErrors = false;
-
-    this.herceptinDisabled = !this.herceptinDisabled;
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Gender, Menopause, Patient } from 'src/app/models/patient.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Patient } from 'src/app/models/patient.model';
 import { Observable, Subscription } from 'rxjs';
 import { Biopsy } from 'src/app/models/biopsy.model';
 import { BiopsyService } from 'src/app/services/biopsy-service.service';

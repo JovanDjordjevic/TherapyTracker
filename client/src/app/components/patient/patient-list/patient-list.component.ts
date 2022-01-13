@@ -14,22 +14,21 @@ export class PatientListComponent implements OnInit {
   @Input() patients: Patient[] = [];
 
   @Output() selectPatient = new EventEmitter<void>();
-  @Output() loadMorePatients = new EventEmitter<string>();
+  @Output() loadMorePatients = new EventEmitter<void>();
 
   sub: Subscription = new Subscription()
 
   constructor(private patientService: PatientService) { }
 
+  ngOnInit(): void {}
+
   onScrollDown(ev: any) {
-    this.loadMorePatients.emit("load more patients");
+    this.loadMorePatients.emit();
   }
 
   openHistory(patient: Patient) {
     // u ovom trenutku se postavlja pacijent globalno i ne mora da se radi input/output
     this.patientService.setCurrentPatient(patient);
     this.selectPatient.emit();
-  }
-
-  ngOnInit(): void {
   }
 }

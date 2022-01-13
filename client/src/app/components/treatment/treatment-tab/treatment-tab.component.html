@@ -26,7 +26,7 @@
 
     <div class="column">
       <app-treatment-list [therapies]="therapies" (selectTherapy)="onTherapySelected($event)"
-        (loadMoreTherapies)="onLoadMoreTherapies($event)"></app-treatment-list>
+        (loadMoreTherapies)="onLoadMoreTherapies()"></app-treatment-list>
 
       <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
         <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'therapyForm'">Unesi

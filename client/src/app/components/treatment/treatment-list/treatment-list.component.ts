@@ -11,7 +11,7 @@ export class TreatmentListComponent implements OnInit {
   @Input() therapies: Therapy[] = [];
   @Input() position: boolean = false;
   @Output() selectTherapy = new EventEmitter<Therapy>();
-  @Output() loadMoreTherapies = new EventEmitter<string>();
+  @Output() loadMoreTherapies = new EventEmitter<void>();
 
   formatDate = formattedDate;
   constructor() { }
@@ -21,7 +21,7 @@ export class TreatmentListComponent implements OnInit {
   }
 
   onScrollDown(ev: any) {
-    this.loadMoreTherapies.emit("load more therapies emitted")
+    this.loadMoreTherapies.emit();
   }
 
   ngOnInit(): void { }

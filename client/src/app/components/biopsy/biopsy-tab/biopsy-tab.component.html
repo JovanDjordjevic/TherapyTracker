@@ -26,7 +26,7 @@
 
     <div class="column">
       <app-biopsy-list class="list" [biopsies]="biopsies" (selectBiopsy)="onBiopsySelected($event)"
-        (loadMoreBiopsies)="onLoadMoreBiopsies($event)"></app-biopsy-list>
+        (loadMoreBiopsies)="onLoadMoreBiopsies()"></app-biopsy-list>
 
       <div class="ui fluid teal buttons" [ngSwitch]="switch_expression">
         <button class="ui button" *ngSwitchCase="'patientInfo'" (click)="switch_expression = 'biopsyForm'">Unesi podatke

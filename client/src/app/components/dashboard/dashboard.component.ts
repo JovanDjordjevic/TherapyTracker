@@ -54,6 +54,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.getAllDataForPatients();
     })
   }
+  
+  ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
 
   onNewPatientAdded() {
     this.resetCounter();
@@ -102,28 +108,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.page = Page.Tabs;
   }
 
-  onLoadMoreBiopsies(value: string) {
+  onLoadMoreBiopsies() {
     this.sub = this.biopsyService.getAllBiopsies(this.counter).subscribe((biopsies: Biopsy[]) => {
       this.biopsies = [...this.biopsies, ...biopsies];
       this.counter++;
     })
   };
 
-  onLoadMorePatients(value: string) {
+  onLoadMorePatients() {
     this.sub = this.patientsService.getAllPatients(this.counter).subscribe((patients: Patient[]) => {
       this.filteredPatients = [...this.filteredPatients, ...patients];
       this.counter++;
     })
   }
 
-  onLoadMoreTumors(value: string) {
+  onLoadMoreTumors() {
     this.sub = this.tumorService.getAllTumors(this.counter).subscribe((tumors: Tumor[]) => {
       this.tumors = [...this.tumors, ...tumors];
       this.counter++;
     })
   }
 
-  onLoadMoreTherapies(value: string) {
+  onLoadMoreTherapies() {
     this.sub = this.therapyService.getAllTherapies(this.counter).subscribe((therapies: Therapy[]) => {
       this.treatments = [...this.treatments, ...therapies];
       this.counter++;
@@ -132,11 +138,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   resetCounter() {
     this.counter = 2;
-  }
-
-  ngOnInit(): void { }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 }

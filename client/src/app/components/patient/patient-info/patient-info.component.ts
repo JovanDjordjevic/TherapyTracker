@@ -20,15 +20,15 @@ export class PatientInfoComponent implements OnInit {
     this.patient = this.patientService.getCurrentPatient();
   }
 
+  ngOnInit() {
+    $('.menu .item').tab();
+  }
+
   shortenText(text: string) {
     return text.substring(0, 50) + "...";
   }
 
   formatDate(date: Date) {
     return formattedDate(date);
-  }
-
-  ngOnInit() {
-    $('.menu .item').tab();
   }
 }

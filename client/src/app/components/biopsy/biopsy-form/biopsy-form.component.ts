@@ -27,7 +27,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
 
   patient: Patient;
 
-  @Output() newBiopsyAdded = new EventEmitter<string>();
+  @Output() newBiopsyAdded = new EventEmitter<void>();
   @Output() biopsyUpdated = new EventEmitter<void>();
 
   sub: Subscription = new Subscription();
@@ -189,7 +189,7 @@ export class BiopsyFormComponent implements OnInit, OnDestroy {
       this.sub = this.biopsyService.addNewBiopsyForPatient(this.patient._id, newBiopsy)
         .subscribe((addedBiopsy: Biopsy) => {
           this.patient._biopsyIds.push(addedBiopsy._id);
-          this.newBiopsyAdded.emit("dodata nova biopsija, refresuj listu")
+          this.newBiopsyAdded.emit()
         });
     }
   }

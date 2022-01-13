@@ -14,7 +14,5 @@ export class TreatmentInfoComponent implements OnInit {
     this.therapy = new Therapy(new Date, 2, TherapyType.AC, 3, 2, "2", "temp", "neki komentar");
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

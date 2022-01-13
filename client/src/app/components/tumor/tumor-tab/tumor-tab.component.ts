@@ -24,8 +24,14 @@ export class TumorTabComponent implements OnInit {
 
   tumorFormUsedForUpdating: boolean = false;
 
-
   @Output() refreshTumors = new EventEmitter<void>();
+
+  constructor(private tumorService: TumorService, private patientService: PatientService) {
+    this.patient = this.patientService.getCurrentPatient();
+    this.tumor = new Tumor(new Date(), "", "", Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, 0, "", 0);
+  }
+  
+  ngOnInit(): void {}
 
   onShowTumorForm() {
     this.switch_expression = "tumorForm";
@@ -44,17 +50,12 @@ export class TumorTabComponent implements OnInit {
     });
   }
 
-  onLoadMoreTumors(value: string) {
+  onLoadMoreTumors() {
     this.sub = this.tumorService.getAllTumorsForPatient(this.patient._id, this.counter).subscribe((tumors: Tumor[]) => {
       this.tumors = [...this.tumors, ...tumors];
       this.counter++;
     })
   };
-
-  constructor(private tumorService: TumorService, private patientService: PatientService) {
-    this.patient = this.patientService.getCurrentPatient();
-    this.tumor = new Tumor(new Date(), "", "", Gradus.Type1, 0, 0, 0, 0, 0, 0, 0, 0, HER2_FISH_SICH.Negative, 0, "", 0);
-  }
 
   confirmDeletion() {
     if (confirm("Da li ste sigurni da zelite da izbrisete tumor?")) {
@@ -92,6 +93,4 @@ export class TumorTabComponent implements OnInit {
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).open();
   }
-
-  ngOnInit(): void { }
 }

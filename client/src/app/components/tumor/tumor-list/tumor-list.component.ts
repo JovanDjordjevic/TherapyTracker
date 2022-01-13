@@ -11,14 +11,14 @@ export class TumorListComponent implements OnInit {
   @Input() tumors: Tumor[] = [];
   @Input() position: boolean = false;
   @Output() selectTumor = new EventEmitter<Tumor>();
-  @Output() loadMoreTumors = new EventEmitter<string>();
+  @Output() loadMoreTumors = new EventEmitter<void>();
 
   constructor() { }
 
   ngOnInit(): void { }
 
   onScrollDown(ev: any) {
-    this.loadMoreTumors.emit("load more tumors emitted")
+    this.loadMoreTumors.emit()
   }
 
   openTumor(tumor: Tumor) {

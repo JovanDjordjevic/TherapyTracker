@@ -40,6 +40,12 @@ export class PatientTabComponent implements OnInit, OnDestroy {
     this.patient = this.patientService.getCurrentPatient();
   }
 
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
   onClinicalStateUpdated() {
     this.backToPatient();
   }
@@ -79,23 +85,5 @@ export class PatientTabComponent implements OnInit, OnDestroy {
     this.switch_expression = 'patientInfo'
     this.patientFormUsedForUpdating = false;
     this.clinicalStateFormUsedForUpdating = false;
-  }
-
-  ngOnInit(): void { 
-    // this.biopsyService.getAllBiopsiesForPatient(this.patient._id, 1, 1).subscribe( (biopsies : Biopsy[]) => {
-    //   this.lastBiopsyDate = formatDate(biopsies[0].date, 'dd/MM/yyyy', 'en-US');
-    // });
-    
-    // this.tumorService.getAllTumorsForPatient(this.patient._id, 1, 1).subscribe( (tumors : Tumor[]) => {
-    //   this.lastTumorDate = formatDate(tumors[0].date, 'dd/MM/yyyy', 'en-US');
-    // });
-
-    // this.therapyService.getAllTherapiesForPatient(this.patient._id, 1, 1).subscribe( (therapies : Therapy[]) => {
-    //   this.lastTherapyDate = formatDate(therapies[0].date, 'dd/MM/yyyy', 'en-US');
-    // });
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
   }
 }

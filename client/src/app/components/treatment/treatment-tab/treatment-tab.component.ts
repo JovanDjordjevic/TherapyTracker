@@ -31,6 +31,8 @@ export class TreatmentTabComponent implements OnInit {
     this.patient = this.patientService.getCurrentPatient();
   }
 
+  ngOnInit(): void {}
+
   onNewTherapyAdded() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, 1).subscribe((therapies: Therapy[]) => {
       this.therapies = therapies;
@@ -44,7 +46,7 @@ export class TreatmentTabComponent implements OnInit {
     this.switch_expression = "therapyInfo";
   }
 
-  onLoadMoreTherapies(value: string) {
+  onLoadMoreTherapies() {
     this.sub = this.therapyService.getAllTherapiesForPatient(this.patient._id, this.counter).subscribe((therapies: Therapy[]) => {
       this.therapies = [...this.therapies, ...therapies];
       this.counter++;
@@ -87,6 +89,4 @@ export class TreatmentTabComponent implements OnInit {
     const documentDefinition = { content: html };
     pdfMake.createPdf(documentDefinition).open();
   }
-
-  ngOnInit(): void { }
 }

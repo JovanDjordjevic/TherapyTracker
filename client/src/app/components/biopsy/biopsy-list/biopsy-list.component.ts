@@ -12,16 +12,17 @@ export class BiopsyListComponent implements OnInit {
   @Input() biopsies: Biopsy[] = [];
   @Input() position: boolean = false;
   @Output() selectBiopsy = new EventEmitter<Biopsy>();
-  @Output() loadMoreBiopsies = new EventEmitter<string>();
+  @Output() loadMoreBiopsies = new EventEmitter<void>();
 
   sub: Subscription = new Subscription()
   counter: number = 2;
 
-  constructor() {
-  }
+  constructor() {}
+
+  ngOnInit(): void {}
 
   onScrollDown(ev: any) {
-    this.loadMoreBiopsies.emit("load more biopsies emitted")
+    this.loadMoreBiopsies.emit()
   }
 
   openBiopsy(biopsy: Biopsy) {
@@ -31,6 +32,4 @@ export class BiopsyListComponent implements OnInit {
   formatDate(date: Date) {
     return formattedDate(date)
   }
-
-  ngOnInit(): void { }
 }

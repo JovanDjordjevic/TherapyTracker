@@ -49,10 +49,6 @@ export class ClinicalStateFormComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
   ngOnInit(): void {
     if (this.usedAsUpdateForm) {
       this.clinicalStateForm.patchValue({
@@ -63,6 +59,10 @@ export class ClinicalStateFormComponent implements OnInit {
         clinicalStage: this.patient.clinicalStage,
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   onClinicalStateFormSubmit() {

@@ -29,7 +29,7 @@ export class TumorFormComponent implements OnInit {
   patient: Patient;
   sub: Subscription = new Subscription();
 
-  @Output() newTumorAdded = new EventEmitter<string>();
+  @Output() newTumorAdded = new EventEmitter<void>();
   @Output() tumorUpdated = new EventEmitter<void>();
 
 
@@ -117,9 +117,80 @@ export class TumorFormComponent implements OnInit {
     }
   }
 
+  gradusSelected() {
+    const gradusValue: Gradus = this.tumorForm.get('gradus')?.value;
+    if (gradusValue === Gradus.Unknown) {
+      this.tumorForm.patchValue({ erStatus: 0, pgrStatus: 0 });
+    } else {
+      const erPercentValue = parseFloat(
+        this.tumorForm.get('erScorePercent')?.value
+      );
+      if (!Number.isNaN(erPercentValue)) {
+        if (erPercentValue < 1) {
+          this.tumorForm.patchValue({ erStatus: 0 });
+        } else {
+          this.tumorForm.patchValue({ erStatus: 1 });
+        }
+      }
+
+      const pgrPercentValue = parseFloat(
+        this.tumorForm.get('pgrScorePercent')?.value
+      );
+      if (!Number.isNaN(pgrPercentValue)) {
+        if (pgrPercentValue < 1) {
+          this.tumorForm.patchValue({ pgrStatus: 0 });
+        } else {
+          this.tumorForm.patchValue({ pgrStatus: 1 });
+        }
+      }
+    }
+  }
+
+  erPercentEntered() {
+    const erPercentValue = parseFloat(
+      this.tumorForm.get('erScorePercent')?.value
+    );
+    const gradusValue: Gradus = this.tumorForm.get('gradus')?.value;
+    if (gradusValue != Gradus.Unknown) {
+      if (erPercentValue < 1) {
+        this.tumorForm.patchValue({ erStatus: 0 });
+      } else {
+        this.tumorForm.patchValue({ erStatus: 1 });
+      }
+    }
+  }
+
+  pgrPercentEntered() {
+    const pgrPercentValue = parseFloat(
+      this.tumorForm.get('pgrScorePercent')?.value
+    );
+    const gradusValue: Gradus = this.tumorForm.get('gradus')?.value;
+    if (gradusValue != Gradus.Unknown) {
+      if (pgrPercentValue < 1) {
+        this.tumorForm.patchValue({ pgrStatus: 0 });
+      } else {
+        this.tumorForm.patchValue({ pgrStatus: 1 });
+      }
+    }
+  }
+
+  onKi67CheckboxChange() {
+    if (this.ki67Disabled) {
+      this.tumorForm.patchValue({
+        ki67: '',
+      });
+    } else {
+      this.tumorForm.patchValue({
+        ki67: 'nepoznato',
+      });
+    }
+
+    this.ki67Disabled = !this.ki67Disabled;
+  }
+
   onTumorFormSubmit() {
     if (this.tumorForm.invalid) {
-      //window.alert('Neka polja nemaju validnu vrednost!');
+      window.alert('Neka polja nemaju validnu vrednost!');
       this.updateDateErrors();
       this.updateTumorNameErrors();
       this.updateBiopsyIndexErrors();
@@ -168,7 +239,7 @@ export class TumorFormComponent implements OnInit {
       this.sub = this.tumorService.addNewTumorForPatient(this.patient._id, newTumor)
         .subscribe((addedTumor: Tumor) => {
           this.patient._tumorIds.push(addedTumor._id);
-          this.newTumorAdded.emit("dodat nov tumor, refresuj listu")
+          this.newTumorAdded.emit();
         });
     }
 
@@ -396,76 +467,5 @@ export class TumorFormComponent implements OnInit {
         this.molecularSubtypeErrors.push(errors['mustBeNumber'].message);
       }
     }
-  }
-
-  gradusSelected() {
-    const gradusValue: Gradus = this.tumorForm.get('gradus')?.value;
-    if (gradusValue === Gradus.Unknown) {
-      this.tumorForm.patchValue({ erStatus: 0, pgrStatus: 0 });
-    } else {
-      const erPercentValue = parseFloat(
-        this.tumorForm.get('erScorePercent')?.value
-      );
-      if (!Number.isNaN(erPercentValue)) {
-        if (erPercentValue < 1) {
-          this.tumorForm.patchValue({ erStatus: 0 });
-        } else {
-          this.tumorForm.patchValue({ erStatus: 1 });
-        }
-      }
-
-      const pgrPercentValue = parseFloat(
-        this.tumorForm.get('pgrScorePercent')?.value
-      );
-      if (!Number.isNaN(pgrPercentValue)) {
-        if (pgrPercentValue < 1) {
-          this.tumorForm.patchValue({ pgrStatus: 0 });
-        } else {
-          this.tumorForm.patchValue({ pgrStatus: 1 });
-        }
-      }
-    }
-  }
-
-  erPercentEntered() {
-    const erPercentValue = parseFloat(
-      this.tumorForm.get('erScorePercent')?.value
-    );
-    const gradusValue: Gradus = this.tumorForm.get('gradus')?.value;
-    if (gradusValue != Gradus.Unknown) {
-      if (erPercentValue < 1) {
-        this.tumorForm.patchValue({ erStatus: 0 });
-      } else {
-        this.tumorForm.patchValue({ erStatus: 1 });
-      }
-    }
-  }
-
-  pgrPercentEntered() {
-    const pgrPercentValue = parseFloat(
-      this.tumorForm.get('pgrScorePercent')?.value
-    );
-    const gradusValue: Gradus = this.tumorForm.get('gradus')?.value;
-    if (gradusValue != Gradus.Unknown) {
-      if (pgrPercentValue < 1) {
-        this.tumorForm.patchValue({ pgrStatus: 0 });
-      } else {
-        this.tumorForm.patchValue({ pgrStatus: 1 });
-      }
-    }
-  }
-
-  onKi67CheckboxChange() {
-    if (this.ki67Disabled) {
-      this.tumorForm.patchValue({
-        ki67: '',
-      });
-    } else {
-      this.tumorForm.patchValue({
-        ki67: 'nepoznato',
-      });
-    }
-
-    this.ki67Disabled = !this.ki67Disabled;
   }
 }
