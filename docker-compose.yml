@@ -1,0 +1,24 @@
+version: '3.0'
+
+services:
+  therapy-tracker-client:
+    build: client
+    network_mode: host
+    ports:
+      - "4200:4200"
+  
+  therapy-tracker-server:
+    build: server
+    ports:
+      - "5000:5000"
+    depends_on:
+      - therapy-tracker-database
+    links:
+      - therapy-tracker-database
+    environment:
+      - DB_ADDRESS=therapy-tracker-database
+
+  therapy-tracker-database:
+    image: mongo
+    ports:
+      - "27017:27017"
