@@ -23,6 +23,13 @@ Slicno kao i za pokretnaje servera. <br>
 Pozicionirati se u folder `client`, i instalirtai sve potrebne biblioteke komandom `npm install`<br>
 Nakon toga pokrenuti klijent komandom `ng serve` 
 
+# Pokretanje aplikacije preko docker-a:
+Alternativan nacin za pokretanje aplikacije je putam docker alata. <br>
+Potrebno je instalirati [docker](https://docs.docker.com/engine/install/ubuntu/) i [docker-compose](https://docs.docker.com/compose/install/). Nije potrebno instalirati zasebno node i mongo. <br>
+Nakon preuzimanja izvornog koda, pozicionirati se u folder u kome se nalazi `docker-compose.yml` i pokrenuti komandu `docker-compose up`. <br>
+Nakon nekoliko minuta, svi potrebni paketi ce biti instalirani, server i baza ce biti pokrenuti, a klijentskoj aplikaciji se moze pristupiti iz pretrazivaca po izboru <br>
+(NAPOMENA: u ovom trenutku nije moguce sacuvati podatke iz baze nakon gasenja docker container-a)
+
 # Schema baze podataka 
 <table>
 <tr>
